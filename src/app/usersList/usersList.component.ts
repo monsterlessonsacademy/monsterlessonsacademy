@@ -5,7 +5,7 @@ import {Component} from '@angular/core'
   templateUrl: './usersList.component.html'
 })
 export class UsersListComponent {
-  // testUsers = ['Jack', 'John', 'Sam']
+  newUserName: string = ''
   users = [
     {
       id: '1',
@@ -24,4 +24,23 @@ export class UsersListComponent {
       age: 29
     }
   ]
+
+  removeUser(id: string): void {
+    this.users = this.users.filter(user => user.id !== id)
+  }
+
+  setNewUserName(userName: string): void {
+    this.newUserName = userName
+  }
+
+  addUser(): void {
+    const uniqueId = Math.random().toString(16)
+    const newUser = {
+      id: uniqueId,
+      name: this.newUserName,
+      age: 30
+    }
+    this.users.push(newUser)
+    this.newUserName = ''
+  }
 }

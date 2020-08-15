@@ -1,5 +1,10 @@
-<div>Users list is inside module</div>
-
+<input
+  type="text"
+  (change)="setNewUserName($event.target.value)"
+  [value]="newUserName"
+/>
+<button (click)="addUser()">Add user</button>
 <div *ngFor="let user of users">
   {{ user.name }} is {{ user.age }} years old
+  <span (click)="removeUser(user.id)">Remove</span>
 </div>
