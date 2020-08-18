@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, Input, Output, EventEmitter} from '@angular/core'
 
 @Component({
   selector: 'app-users-list',
@@ -6,42 +6,18 @@ import {Component} from '@angular/core'
   styleUrls: ['./usersList.component.scss']
 })
 export class UsersListComponent {
+  @Input() users
+  @Output() removeUser = new EventEmitter()
+  @Output() addUserEvent = new EventEmitter()
+
   newUserName: string = ''
-  users = [
-    {
-      id: '1',
-      name: 'Jack',
-      age: 21
-    },
-    {
-      id: '2',
-      name: 'John',
-      age: 25
-    },
-
-    {
-      id: '3',
-      name: 'Sam',
-      age: 29
-    }
-  ]
-
-  removeUser(id: string): void {
-    this.users = this.users.filter(user => user.id !== id)
-  }
 
   setNewUserName(userName: string): void {
     this.newUserName = userName
   }
 
   addUser(): void {
-    const uniqueId = Math.random().toString(16)
-    const newUser = {
-      id: uniqueId,
-      name: this.newUserName,
-      age: 30
-    }
-    this.users.push(newUser)
+    this.addUserEvent.emit(this.newUserName)
     this.newUserName = ''
   }
 }
