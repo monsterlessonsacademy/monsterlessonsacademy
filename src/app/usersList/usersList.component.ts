@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core'
+import {UserInterface} from 'src/app/types/user.interface'
 
 @Component({
   selector: 'app-users-list',
@@ -6,9 +7,9 @@ import {Component, Input, Output, EventEmitter} from '@angular/core'
   styleUrls: ['./usersList.component.scss']
 })
 export class UsersListComponent {
-  @Input() users
-  @Output() removeUser = new EventEmitter()
-  @Output() addUserEvent = new EventEmitter()
+  @Input() users: UserInterface[]
+  @Output() removeUser = new EventEmitter<string>()
+  @Output() addUserEvent = new EventEmitter<string>()
 
   newUserName: string = ''
 

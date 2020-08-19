@@ -1,4 +1,5 @@
 import {Component} from '@angular/core'
+import {UserInterface} from 'src/app/types/user.interface'
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,7 @@ import {Component} from '@angular/core'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  users = [
+  users: UserInterface[] = [
     {
       id: '1',
       name: 'Jack',
@@ -31,7 +32,7 @@ export class AppComponent {
 
   addUser(name: string): void {
     const uniqueId = Math.random().toString(16)
-    const newUser = {
+    const newUser: UserInterface = {
       id: uniqueId,
       name,
       age: 30
