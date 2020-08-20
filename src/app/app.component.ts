@@ -1,4 +1,5 @@
 import {Component} from '@angular/core'
+import {HttpClient} from '@angular/common/http'
 import {UserInterface} from 'src/app/types/user.interface'
 
 @Component({
@@ -7,24 +8,19 @@ import {UserInterface} from 'src/app/types/user.interface'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  users: UserInterface[] = [
-    {
-      id: '1',
-      name: 'Jack',
-      age: 21
-    },
-    {
-      id: '2',
-      name: 'John',
-      age: 25
-    },
+  users: UserInterface[] = []
 
-    {
-      id: '3',
-      name: 'Sam',
-      age: 29
-    }
-  ]
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    console.log('ngOnInit')
+    this.http
+      .get('http://localhost:3000/users')
+      .subscribe((users: UserInterface[]) => {
+        console.log('res', users)
+        this.users = users
+      })
+  }
 
   removeUser(id: string): void {
     this.users = this.users.filter(user => user.id !== id)
