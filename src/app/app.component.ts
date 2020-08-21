@@ -1,6 +1,7 @@
 import {Component} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
 import {UserInterface} from 'src/app/types/user.interface'
+import {UsersService} from './services/users.service'
 
 @Component({
   selector: 'app-root',
@@ -10,29 +11,23 @@ import {UserInterface} from 'src/app/types/user.interface'
 export class AppComponent {
   users: UserInterface[] = []
 
-  constructor(private http: HttpClient) {}
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit')
-    this.http
-      .get('http://localhost:3000/users')
-      .subscribe((users: UserInterface[]) => {
-        console.log('res', users)
-        this.users = users
-      })
+    this.usersService.getUsers().subscribe((users: UserInterface[]) => {
+      this.users = users
+    })
   }
 
   removeUser(id: string): void {
-    this.users = this.users.filter(user => user.id !== id)
+    this.usersService.removeUser(id).subscribe(() => {
+      this.users = this.users.filter(user => user.id !== id)
+    })
   }
 
   addUser(name: string): void {
-    const uniqueId = Math.random().toString(16)
-    const newUser: UserInterface = {
-      id: uniqueId,
-      name,
-      age: 30
-    }
-    this.users.push(newUser)
+    this.usersService.addUser(name).subscribe(newUser => {
+      this.users.push(newUser)
+    })
   }
 }
