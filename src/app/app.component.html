@@ -1,8 +1,12 @@
 <h1>Angular for beginners</h1>
 
-<app-users-list
-  [users]="users"
-  (removeUser)="removeUser($event)"
-  (addUserEvent)="addUser($event)"
-></app-users-list>
+<!-- <app-users-list -->
+<!--   [users]="users" -->
+<!--   (removeUser)="removeUser($event)" -->
+<!--   (addUserEvent)="addUser($event)" -->
+<!-- ></app-users-list> -->
 
+<a routerLink="/login">Login</a>
+<a routerLink="/register">Register</a>
+
+<router-outlet></router-outlet>
