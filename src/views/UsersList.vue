@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-for="user in users" :key="user.id" class="user">{{ user.name }}</div>
+    <div v-for="user in users" :key="user.id" class="user">
+      {{ user.name }} <span @click="removeUser(user.id)">Remove</span>
+    </div>
   </div>
 </template>
 
