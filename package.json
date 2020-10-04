@@ -1,0 +1,26 @@
+{
+  "name": "monsterlessons-academy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "webpack": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monsterlessonsacademy/monsterlessonsacademy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/monsterlessonsacademy/monsterlessonsacademy/issues"
+  },
+  "homepage": "https://github.com/monsterlessonsacademy/monsterlessonsacademy#readme",
+  "dependencies": {
+    "query-string": "^6.13.5"
+  },
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
