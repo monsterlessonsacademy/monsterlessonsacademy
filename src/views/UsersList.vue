@@ -1,5 +1,5 @@
 <template>
-  <div v-for="user in users" :key="user.id">
+  <div v-for="user in users" :key="user.id" class="user-container">
     {{ user.name }} is {{ user.age }} years old
   </div>
 </template>
@@ -30,3 +30,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.user-container {
+  font-size: 18px;
+  border-bottom: 1px solid grey;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
