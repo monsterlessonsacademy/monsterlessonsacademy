@@ -6,20 +6,30 @@
       @removeUser="removeUser"
       @addUser="addUser"
     ></users-list>
-    {{ queryParams }}
+    <pagination
+      :total="total"
+      :limit="limit"
+      :currentPage="currentPage"
+      :url="url"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import UsersList from "@/components/UsersList";
+import Pagination from "@/components/Pagination";
 
 export default {
   name: "Users",
-  components: { UsersList },
+  components: { UsersList, Pagination },
   data() {
     return {
       users: [],
+      total: 500,
+      limit: 20,
+      currentPage: 5,
+      url: "/tags/dragons",
     };
   },
   computed: {
