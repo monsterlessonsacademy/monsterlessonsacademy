@@ -5,6 +5,8 @@
     <div v-for="user in users" :key="user.id" class="user">
       {{ user.name }} <span @click="removeUser(user.id)">Remove</span>
     </div>
+    {{ userNames }}
+    {{ userIds }}
   </div>
 </template>
 
@@ -20,7 +22,18 @@ export default {
   data() {
     return {
       newUserName: "",
+      userIds: [],
     };
+  },
+  computed: {
+    userNames() {
+      return this.users.map((user) => user.name);
+    },
+  },
+  watch: {
+    users() {
+      this.userIds = this.users.map((user) => user.name);
+    },
   },
   methods: {
     removeUser(id) {
