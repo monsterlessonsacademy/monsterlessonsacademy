@@ -6,6 +6,7 @@
       @removeUser="removeUser"
       @addUser="addUser"
     ></users-list>
+    {{ queryParams }}
   </div>
 </template>
 
@@ -21,6 +22,11 @@ export default {
       users: [],
     };
   },
+  computed: {
+    queryParams() {
+      return this.$route.query;
+    },
+  },
   methods: {
     removeUser(id) {
       axios.delete(`http://localhost:3000/users/${id}`).then(() => {
@@ -35,11 +41,12 @@ export default {
       axios.post("http://localhost:3000/users", newUser).then((createdUser) => {
         console.log("createdUser", createdUser);
         this.users.push(createdUser.data);
+        this.$router.push({ name: "home" });
       });
     },
   },
   mounted() {
-    console.log("initialized Users");
+    console.log("initialized Users", this.$route);
     axios.get("http://localhost:3000/users").then((users) => {
       this.users = users.data;
     });
