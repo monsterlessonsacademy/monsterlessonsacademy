@@ -4,15 +4,77 @@
     <title>Twitter markup</title>
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/blocks/layout.css" />
+    <link rel="stylesheet" href="css/blocks/sidebar-menu.css" />
     <link rel="stylesheet" href="css/blocks/trends-for-you.css" />
+    <link rel="stylesheet" href="css/blocks/tweet.css" />
   </head>
   <body>
     <div class="layout">
       <div class="layout__left-sidebar">
-        SINDEBAR
+        <div class="sidebar-menu">
+          <div class="sidebar-menu__item sidebar-menu__item--active">
+            Home
+          </div>
+          <div class="sidebar-menu__item">
+            Explore
+          </div>
+          <div class="sidebar-menu__item">
+            Notification
+          </div>
+          <div class="sidebar-menu__item">
+            Messages
+          </div>
+          <div class="sidebar-menu__item">
+            Profile
+          </div>
+          <div class="sidebar-menu__item">
+            More
+          </div>
+        </div>
       </div>
       <div class="layout__main">
-        MAIN
+        <div class="tweet">
+          <img class="tweet__author-logo" src="./images/profile-image-1.jpg" />
+          <div class="tweet_main">
+            <div class="tweet__header">
+              <div class="tweet__author-name">
+                Becki (& Chris)
+              </div>
+              <div class="tweet__author-slug">
+                @beckiandchris
+              </div>
+              <div class="tweet__publish-time">
+                · 38m
+              </div>
+            </div>
+            <div>Thank you!</div>
+          </div>
+        </div>
+
+        <div class="tweet">
+          <img class="tweet__author-logo" src="./images/profile-image-2.png" />
+          <div class="tweet_main">
+            <div class="tweet__header">
+              <div class="tweet__author-name">
+                Elixir Digest
+              </div>
+              <div class="tweet__author-slug">
+                @elixirdigest
+              </div>
+              <div class="tweet__publish-time">
+                · 57m
+              </div>
+            </div>
+            <div>
+              Yet Another Guide To Build a JSON API with Phoenix 1.5 shared in
+              the latest Elixir Digest
+              <a href="https://elixirdigest.net/digests/276"
+                >https://elixirdigest.net/digests/276</a
+              >
+              @_tamas_soos #myelixirstatus #elixirlang #phoenixframework
+            </div>
+          </div>
+        </div>
       </div>
       <div class="layout__right-sidebar">
         <div class="trends-for-you">

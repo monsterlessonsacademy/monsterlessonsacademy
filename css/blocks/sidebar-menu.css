@@ -1,0 +1,10 @@
+.sidebar-menu__item {
+  font-size: 19px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 700;
+}
+
+.sidebar-menu__item--active {
+  color: #1da0f2;
+}
