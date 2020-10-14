@@ -1,3 +1,7 @@
+.sidebar-menu {
+  position: fixed;
+}
+
 .sidebar-menu__item {
   font-size: 19px;
   padding-top: 10px;

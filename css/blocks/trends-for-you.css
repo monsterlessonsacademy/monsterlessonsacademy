@@ -8,6 +8,10 @@
   padding: 10px 15px;
 }
 
+.trends-for-you__block:last-child {
+  border-bottom: none;
+}
+
 .trends-for-you__heading {
   font-size: 19px;
   font-weight: bold;

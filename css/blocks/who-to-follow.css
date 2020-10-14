@@ -1,0 +1,26 @@
+.who-to-follow {
+  background: #f5f8fa;
+  border-radius: 15px;
+}
+
+.who-to-follow__headline {
+  font-size: 19px;
+  font-weight: bold;
+  color: #14171a;
+}
+
+.who-to-follow__block {
+  display: flex;
+  border-bottom: 1px solid #e6ecf0;
+  padding: 10px 15px;
+}
+
+.who-to-follow__block:last-child {
+  border-bottom: none;
+}
+
+.who-to-follow__author-logo {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+}
