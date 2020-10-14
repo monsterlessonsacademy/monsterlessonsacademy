@@ -2,7 +2,7 @@
   border-bottom: 1px solid #e6ecf0;
   display: flex;
   margin-bottom: 2px;
-  padding: 10px 0;
+  padding: 10px 15px;
 }
 
 .tweet a {
@@ -17,6 +17,12 @@
 .tweet:hover {
   background: rgba(0, 0, 0, 0.03);
   cursor: pointer;
+}
+
+.tweet__image {
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 10px;
 }
 
 .tweet__header {
