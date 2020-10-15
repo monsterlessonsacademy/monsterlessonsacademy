@@ -7,8 +7,32 @@
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #14171a;
+  padding: 10px;
+}
+
+.sidebar-menu__item:hover {
+  background: rgba(29, 161, 242, 0.1);
+  cursor: pointer;
+  color: #1da0f2;
+  border-radius: 20px;
+}
+
+.sidebar-menu__item:hover .sidebar-menu__item-icon {
+  filter: invert(48%) sepia(93%) saturate(1300%) hue-rotate(176deg) brightness(95%) contrast(99%);
+}
+
+.sidebar-menu__item-icon {
+  height: 26px;
+  margin-right: 20px;
 }
 
 .sidebar-menu__item--active {
   color: #1da0f2;
+}
+
+.sidebar-menu__item--active .sidebar-menu__item-icon {
+  filter: invert(48%) sepia(93%) saturate(1300%) hue-rotate(176deg) brightness(95%) contrast(99%);
 }
