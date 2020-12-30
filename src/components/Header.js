@@ -1,18 +1,18 @@
 import { useState, useContext } from "react";
 
 import { TodosContext } from "contexts/todos";
+import { enterCode } from "helpers/keycodes";
 
 const Header = () => {
-  const ENTER_CODE = 13;
   const [text, setText] = useState("");
   const [, dispatch] = useContext(TodosContext);
 
-  const onTextChange = (event) => {
+  const changeText = (event) => {
     setText(event.target.value);
   };
 
-  const onTextKeydown = (event) => {
-    const isEnter = event.keyCode === ENTER_CODE;
+  const keydownText = (event) => {
+    const isEnter = event.keyCode === enterCode;
     const newText = text.trim();
     const isTextPresent = newText.length > 0;
 
@@ -29,8 +29,8 @@ const Header = () => {
         className="new-todo"
         placeholder="What needs to be done?"
         value={text}
-        onChange={onTextChange}
-        onKeyDown={onTextKeydown}
+        onChange={changeText}
+        onKeyDown={keydownText}
         autoFocus
       />
     </header>
