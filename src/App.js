@@ -1,5 +1,18 @@
+import Header from "components/Header";
+import Main from "components/Main";
+import Footer from "components/Footer";
+import { TodosProvider } from "contexts/todos";
+
 function App() {
-  return <div className="App">App</div>;
+  return (
+    <TodosProvider>
+      <div className="todoapp">
+        <Header />
+        <Main />
+        <Footer />
+      </div>
+    </TodosProvider>
+  );
 }
 
 export default App;

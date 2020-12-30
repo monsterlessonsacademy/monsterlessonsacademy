@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+
+import "./todo-mvc-base.css";
+import "./todo-mvc-app.css";
+import App from "App";
 
 ReactDOM.render(
   <React.StrictMode>
