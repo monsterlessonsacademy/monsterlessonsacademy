@@ -13,11 +13,11 @@
   bottom: 0;
   left: 0;
   background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
-  animation: shimmer 5s infinite;
+  animation: slide 5s infinite;
   content: '';
 }
 
-@keyframes shimmer {
+@keyframes slide {
   0% {
     transform: translateX(-100%);
   }
