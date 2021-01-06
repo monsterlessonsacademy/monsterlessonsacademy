@@ -1,0 +1,22 @@
+.feed {
+  max-width: 700px;
+}
+.blog-post {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.image {
+  width: 100px;
+  height: 80px;
+}
+
+.body {
+  margin-left: 20px;
+  width: 100%;
+}
+
+.headline {
+  width: 55%;
+  margin-bottom: 20px;
+}
