@@ -4,10 +4,6 @@ import "./app.css";
 
 const App = () => {
   const [isOpened, setIsOpened] = useState(false);
-  const handleSubmit = () => {
-    setIsOpened(false);
-  };
-
   return (
     <div>
       <h1>Hello monsterlessons</h1>
@@ -15,7 +11,7 @@ const App = () => {
       <button onClick={() => setIsOpened(true)}>Open Login Modal</button>
 
       <Modal isOpened={isOpened} onClose={() => setIsOpened(false)}>
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={() => setIsOpened(false)} className="login-form">
           <section>
             <label>Email</label>
             <input type="email" />
