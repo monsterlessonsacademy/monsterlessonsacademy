@@ -1,21 +1,23 @@
+type ID = string;
+type PopularTag = string;
+type MaybePopularTag = string | null;
+
 interface UserInterface {
+  id: ID;
   name: string;
-  age?: number;
-  getMessage(): string;
+  surname: string;
 }
-const user: UserInterface = {
-  name: "Moster",
-  age: 30,
-  getMessage() {
-    return "Hello" + name;
-  },
-};
 
-const user2: UserInterface = {
-  name: "Jack",
-  getMessage() {
-    return "Hello" + name;
-  },
-};
+const popularTags: PopularTag[] = ["dragon", "coffee"];
 
-console.log(user.getMessage());
+const dragonsTag: MaybePopularTag = "dragon";
+
+let username: string = "alex";
+
+let pageName: string | number = "1";
+
+let errorMessage: string | null = null;
+
+let user: UserInterface | null = null;
+
+let someProp: string | number | null | undefined | string[] | object;
