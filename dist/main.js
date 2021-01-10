@@ -1,7 +1,8 @@
-var popularTags = ["dragon", "coffee"];
-var dragonsTag = "dragon";
-var username = "alex";
-var pageName = "1";
-var errorMessage = null;
-var user = null;
-var someProp;
+var vAny = 10;
+var vUnknown = 10;
+var s1 = vAny;
+var s2 = vUnknown;
+var pageNumber = "1";
+var numericPageNumber = pageNumber;
+/* console.log(vAny.foo()); */
+/* console.log(vUnknown.foo()); */
