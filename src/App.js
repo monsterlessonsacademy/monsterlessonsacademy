@@ -1,27 +1,57 @@
-import { useRef, useState } from "react";
+import { useReducer, useEffect } from "react";
+import axios from "axios";
+
+const initialState = {
+  isLoading: false,
+  error: null,
+  data: null,
+};
+
+const reducer = (state, action) => {
+  console.log("reducer", state, action);
+  switch (action.type) {
+    case "getArticleStart":
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case "getArticleSuccess":
+      return {
+        ...state,
+        isLoading: false,
+        data: action.payload,
+      };
+    case "getArticleFailure":
+      return {
+        ...state,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
 const App = () => {
-  const [username, setUsername] = useState("");
-  const textInput = useRef();
-  const fooRef = useRef();
-  console.log("textInput", textInput);
-  console.log("username", username);
-  const onTextFocus = () => {
-    console.log("onTextFocus", textInput.current.value);
-    textInput.current.focus();
-    fooRef.current = "fooo";
-    console.log("ffoRef", fooRef);
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("render", state);
+
+  useEffect(() => {
+    dispatch({ type: "getArticleStart" });
+    axios
+      .get("http://localhost:3004/posts/1")
+      .then((res) => {
+        console.log("res", res);
+        dispatch({ type: "getArticleSuccess", payload: res.data });
+      })
+      .catch(() => {
+        dispatch({ type: "getArticleStart" });
+      });
+  }, []);
   return (
     <div>
-      Hello
-      <input
-        type="text"
-        value={username}
-        ref={textInput}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <div>Foo: {fooRef.current}</div>
-      <button onClick={onTextFocus}>Focus on input pls</button>
+      <h1>Hello React!</h1>
+      {state.isLoading && <div>Loading...</div>}
+      {state.data && <div>{state.data.title}</div>}
     </div>
   );
 };
