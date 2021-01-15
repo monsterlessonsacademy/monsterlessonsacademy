@@ -2,8 +2,32 @@
 <html>
   <head>
     <title>This is the title of the webpage!</title>
+    <style>
+      label {
+        display: block;
+      }
+
+      section {
+        margin-bottom: 10px;
+      }
+
+      form {
+        font-size: 18px;
+      }
+    </style>
   </head>
   <body>
+    <form>
+      <section>
+        <label for="email">Email</label>
+        <input id="email" autocomplete="email" />
+      </section>
+      <section>
+        <label>Password</label>
+        <input />
+      </section>
+      <button>Sign In</button>
+    </form>
     <script src="main.js"></script>
   </body>
 </html>
