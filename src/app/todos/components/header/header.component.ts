@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { TodosService } from 'src/app/services/todos';
+import { TodosService } from 'src/app/todos/services/todos';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-todos-header',
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
@@ -16,8 +16,7 @@ export class HeaderComponent {
   }
 
   addTask(): void {
-    console.log('addTask', this.text);
-    this.todosService.addTask(this.text);
+    this.todosService.addTodo(this.text);
     this.text = '';
   }
 }
