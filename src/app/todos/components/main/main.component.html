@@ -9,10 +9,10 @@
   <label htmlFor="toggle-all">Mark all as complete</label>
   <ul class="todo-list">
     <app-todos-todo
-      *ngFor="let todo of visibleTodos"
+      *ngFor="let todo of visibleTodos$ | async"
       [todo]="todo"
-      [isEditing]="isEditing"
-      (setEditing)="(setEditing)"
+      [editingId]="editingId"
+      (setEditing)="setEditing()"
     ></app-todos-todo>
   </ul>
 </section>

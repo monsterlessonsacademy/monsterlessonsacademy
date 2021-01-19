@@ -7,13 +7,17 @@ import { TodoInterface } from 'src/app/todos/types/todo.interface';
   templateUrl: './todo.component.html',
 })
 export class TodoComponent {
-  @Input('isEditing') isEditingProps!: boolean;
+  @Input('editingId') editingIdProps!: string | null;
   @Input('todo') todoProps!: TodoInterface;
 
   editingText: string = '';
 
   removeTodo(): void {
     console.log('removeTodo');
+  }
+
+  toggleTodo(): void {
+    console.log('toggleTodo');
   }
 
   setTodoInEditingMode(): void {
