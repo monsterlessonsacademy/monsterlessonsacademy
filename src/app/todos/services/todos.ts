@@ -22,4 +22,12 @@ export class TodosService {
   changeFilter(filterName: FilterEnum): void {
     this.filter$.next(filterName);
   }
+
+  toggleAll(isCompleted: boolean): void {
+    const updatedTodos = this.todos$.getValue().map((todo) => ({
+      ...todo,
+      isCompleted,
+    }));
+    this.todos$.next(updatedTodos);
+  }
 }
