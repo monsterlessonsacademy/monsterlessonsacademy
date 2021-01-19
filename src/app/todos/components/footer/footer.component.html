@@ -7,7 +7,7 @@
     <li>
       <a
         href="/"
-        [ngClass]="{ selected: getSelectedClass(filterEnum.all) }"
+        [ngClass]="{ selected: (filter$ | async) === filterEnum.all }"
         (click)="changeFilter($event, filterEnum.all)"
       >
         All
@@ -16,7 +16,7 @@
     <li>
       <a
         href="/"
-        [ngClass]="{ selected: getSelectedClass(filterEnum.active) }"
+        [ngClass]="{ selected: (filter$ | async) === filterEnum.active }"
         (click)="changeFilter($event, filterEnum.active)"
       >
         Active
@@ -25,7 +25,7 @@
     <li>
       <a
         href="/"
-        [ngClass]="{ selected: getSelectedClass(filterEnum.completed) }"
+        [ngClass]="{ selected: (filter$ | async) === filterEnum.completed }"
         (click)="changeFilter($event, filterEnum.completed)"
       >
         Completed
