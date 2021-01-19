@@ -43,7 +43,7 @@ export class MainComponent {
     this.todosService.toggleAll(target.checked);
   }
 
-  setEditing(): void {
-    console.log('setEditing');
+  setEditingId(editingId: string | null): void {
+    this.editingId = editingId;
   }
 }

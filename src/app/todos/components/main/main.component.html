@@ -6,13 +6,13 @@
     [checked]="isAllTodosSelected$ | async"
     (change)="toggleAllTodos($event)"
   />
-  <label htmlFor="toggle-all">Mark all as complete</label>
+  <label for="toggle-all">Mark all as complete</label>
   <ul class="todo-list">
     <app-todos-todo
       *ngFor="let todo of visibleTodos$ | async"
       [todo]="todo"
-      [editingId]="editingId"
-      (setEditing)="setEditing()"
+      [isEditing]="editingId === todo.id"
+      (setEditingId)="setEditingId($event)"
     ></app-todos-todo>
   </ul>
 </section>
