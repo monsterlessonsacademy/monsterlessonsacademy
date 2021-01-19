@@ -3,7 +3,7 @@ import { useEffect, useRef, useContext, useState } from "react";
 import { TodosContext } from "contexts/todos";
 import { enterCode, escCode } from "helpers/keycodes";
 
-const Todo = ({ todo, isEditing, setEditing }) => {
+const Todo = ({ todo, isEditing, setEditingId }) => {
   const editingClass = isEditing ? "editing" : "";
   const completedClass = todo.isCompleted ? "completed" : "";
   const [, dispatch] = useContext(TodosContext);
@@ -11,7 +11,7 @@ const Todo = ({ todo, isEditing, setEditing }) => {
   const editInputEl = useRef(null);
 
   const setTodoInEditingMode = () => {
-    setEditing(todo.id);
+    setEditingId(todo.id);
   };
   const toggleTodo = () => {
     dispatch({ type: "toggleTodo", payload: todo.id });
@@ -30,12 +30,12 @@ const Todo = ({ todo, isEditing, setEditing }) => {
         type: "changeTodo",
         payload: { id: todo.id, text: event.target.value },
       });
-      setEditing(null);
+      setEditingId(null);
     }
 
     if (event.keyCode === escCode) {
       setEditText(todo.text);
-      setEditing(null);
+      setEditingId(null);
     }
   };
 
