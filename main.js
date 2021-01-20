@@ -7,10 +7,20 @@ const reducer = (state = [], action) => {
 };
 
 const store = Redux.createStore(reducer);
+const list = document.querySelector(".list");
+const addUserBtn = document.querySelector(".addUser");
+const userInput = document.querySelector(".userInput");
 
 store.subscribe(() => {
-  console.log(store.getState());
+  list.innerHTML = "";
+  userInput.value = "";
+  store.getState().forEach((track) => {
+    const li = document.createElement("li");
+    li.textContent = track;
+    list.appendChild(li);
+  });
 });
 
-store.dispatch({ type: "ADD_USER", payload: "jack" });
-store.dispatch({ type: "ADD_USER", payload: "john" });
+addUserBtn.addEventListener("click", () => {
+  store.dispatch({ type: "ADD_USER", payload: userInput.value });
+});
