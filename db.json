@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "nodejs"
+    },
+    {
+      "id": "2",
+      "title": "react"
+    }
+  ],
+  "users": [
+    {
+      "email": "monster@gmail.com",
+      "password": "$2a$10$SLw0mwPNMpgS8Ir9ZfR28OLXTcCJyq4hIEuNGJb9vfs7CpM4Kdkta",
+      "id": 1
+    }
+  ]
+}
