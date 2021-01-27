@@ -9,9 +9,15 @@
 
 .blog-post {
   display: flex;
+  margin-bottom: 30px;
 }
 
 .body {
   width: 100%;
   margin-left: 20px;
+}
+
+.headline {
+  width: 55%;
+  margin-bottom: 20px;
 }

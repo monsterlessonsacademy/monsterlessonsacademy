@@ -3,6 +3,7 @@
   position: relative;
   overflow: hidden;
   height: 16px;
+  display: inline-block;
 }
 
 .skeleton-box:after {
