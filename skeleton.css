@@ -1,0 +1,27 @@
+.skeleton-box {
+  background-color: #dddbdd;
+  position: relative;
+  overflow: hidden;
+  height: 16px;
+}
+
+.skeleton-box:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  content: '';
+  background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
+  animation: slide 5s infinite;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}

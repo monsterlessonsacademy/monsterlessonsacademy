@@ -1,0 +1,17 @@
+.image {
+  width: 100px;
+  height: 80px;
+}
+
+.feed {
+  max-width: 700px;
+}
+
+.blog-post {
+  display: flex;
+}
+
+.body {
+  width: 100%;
+  margin-left: 20px;
+}
