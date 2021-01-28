@@ -12,7 +12,7 @@ class App extends Component {
 
   addUser = () => {
     console.log("addUser", this.state.username);
-    this.props.dispatch({ type: "ADD_USER", payload: this.state.username });
+    this.props.addUser(this.state.username);
   };
 
   render() {
@@ -35,11 +35,22 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   console.log("state", state);
+  const usersWithFoo = state.filter((user) =>
+    user.includes(ownProps.searchText)
+  );
   return {
     users: state,
+    usersWithFoo,
   };
 };
 
-export default connect(mapStateToProps)(App);
+const addUser = (username) => {
+  return { type: "ADD_USER", payload: username };
+};
+
+const mapDispatchToProps = {
+  addUser,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
