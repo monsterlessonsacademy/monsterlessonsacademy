@@ -1,7 +1,5 @@
-import actionTypes from "./actionTypes";
-
 const reducer = (state = [], action) => {
-  if (action.type === actionTypes.addUser) {
+  if (action.type === "ADD_USER") {
     return [...state, action.payload];
   }
 
