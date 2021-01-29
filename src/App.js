@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { addUser } from "./store/actions";
 
 class App extends Component {
   state = {
@@ -44,10 +45,6 @@ const mapStateToProps = (state, ownProps) => {
     users: state,
     usersWithFoo,
   };
-};
-
-const addUser = (username) => {
-  return { type: "ADD_USER", payload: username };
 };
 
 const mapDispatchToProps = {
