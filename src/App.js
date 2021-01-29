@@ -12,12 +12,10 @@ class App extends Component {
   };
 
   addUser = () => {
-    console.log("addUser", this.state.username);
     this.props.addUser(this.state.username);
   };
 
   render() {
-    console.log("props", this.props);
     return (
       <div>
         <input
