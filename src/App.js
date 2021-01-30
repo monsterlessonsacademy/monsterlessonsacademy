@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { addUser } from "./store/actions";
 
 class App extends Component {
   state = {
@@ -8,19 +7,20 @@ class App extends Component {
   };
 
   handleUser = (e) => {
-    this.setState({ username: e.target.value });
+    this.props.dispatch({ type: "CHANGE_USERNAME", payload: e.target.value });
   };
 
   addUser = () => {
-    this.props.addUser(this.state.username);
+    this.props.dispatch({ type: "ADD_USER" });
   };
 
   render() {
+    console.log("this", this.props);
     return (
       <div>
         <input
           type="text"
-          value={this.state.username}
+          value={this.props.username}
           onChange={this.handleUser}
         />
         <button onClick={this.addUser}>Add user</button>
@@ -34,18 +34,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log("state", state);
-  const usersWithFoo = state.filter((user) =>
-    user.includes(ownProps.searchText)
-  );
+const mapStateToProps = (state) => {
   return {
-    users: state,
-    usersWithFoo,
+    users: state.users.users,
+    username: state.users.username,
   };
 };
 
-const mapDispatchToProps = {
-  addUser,
-};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
