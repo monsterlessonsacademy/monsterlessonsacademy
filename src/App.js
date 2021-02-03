@@ -1,13 +1,15 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 
-class App extends Component {
-  state = {
-    username: "",
-  };
+import { usersSelector, filteredUsersSelector } from "./store/selectors";
 
+class App extends Component {
   handleUser = (e) => {
     this.props.dispatch({ type: "CHANGE_USERNAME", payload: e.target.value });
+  };
+
+  handleSearch = (e) => {
+    this.props.dispatch({ type: "CHANGE_SEARCH", payload: e.target.value });
   };
 
   addUser = () => {
@@ -15,13 +17,19 @@ class App extends Component {
   };
 
   render() {
-    console.log("this", this.props);
+    console.log("filteredUsers", this.props.filteredUsers);
     return (
       <div>
         <input
           type="text"
           value={this.props.username}
           onChange={this.handleUser}
+        />
+        <input
+          type="text"
+          placeholder="Search"
+          value={this.props.search}
+          onChange={this.handleSearch}
         />
         <button onClick={this.addUser}>Add user</button>
         <ul>
@@ -35,9 +43,12 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("recalculating mapStateToProps", state);
   return {
-    users: state.users.users,
+    users: usersSelector(state),
     username: state.users.username,
+    search: state.users.search,
+    filteredUsers: filteredUsersSelector(state),
   };
 };
 
