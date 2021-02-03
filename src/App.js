@@ -1,5 +1,13 @@
+import FetchWithClasses from "./FetchWithClasses";
+import FetchWithHooks from "./FetchWithHooks";
 const App = () => {
-  return <h1>Hello monsterlessons</h1>;
+  return (
+    <div>
+      <h1>Hello monsterlessons</h1>
+      <FetchWithClasses />
+      <FetchWithHooks />
+    </div>
+  );
 };
 
 export default App;
