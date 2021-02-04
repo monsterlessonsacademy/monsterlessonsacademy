@@ -1,28 +1,35 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 
+import { usersSelector, filteredUsersSelector } from "./store/selectors";
+
 class App extends Component {
-  state = {
-    username: "",
+  handleUser = (e) => {
+    this.props.dispatch({ type: "CHANGE_USERNAME", payload: e.target.value });
   };
 
-  handleUser = (e) => {
-    this.setState({ username: e.target.value });
+  handleSearch = (e) => {
+    this.props.dispatch({ type: "CHANGE_SEARCH", payload: e.target.value });
   };
 
   addUser = () => {
-    console.log("addUser", this.state.username);
-    this.props.dispatch({ type: "ADD_USER", payload: this.state.username });
+    this.props.dispatch({ type: "ADD_USER" });
   };
 
   render() {
-    console.log("props", this.props);
+    console.log("filteredUsers", this.props.filteredUsers);
     return (
       <div>
         <input
           type="text"
-          value={this.state.username}
+          value={this.props.username}
           onChange={this.handleUser}
+        />
+        <input
+          type="text"
+          placeholder="Search"
+          value={this.props.search}
+          onChange={this.handleSearch}
         />
         <button onClick={this.addUser}>Add user</button>
         <ul>
@@ -36,14 +43,12 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state);
-  const filteredUsers = state.filter((user) => {
-    console.log("filtering users", user);
-    return user.includes("foo");
-  });
+  console.log("recalculating mapStateToProps", state);
   return {
-    users: state,
-    filteredUsers,
+    users: usersSelector(state),
+    username: state.users.username,
+    search: state.users.search,
+    filteredUsers: filteredUsersSelector(state),
   };
 };
 
