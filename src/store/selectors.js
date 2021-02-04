@@ -12,10 +12,3 @@ export const filteredUsersSelector = createSelector(
     });
   }
 );
-
-// export const filteredUsersSelector = (state) => {
-//   return state.users.users.filter((user) => {
-//     console.log("filtering users...");
-//     return user.includes(state.users.search);
-//   });
-// };
