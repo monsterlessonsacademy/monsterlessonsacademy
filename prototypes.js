@@ -17,11 +17,11 @@ var YoutubeTrack = function (params) {
 };
 
 YoutubeTrack.prototype = Object.create(Track.prototype);
-YoutubeTrack.prototype.constructor = YoutubeTrack;
+// YoutubeTrack.prototype.constructor = YoutubeTrack;
 
-YoutubeTrack.prototype.playTrack = function () {
-  console.log("Hello youtube", this.name);
-};
+// YoutubeTrack.prototype.playTrack = function () {
+//   console.log("Hello youtube", this.name);
+// };
 
 var track01 = new Track({
   name: "track01",
