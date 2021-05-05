@@ -1,0 +1,20 @@
+{
+  "name": "monsterlessons-academy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@monsterlessonsacademy_home.github.com:monsterlessonsacademy/monsterlessonsacademy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "googleapis": "^73.0.0"
+  }
+}
