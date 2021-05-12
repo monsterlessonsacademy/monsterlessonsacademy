@@ -1,0 +1,31 @@
+.el-select {
+  display: inline-block;
+  position: relative;
+}
+
+.el-select .selected-value {
+  width: 200px;
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.el-select .list {
+  position: absolute;
+  border: 1px solid black;
+  width: 100%;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.el-select .list-option {
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.el-select .list-option:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
