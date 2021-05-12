@@ -1,5 +1,6 @@
 const selectContainer = document.querySelector(".select-container");
 elSelect(selectContainer, {
+  selectedOptionId: "5",
   availableOptions: [
     {
       id: "1",

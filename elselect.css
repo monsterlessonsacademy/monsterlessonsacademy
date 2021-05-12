@@ -19,6 +19,11 @@
   border-top: none;
   max-height: 200px;
   overflow-y: auto;
+  display: none;
+}
+
+.el-select .is-visible {
+  display: block;
 }
 
 .el-select .list-option {
