@@ -3,6 +3,10 @@
   position: relative;
 }
 
+.el-select:focus > .selected-value {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .el-select .selected-value {
   width: 200px;
   border: 1px solid black;

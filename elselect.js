@@ -9,6 +9,7 @@ const elSelect = ($parentElement, options) => {
   const setupDomElements = () => {
     $container = document.createElement("div");
     $container.classList.add("el-select");
+    $container.setAttribute("tabindex", 0);
 
     $selectedValue = document.createElement("div");
     $selectedValue.classList.add("selected-value");
@@ -65,6 +66,10 @@ const elSelect = ($parentElement, options) => {
         toggleSelect();
         setSelectedOption(optionElement.dataset.id);
       });
+    });
+
+    $container.addEventListener("blur", () => {
+      $list.classList.remove("is-visible");
     });
   };
 
