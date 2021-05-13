@@ -38,9 +38,12 @@ const elSelect = ($parentElement, options) => {
     $container.append($list);
   };
 
-  const setSelectedOption = (selectedOptionId) => {
+  const setSelectedOption = (selectedOptionId, isInitialSelect = false) => {
     if (!selectedOptionId) {
       selectedOption = null;
+      if (!isInitialSelect) {
+        options.onOptionChange(null);
+      }
       $selectedValue.innerText = placeholder;
       return;
     }
@@ -50,6 +53,9 @@ const elSelect = ($parentElement, options) => {
     );
 
     $selectedValue.innerText = selectedOption.name;
+    if (!isInitialSelect) {
+      options.onOptionChange(selectedOption);
+    }
   };
 
   const toggleSelect = () => {
@@ -74,6 +80,6 @@ const elSelect = ($parentElement, options) => {
   };
 
   setupDomElements();
-  setSelectedOption(options.selectedOptionId);
+  setSelectedOption(options.selectedOptionId, true);
   initializeListeners();
 };
