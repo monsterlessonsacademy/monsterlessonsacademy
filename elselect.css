@@ -12,6 +12,15 @@
   justify-content: space-between;
 }
 
+.el-select .selected-value:after {
+  content: '';
+  border: 8px solid transparent;
+  border-top-color: black;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
 .el-select .list {
   position: absolute;
   border: 1px solid black;

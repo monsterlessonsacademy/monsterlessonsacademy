@@ -1,5 +1,4 @@
 const elSelect = ($parentElement, options) => {
-  console.log("elSelect", $parentElement, options);
   let $selectedValue;
   let $container;
   let $list;
@@ -27,6 +26,8 @@ const elSelect = ($parentElement, options) => {
     emptyListOption = document.createElement("div");
     emptyListOption.innerText = placeholder;
     emptyListOption.classList.add("list-option");
+
+    $optionsElements = [emptyListOption, ...$optionsElements];
 
     $list.append(emptyListOption);
     $list.append(...$optionsElements);
