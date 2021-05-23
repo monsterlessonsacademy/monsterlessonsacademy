@@ -34,10 +34,10 @@ const languages = [
   },
 ];
 
-elSelect(selectContainer, {
-  selectedOptionId: "5",
+elselect(selectContainer, {
   availableOptions: languages,
+  selectedOptionId: "5",
   onOptionChange: (option) => {
-    console.log("got outside that option changed", option);
+    console.log(`Got outside change`, option);
   },
 });

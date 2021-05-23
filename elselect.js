@@ -1,12 +1,13 @@
-const elSelect = ($parentElement, options) => {
-  let $selectedValue;
+const elselect = ($parentElement, options) => {
+  console.log("elselect", $parentElement, options);
   let $container;
+  let $selectedValue;
   let $list;
   let $optionsElements;
   let selectedOption;
   const placeholder = "Please select";
 
-  const setupDomElements = () => {
+  const setupDomElement = () => {
     $container = document.createElement("div");
     $container.classList.add("el-select");
     $container.setAttribute("tabindex", 0);
@@ -16,61 +17,37 @@ const elSelect = ($parentElement, options) => {
 
     $list = document.createElement("div");
     $list.classList.add("list");
+
     $optionsElements = options.availableOptions.map((availableOption) => {
-      const element = document.createElement("div");
-      element.innerText = availableOption.name;
-      element.dataset.id = availableOption.id;
-      element.classList.add("list-option");
-      return element;
+      const $element = document.createElement("div");
+      $element.classList.add("list-option");
+      $element.innerText = availableOption.name;
+      $element.dataset.id = availableOption.id;
+      return $element;
     });
 
-    emptyListOption = document.createElement("div");
+    const emptyListOption = document.createElement("div");
     emptyListOption.innerText = placeholder;
     emptyListOption.classList.add("list-option");
 
     $optionsElements = [emptyListOption, ...$optionsElements];
 
-    $list.append(emptyListOption);
-    $list.append(...$optionsElements);
-
     $parentElement.append($container);
     $container.append($selectedValue);
     $container.append($list);
-  };
-
-  const setSelectedOption = (selectedOptionId, isInitialSelect = false) => {
-    if (!selectedOptionId) {
-      selectedOption = null;
-      if (!isInitialSelect) {
-        options.onOptionChange(null);
-      }
-      $selectedValue.innerText = placeholder;
-      return;
-    }
-
-    selectedOption = options.availableOptions.find(
-      (availableOption) => availableOption.id === selectedOptionId
-    );
-
-    $selectedValue.innerText = selectedOption.name;
-    if (!isInitialSelect) {
-      options.onOptionChange(selectedOption);
-    }
-  };
-
-  const toggleSelect = () => {
-    $list.classList.toggle("is-visible");
+    $list.append(...$optionsElements);
   };
 
   const initializeListeners = () => {
     $selectedValue.addEventListener("click", () => {
-      toggleSelect();
+      console.log("clicked");
+      $list.classList.toggle("is-visible");
     });
 
-    $optionsElements.forEach((optionElement) => {
-      optionElement.addEventListener("click", () => {
-        toggleSelect();
-        setSelectedOption(optionElement.dataset.id);
+    $optionsElements.forEach(($optionElement) => {
+      $optionElement.addEventListener("click", () => {
+        $list.classList.remove("is-visible");
+        setSelectedOption($optionElement.dataset.id);
       });
     });
 
@@ -79,7 +56,26 @@ const elSelect = ($parentElement, options) => {
     });
   };
 
-  setupDomElements();
+  const setSelectedOption = (selectedOptionId, isInitialSelect = false) => {
+    if (!selectedOptionId) {
+      selectedOption = null;
+      $selectedValue.innerText = placeholder;
+      if (!isInitialSelect) {
+        options.onOptionChange(null);
+      }
+      return;
+    }
+
+    selectedOption = options.availableOptions.find(
+      (availableOption) => availableOption.id === selectedOptionId
+    );
+    $selectedValue.innerText = selectedOption.name;
+    if (!isInitialSelect) {
+      options.onOptionChange(selectedOption);
+    }
+  };
+
+  setupDomElement();
   setSelectedOption(options.selectedOptionId, true);
   initializeListeners();
 };

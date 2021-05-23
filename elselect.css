@@ -4,7 +4,7 @@
 }
 
 .el-select:focus > .selected-value {
-  background-color: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1)
 }
 
 .el-select .selected-value {
@@ -12,8 +12,6 @@
   border: 1px solid black;
   cursor: pointer;
   padding: 4px 8px;
-  display: flex;
-  justify-content: space-between;
 }
 
 .el-select .selected-value:after {
@@ -28,15 +26,15 @@
 .el-select .list {
   position: absolute;
   border: 1px solid black;
-  width: 100%;
   border-top: none;
+  width: 100%;
   max-height: 200px;
   overflow-y: auto;
   display: none;
 }
 
 .el-select .is-visible {
-  display: block;
+  display: block
 }
 
 .el-select .list-option {
@@ -45,5 +43,6 @@
 }
 
 .el-select .list-option:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1)
 }
+
