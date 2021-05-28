@@ -10,15 +10,14 @@
   background-color: #fff;
   width: 256px;
   margin: 12px;
-  display: flex;
-  flex-direction: column;
+  height: 580px;
 }
 
 .pricing-item__inner-container {
   background: #fff;
   margin: 4px;
   border-radius: 4px;
-  flex: 1 0 auto;
+  height: calc(100% - 8px);
 }
 
 .pricing-item--recommended {
@@ -29,21 +28,25 @@
 }
 
 .pricing-item__top-part {
-  min-height: 348px;
   text-align: center;
+  height: 350px;
 }
 
 .pricing-item__storage-size {
-  margin-top: 50px;
+  padding-top: 50px;
   font-size: 32px;
   font-weight: 400;
 }
 
 .pricing-item__recommended-label {
   font-weight: 500;
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .pricing-item__recommended-label + .pricing-item__storage-size {
-  margin-top: 23px;
+  padding-top: 23px;
+}
+
+.pricing-item__bottom-part {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
