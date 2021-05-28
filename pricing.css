@@ -18,16 +18,14 @@
   background: #fff;
   margin: 4px;
   border-radius: 4px;
+  flex: 1 0 auto;
 }
 
 .pricing-item--recommended {
-  background: linear-gradient(
-  90deg
-  ,#34a853 4%,#4285f4 0%) top/100% 34% no-repeat,linear-gradient(
-  90deg
-  ,#fbbc04 50%,#4285f4 0%) top/100% 82% no-repeat,linear-gradient(
-  90deg
-  ,#fbbc04 10%,#ea4335 0%) top/100% 100%;
+  background: linear-gradient(90deg, #34a853 4%, #4285f4 0%) top/100% 34%
+      no-repeat,
+    linear-gradient(90deg, #fbbc04 50%, #4285f4 0%) top/100% 82% no-repeat,
+    linear-gradient(90deg, #fbbc04 10%, #ea4335 0%) top/100% 100%;
 }
 
 .pricing-item__top-part {
