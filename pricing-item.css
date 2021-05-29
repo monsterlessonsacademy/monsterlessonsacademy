@@ -1,9 +1,3 @@
-.pricing {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .pricing-item {
   box-shadow: 0 1px 6px rgb(60 64 67 / 30%);
   border-radius: 8px;
@@ -49,4 +43,24 @@
 
 .pricing-item__bottom-part {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 20px 6px 24px 14px;
+}
+
+.pricing-item__includes-label {
+  margin-bottom: 7px;
+  font-weight: 400;
+}
+
+.pricing-item__features-list {
+  margin-left: 8px;
+}
+
+.pricing-item__feature {
+  padding: 4px 0;
+}
+
+.pricing-item__checkmark {
+  margin-right: 16px;
+  color: #4285f4;
+  display: inline;
 }
