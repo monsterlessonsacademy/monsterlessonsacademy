@@ -5,6 +5,7 @@
   width: 256px;
   margin: 12px;
   height: 580px;
+  font-size: 14px;
 }
 
 .pricing-item__inner-container {
@@ -72,4 +73,20 @@
 .pricing-item__year-save-label {
   margin-top: 16px;
   margin-bottom: 10px;
+}
+
+.pricing-item__store-credit {
+  display: flex;
+  align-items: center;
+  margin: 8px 5px;
+  padding: 8px 12px;
+  text-align: left;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.pricing-item__store-credit img {
+  height: 23px;
+  width: 24px;
+  margin-right: 12px;
 }

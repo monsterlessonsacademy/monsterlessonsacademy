@@ -6,6 +6,7 @@
   min-width: 143px;
   min-height: 36px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .button--primary {
