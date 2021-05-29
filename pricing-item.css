@@ -64,3 +64,12 @@
   color: #4285f4;
   display: inline;
 }
+
+.pricing-item__prices {
+  margin-top: 48px;
+}
+
+.pricing-item__year-save-label {
+  margin-top: 16px;
+  margin-bottom: 10px;
+}

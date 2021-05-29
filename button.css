@@ -23,3 +23,12 @@
 .button--primary:hover {
   background: #1c66ca;
 }
+
+.button--label {
+  border: 0;
+  min-width: auto;
+}
+
+.button--label:hover {
+  border: 0;
+}
