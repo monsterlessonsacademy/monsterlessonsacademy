@@ -1,30 +1,65 @@
 import { useState } from "react";
 import Question from "./Question";
+import questions from "./data";
+
+const shuffleAnswers = (question) => {
+  const unshuffledAnswers = [
+    question.correctAnswer,
+    ...question.incorrectAnswers,
+  ];
+  return unshuffledAnswers
+    .map((a) => ({ sort: Math.random(), value: a }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value);
+};
 
 function App() {
-  const [questions, setQuestions] = useState([
-    {
-      text: "Question text",
-      answers: ["Answer 1", "Answer 2", "Answer 3", "Answer 4"],
-    },
-  ]);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [correctAnswersCount, setCorrentAnswersCount] = useState(0);
+  const [showResults, setShowResult] = useState(false);
+  const [currentAnswer, setCurrentAnswer] = useState("");
+  const [answers, setAnswers] = useState(
+    shuffleAnswers(questions[currentQuestionIndex])
+  );
+
   const nextQuestion = () => {
-    const nextIndex = questionIndex + 1;
-    if (nextIndex > questions.length - 1) {
-      setIsFinished(true);
+    const isFinished = currentQuestionIndex > questions.length - 1;
+    if (isFinished) {
+      setShowResult(true);
     } else {
-      setQuestionIndex(questionIndex + 1);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setAnswers(shuffleAnswers(questions[currentQuestionIndex]));
     }
   };
 
+  const restart = () => {
+    setShowResult(false);
+    setCurrentQuestionIndex(0);
+  };
+
+  const onSelectAnswer = (answerText) => {
+    if (answerText === questions[currentQuestionIndex].correctAnswer) {
+      setCorrentAnswersCount(correctAnswersCount + 1);
+    }
+    setCurrentAnswer(answerText);
+  };
+
   return (
-    <div className="App">
-      {isFinished && <div>Results</div>}
-      {!isFinished && (
+    <div className="quiz">
+      {showResults && (
         <div>
-          <Question question={questions[questionIndex]} />
+          Results
+          <div onClick={restart}>Restart</div>
+        </div>
+      )}
+      {!showResults && (
+        <div>
+          <Question
+            questionEntity={questions[currentQuestionIndex]}
+            answers={answers}
+            onSelectAnswer={onSelectAnswer}
+            currentAnswer={currentAnswer}
+          />
           <div onClick={nextQuestion}>Next question</div>
         </div>
       )}

@@ -1,12 +1,23 @@
 import Answer from "./Answer";
 
-const Question = ({ question }) => {
+const Question = ({
+  questionEntity,
+  onSelectAnswer,
+  currentAnswer,
+  answers,
+}) => {
   return (
     <div>
-      <div>{question.text}</div>
-      <div>
-        {question.answers.map((answer) => (
-          <Answer answerText={answer} key={answer} />
+      <div className="question">{questionEntity.question}</div>
+      <div className="answers">
+        {answers.map((answer, index) => (
+          <Answer
+            answerText={answer}
+            currentAnswer={currentAnswer}
+            key={index}
+            index={index}
+            onSelectAnswer={onSelectAnswer}
+          />
         ))}
       </div>
     </div>
