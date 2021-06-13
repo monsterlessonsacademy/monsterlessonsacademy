@@ -14,6 +14,7 @@ const Question = ({
           <Answer
             answerText={answer}
             currentAnswer={currentAnswer}
+            correctAnswer={questionEntity.correctAnswer}
             key={index}
             index={index}
             onSelectAnswer={onSelectAnswer}
