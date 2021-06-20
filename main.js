@@ -1,17 +1,19 @@
-const users = [
-  { id: 1, name: "Jack", age: 20 },
-  { id: 2, name: "John", age: 30 },
-  { id: 3, name: "Mike", age: 35 },
-];
+const updateUser = (id, data) => {
+  if (!id || !data) {
+    throw "Params are not correct";
+  }
+};
 
-const total = users.reduce((acc, user) => {
-  return acc + user.age;
-}, 0);
+updateUser();
 
-// let total = 0;
+// let user;
+// try {
+//   const backendData = "{name: 'Jack'}";
+//   user = JSON.parse(backendData);
+// } catch (err) {
+//   user = null;
+// } finally {
+//   console.log("i happen always");
+// }
 
-// users.forEach((user) => {
-//   total = total + user.age;
-// });
-
-console.log(total);
+// console.log(user);
