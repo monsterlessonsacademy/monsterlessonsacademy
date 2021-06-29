@@ -1,10 +1,14 @@
-const { createSlice } = require("@reduxjs/toolkit");
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
   users: [],
   username: "",
   search: "",
 };
+
+export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
+  return ["Jack", "John"];
+});
 
 const usersSlice = createSlice({
   name: "users",
@@ -20,6 +24,9 @@ const usersSlice = createSlice({
     changeSearch(state, action) {
       state.search = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUsers.pending, (state, action) => {});
   },
 });
 
