@@ -1,30 +1,27 @@
+const { createSlice } = require("@reduxjs/toolkit");
+
 const initialState = {
   users: [],
   username: "",
   search: "",
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "ADD_USER":
-      return {
-        ...state,
-        username: "",
-        users: [...state.users, state.username],
-      };
-    case "CHANGE_USERNAME":
-      return {
-        ...state,
-        username: action.payload,
-      };
-    case "CHANGE_SEARCH":
-      return {
-        ...state,
-        search: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const usersSlice = createSlice({
+  name: "users",
+  initialState,
+  reducers: {
+    addUser(state) {
+      state.users.push(state.username);
+      state.username = "";
+    },
+    changeUsername(state, action) {
+      state.username = action.payload;
+    },
+    changeSearch(state, action) {
+      state.search = action.payload;
+    },
+  },
+});
 
-export default reducer;
+export const { addUser, changeSearch, changeUsername } = usersSlice.actions;
+export default usersSlice.reducer;
