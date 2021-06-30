@@ -1,4 +1,9 @@
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+const {
+  createSlice,
+  createAsyncThunk,
+  createReducer,
+  createAction,
+} = require("@reduxjs/toolkit");
 
 const initialState = {
   users: [],
@@ -26,7 +31,13 @@ const usersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUsers.pending, (state, action) => {});
+    builder
+      .addCase(fetchUsers.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.users = action.payload;
+      });
   },
 });
 

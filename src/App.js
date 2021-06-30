@@ -5,7 +5,9 @@ import {
   addUser as addUserAction,
   changeSearch as changeSearchAction,
   changeUsername as changeUsernameAction,
+  fetchUsers,
 } from "./store/reducers/users";
+import { useEffect } from "react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,10 @@ const App = () => {
   const addUser = () => {
     dispatch(addUserAction());
   };
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
 
   return (
     <div>

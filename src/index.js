@@ -5,7 +5,6 @@ import App from "./App";
 import reducer from "./store/reducers";
 import { configureStore } from "@reduxjs/toolkit";
 
-console.log("reducer", reducer);
 const store = configureStore({ reducer });
 
 ReactDOM.render(
