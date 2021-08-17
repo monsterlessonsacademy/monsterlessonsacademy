@@ -58,11 +58,11 @@ const Comments = ({ commentsUrl, currentUserId }) => {
   }, []);
 
   return (
-    <div className="mt-5">
-      <h3 className="text-3xl mb-5">Comments</h3>
-      <div className="text-xl">Write comment</div>
+    <div className="comments">
+      <h3 className="comments-title">Comments</h3>
+      <div className="comment-form-title">Write comment</div>
       <CommentForm submitLabel="Write" handleSubmit={addComment} />
-      <div className="mt-10">
+      <div className="comments-container">
         {rootComments.map((rootComment) => (
           <Comment
             key={rootComment.id}

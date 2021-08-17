@@ -9,8 +9,6 @@ const CommentForm = ({
 }) => {
   const [text, setText] = useState(initialText);
   const isTextareaDisabled = text.length === 0;
-  const hoverClass = isTextareaDisabled ? "" : "hover:bg-blue-600";
-  const opacityClass = isTextareaDisabled ? "opacity-70" : "";
   const onSubmit = (event) => {
     event.preventDefault();
     handleSubmit(text);
@@ -19,20 +17,17 @@ const CommentForm = ({
   return (
     <form onSubmit={onSubmit}>
       <textarea
-        className="border border-gray-500 w-full h-20 my-2"
+        className="comment-form-textarea"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button
-        className={`bg-blue-500 rounded-md text-white px-4 py-2 mr-2 ${hoverClass} ${opacityClass}`}
-        disabled={isTextareaDisabled}
-      >
+      <button className="comment-form-button" disabled={isTextareaDisabled}>
         {submitLabel}
       </button>
       {hasCancelButton && (
         <button
           type="button"
-          className="bg-blue-500 rounded-md text-white px-4 py-2 hover:bg-blue-600"
+          className="comment-form-button comment-form-cancel-button"
           onClick={handleCancel}
         >
           Cancel
