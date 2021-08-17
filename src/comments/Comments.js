@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import {
-  getComments,
-  createComment,
+  getComments as getCommentsApi,
+  createComment as createCommentApi,
   updateComment as updateCommentApi,
+  deleteComment as deleteCommentApi,
 } from "../api";
 
 const Comments = ({ commentsUrl, currentUserId }) => {
@@ -21,8 +22,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
   const addComment = (text, parentId) => {
-    createComment(text, parentId).then((comment) => {
-      console.log("comment", comment);
+    createCommentApi(text, parentId).then((comment) => {
       setBackendComments([comment, ...backendComments]);
       setActiveComment(null);
     });
@@ -36,21 +36,13 @@ const Comments = ({ commentsUrl, currentUserId }) => {
         }
         return backendComment;
       });
-      console.log("updatedBackendComments", updatedBackendComments);
       setBackendComments(updatedBackendComments);
       setActiveComment(null);
     });
   };
   const deleteComment = (commentId) => {
     if (window.confirm("Are you sure you want to remove comment?")) {
-      const url = `${commentsUrl}/${commentId}`;
-      fetch(url, {
-        method: "DELETE",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
+      deleteCommentApi().then(() => {
         const updatedBackendComments = backendComments.filter(
           (backendComment) => backendComment.id !== commentId
         );
@@ -60,7 +52,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
   };
 
   useEffect(() => {
-    getComments().then((data) => {
+    getCommentsApi().then((data) => {
       setBackendComments(data);
     });
   }, []);
@@ -90,4 +82,3 @@ const Comments = ({ commentsUrl, currentUserId }) => {
 };
 
 export default Comments;
-
