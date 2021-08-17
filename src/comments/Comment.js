@@ -28,16 +28,16 @@ const Comment = ({
   const replyId = parentId ? parentId : comment.id;
   const createdAt = new Date(comment.createdAt).toLocaleDateString();
   return (
-    <div key={comment.id} className="flex mb-7">
-      <div className="mr-3">
-        <img src="/images/user-icon.png" className="rounded-full" />
+    <div key={comment.id} className="comment">
+      <div className="comment-image-container">
+        <img src="/user-icon.png" />
       </div>
-      <div className="w-full">
-        <div className="flex flex-col md:flex-row">
-          <div className="mr-2 text-xl text-blue-500">{comment.username}</div>
+      <div className="comment-right-part">
+        <div className="comment-content">
+          <div className="comment-author">{comment.username}</div>
           <div>{createdAt}</div>
         </div>
-        {!isEditing && <div className="text-lg">{comment.body}</div>}
+        {!isEditing && <div className="comment-text">{comment.body}</div>}
         {isEditing && (
           <CommentForm
             submitLabel="Update"
@@ -49,10 +49,10 @@ const Comment = ({
             }}
           />
         )}
-        <div className="flex text-xs text-color-gray-500 cursor-pointer mt-2">
+        <div className="comment-actions">
           {canReply && (
             <div
-              className="mr-2 hover:underline"
+              className="comment-action"
               onClick={() =>
                 setActiveComment({ id: comment.id, type: "replying" })
               }
@@ -62,7 +62,7 @@ const Comment = ({
           )}
           {canEdit && (
             <div
-              className="mr-2 hover:underline"
+              className="comment-action"
               onClick={() =>
                 setActiveComment({ id: comment.id, type: "editing" })
               }
@@ -72,7 +72,7 @@ const Comment = ({
           )}
           {canDelete && (
             <div
-              className="mr-2 hover:underline"
+              className="comment-action"
               onClick={() => deleteComment(comment.id)}
             >
               Delete
@@ -86,7 +86,7 @@ const Comment = ({
           />
         )}
         {replies.length > 0 && (
-          <div className="mt-5">
+          <div className="replies">
             {replies.map((reply) => (
               <Comment
                 comment={reply}
