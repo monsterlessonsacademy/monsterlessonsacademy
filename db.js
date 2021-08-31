@@ -16,7 +16,6 @@ exports.connect = async (url, dbname) => {
 
     state.db = client.db(dbname);
   } catch (err) {
-    console.log("catch");
     console.error(err);
   }
 };
