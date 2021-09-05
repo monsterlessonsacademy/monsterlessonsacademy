@@ -1,19 +1,6 @@
-.comments {
-  margin-top: 20px;
-}
-
-.comments-title {
-  font-size: 30px;
-  margin-bottom: 20px;
-}
-
-.comments-container {
-  margin-top: 40px;
-}
-
-.comment-form-title {
-  font-size: 22px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .comment-form-textarea {
   width: 100%;

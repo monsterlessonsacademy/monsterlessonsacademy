@@ -28,16 +28,16 @@ const Comment = ({
   const replyId = parentId ? parentId : comment.id;
   const createdAt = new Date(comment.createdAt).toLocaleDateString();
   return (
-    <div key={comment.id} className="comment">
-      <div className="comment-image-container">
-        <img src="/user-icon.png" />
+    <div key={comment.id} className="flex mb-7">
+      <div className="mr-3">
+        <img src="/user-icon.png" className="rounded-full" />
       </div>
-      <div className="comment-right-part">
-        <div className="comment-content">
-          <div className="comment-author">{comment.username}</div>
+      <div className="w-full">
+        <div className="flex">
+          <div className="mr-2 text-xl text-blue-500">{comment.username}</div>
           <div>{createdAt}</div>
         </div>
-        {!isEditing && <div className="comment-text">{comment.body}</div>}
+        {!isEditing && <div className="text-lg">{comment.body}</div>}
         {isEditing && (
           <CommentForm
             submitLabel="Update"
@@ -49,10 +49,10 @@ const Comment = ({
             }}
           />
         )}
-        <div className="comment-actions">
+        <div className="flex text-xs text-color-gray-500 cursor-pointer mt-2">
           {canReply && (
             <div
-              className="comment-action"
+              className="mr-2 hover:underline"
               onClick={() =>
                 setActiveComment({ id: comment.id, type: "replying" })
               }
@@ -62,7 +62,7 @@ const Comment = ({
           )}
           {canEdit && (
             <div
-              className="comment-action"
+              className="mr-2 hover:underline"
               onClick={() =>
                 setActiveComment({ id: comment.id, type: "editing" })
               }
@@ -72,7 +72,7 @@ const Comment = ({
           )}
           {canDelete && (
             <div
-              className="comment-action"
+              className="mr-2 hover:underline"
               onClick={() => deleteComment(comment.id)}
             >
               Delete
@@ -86,7 +86,7 @@ const Comment = ({
           />
         )}
         {replies.length > 0 && (
-          <div className="replies">
+          <div className="mt-5">
             {replies.map((reply) => (
               <Comment
                 comment={reply}
