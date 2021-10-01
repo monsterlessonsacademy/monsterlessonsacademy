@@ -1,0 +1,16 @@
+{
+  "name": "monsterlessons-academy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@monsterlessonsacademy.github.com:monsterlessonsacademy/monsterlessonsacademy.git",
+  "author": "Oleksandr Kocherhin <monsterlessonsacademy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "socket.io": "^4.2.0"
+  }
+}
