@@ -3,9 +3,18 @@
   <head>
     <title>This is the title of the webpage</title>
     <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/index.css" />
   </head>
   <body>
-    <h1>Hello websockets</h1>
+    <div class="welcome-screen">
+      <h1>Please choose your name</h1>
+      <input type="text" />
+      <button>Login</button>
+    </div>
+    <div class="chat">
+      <div>Users list</div>
+      <div>Messages</div>
+    </div>
     <script src="/client.js"></script>
   </body>
 </html>
