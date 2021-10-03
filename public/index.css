@@ -32,18 +32,28 @@
   background: #f3f3f3;
 }
 
+.chat .users-list div {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.chat .users-list div:hover {
+  background: #f3f3f3;
+}
+
 .chat .messages {
   width: 100%;
   position: relative;
 }
 
 .chat .messages-list {
-  height: calc(100% - 50px);
+  height: calc(100% - 60px);
 }
 
 .chat input {
   width: 100%;
   box-sizing: border-box;
+  height: 30px;
 }
 
 .chat .current-user {

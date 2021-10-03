@@ -22,12 +22,15 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("users-changed", users);
     console.log("user-connected", users);
   });
-  // socket.on("send-chat-message", (message) => {
-  //   socket.broadcast.emit("chat-message", {
-  //     message: message,
-  //     name: users[socket.id],
-  //   });
-  // });
+  socket.on("new-chat-message", (message) => {
+    const recipient = users.find((user) => user.id === message.recipient);
+    const sender = users.find((user) => user.socketId === socket.id);
+    console.log("new-chat-message", message, recipient, sender);
+    socket.to(recipient.socketId).emit("new-chat-message", {
+      message: message.text,
+      sender,
+    });
+  });
   socket.on("disconnect", () => {
     const user = users.find((user) => user.socketId === socket.id);
     if (!user) {

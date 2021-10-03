@@ -14,12 +14,17 @@ class Chat {
     socket.on("users-changed", (users) => {
       this.renderUsers(users);
     });
+
+    socket.on("new-chat-message", (message) => {
+      console.log("new-chat-message", message);
+    });
   }
 
   async initializeChat() {
     this.$chat = document.querySelector(".chat");
     this.$usersList = this.$chat.querySelector(".users-list");
     this.$currentUser = this.$chat.querySelector(".current-user");
+    this.$textInput = this.$chat.querySelector("input");
 
     this.$chat.classList.remove("hidden");
 
@@ -35,7 +40,6 @@ class Chat {
     this.$usersList.innerHTML = "";
     const $users = this.users.map((user) => {
       const $user = document.createElement("div");
-      console.log(user);
       $user.innerText = user.name;
       $user.dataset.id = user.id;
       return $user;
@@ -63,6 +67,19 @@ class Chat {
 
     this.activeChatId = userId;
     $userElement.classList.add("active");
+
+    this.$textInput.classList.remove("hidden");
+
+    this.$textInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        console.log("submit");
+        socket.emit("new-chat-message", {
+          text: this.$textInput.value,
+          recipient: this.activeChatId,
+        });
+        this.$textInput.value = "";
+      }
+    });
   }
 
   async fetchUsers() {
