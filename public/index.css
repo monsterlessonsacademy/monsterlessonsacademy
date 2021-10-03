@@ -20,6 +20,7 @@
   height: 500px;
   margin: 0 auto;
   border: 1px solid grey;
+  margin-top: 20px;
 }
 
 .users-list {

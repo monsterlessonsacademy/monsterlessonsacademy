@@ -4,7 +4,7 @@ const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-const users = [];
+let users = [];
 
 app.use(express.static("public"));
 
@@ -18,8 +18,8 @@ app.get("/users", (_, res) => {
 
 io.on("connection", (socket) => {
   socket.on("user-connected", (user) => {
-    users.push({ ...user, sockerId: socket.id });
-    socket.broadcast.emit("user-connected", user);
+    users.push({ ...user, socketId: socket.id });
+    socket.broadcast.emit("users-changed", users);
     console.log("user-connected", users);
   });
   // socket.on("send-chat-message", (message) => {
@@ -29,8 +29,17 @@ io.on("connection", (socket) => {
   //   });
   // });
   socket.on("disconnect", () => {
-    socket.broadcast.emit("user-disconnected", users[socket.id]);
-    delete users[socket.id];
+    const user = users.find((user) => user.socketId === socket.id);
+    if (!user) {
+      return;
+    }
+
+    const updatedUsers = users.filter(
+      (userToFind) => userToFind.id !== user.id
+    );
+    users = updatedUsers;
+    socket.broadcast.emit("users-changed", users);
+    console.log("users-changed", user, users);
   });
 });
 
