@@ -6,13 +6,22 @@ class Chat {
   constructor({ currentUser }) {
     this.currentUser = currentUser;
     this.initializeChat();
+    this.initializeListeners();
+  }
+
+  initializeListeners() {
+    socket.on("user-connected", (user) => {
+      this.users.push(user);
+      console.log("users", this.users);
+    });
   }
 
   async initializeChat() {
     this.$chat = document.querySelector(".chat");
-    this.$chat.style.display = "block";
+    this.$chat.classList.remove("hidden");
     const users = await this.fetchUsers();
     this.users = users.filter((user) => user.id !== this.currentUser.id);
+    console.log("users", this.users);
   }
 
   async fetchUsers() {
@@ -45,14 +54,10 @@ class WelcomeScreen {
         name: this.$input.value,
       };
       socket.emit("user-connected", currentUser);
-      this.$welcomeScreen.style.display = "none";
+      this.$welcomeScreen.classList.add("hidden");
       new Chat({ currentUser });
     });
   }
 }
 
 new WelcomeScreen();
-
-// socket.on("user-connected", (msg) => {
-//   console.log("user-connected", msg);
-// });

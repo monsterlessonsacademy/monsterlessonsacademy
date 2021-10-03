@@ -1,3 +1,32 @@
+.welcome-screen {
+  text-align: center;
+}
+
+.welcome-screen button {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.welcome-screen input {
+  height: 30px;
+  width: 200px;
+  font-size: 30px;
+  text-align: center;
+}
+
 .chat {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  margin: 0 auto;
+  border: 1px solid grey;
+}
+
+.users-list {
+  width: 300px;
+  border-right: 1px solid grey;
+}
+
+.hidden {
   display: none;
 }
