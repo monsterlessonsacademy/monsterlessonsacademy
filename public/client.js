@@ -18,7 +18,12 @@ class Chat {
   async initializeChat() {
     this.$chat = document.querySelector(".chat");
     this.$usersList = this.$chat.querySelector(".users-list");
+    this.$currentUser = this.$chat.querySelector(".current-user");
+
     this.$chat.classList.remove("hidden");
+
+    this.$currentUser.innerText = `Logged in as ${this.currentUser.name}`;
+
     const users = await this.fetchUsers();
     this.renderUsers(users);
   }
@@ -34,7 +39,10 @@ class Chat {
       return $user;
     });
     this.$usersList.append(...this.$users);
+    this.initializeUsersListener(this.$usersList);
   }
+
+  initializeUsersListener() {}
 
   async fetchUsers() {
     const res = await fetch("/users");

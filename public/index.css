@@ -23,9 +23,28 @@
   margin-top: 20px;
 }
 
-.users-list {
+.chat .users-list {
   width: 300px;
   border-right: 1px solid grey;
+}
+
+.chat .messages {
+  width: 100%;
+  position: relative;
+}
+
+.chat .messages-list {
+  height: calc(100% - 50px);
+}
+
+.chat input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chat .current-user {
+  border-bottom: 1px solid grey;
+  padding: 5px;
 }
 
 .hidden {
