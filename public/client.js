@@ -2,6 +2,7 @@ const socket = io();
 
 class Chat {
   users = [];
+  activeChatId = null;
 
   constructor({ currentUser }) {
     this.currentUser = currentUser;
@@ -32,17 +33,37 @@ class Chat {
     this.users = users.filter((user) => user.id !== this.currentUser.id);
 
     this.$usersList.innerHTML = "";
-    this.$users = this.users.map((user) => {
+    const $users = this.users.map((user) => {
       const $user = document.createElement("div");
       console.log(user);
       $user.innerText = user.name;
+      $user.dataset.id = user.id;
       return $user;
     });
-    this.$usersList.append(...this.$users);
-    this.initializeUsersListener(this.$usersList);
+    this.$usersList.append(...$users);
+    this.initializeUsersListeners($users);
   }
 
-  initializeUsersListener() {}
+  initializeUsersListeners($users) {
+    $users.forEach(($userElement) => {
+      $userElement.addEventListener("click", () => {
+        this.activateChat($userElement);
+      });
+    });
+  }
+
+  activateChat($userElement) {
+    const userId = $userElement.dataset.id;
+
+    if (this.activeChatId) {
+      this.$usersList
+        .querySelector(`div[data-id="${this.activeChatId}"]`)
+        .classList.remove("active");
+    }
+
+    this.activeChatId = userId;
+    $userElement.classList.add("active");
+  }
 
   async fetchUsers() {
     const res = await fetch("/users");

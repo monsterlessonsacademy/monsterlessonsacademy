@@ -28,6 +28,10 @@
   border-right: 1px solid grey;
 }
 
+.chat .users-list .active {
+  background: #f3f3f3;
+}
+
 .chat .messages {
   width: 100%;
   position: relative;
