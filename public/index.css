@@ -41,6 +41,11 @@
   background: #f3f3f3;
 }
 
+.chat .has-new-notification:after {
+  content: "❗";
+  display: inline-block;
+}
+
 .chat .messages {
   width: 100%;
   position: relative;

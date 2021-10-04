@@ -1,5 +1,3 @@
-const socket = io();
-
 class Chat {
   users = [];
   messages = {};
@@ -17,12 +15,19 @@ class Chat {
     });
 
     socket.on("new-chat-message", (message) => {
-      console.log("new-chat-message", message);
       this.addMessage(message.text, message.senderId);
       if (message.senderId === this.activeChatId) {
         this.renderMessages(message.senderId);
+      } else {
+        this.showNewMessageNotification(message.senderId);
       }
     });
+  }
+
+  showNewMessageNotification(senderId) {
+    this.$usersList
+      .querySelector(`div[data-id="${senderId}"]`)
+      .classList.add("has-new-notification");
   }
 
   async initializeChat() {
@@ -41,7 +46,6 @@ class Chat {
   }
 
   renderUsers(users) {
-    console.log("renderUsers", users);
     this.users = users.filter((user) => user.id !== socket.id);
 
     this.$usersList.innerHTML = "";
@@ -72,14 +76,19 @@ class Chat {
         .classList.remove("active");
     }
 
+    this.$usersList
+      .querySelector(`div[data-id="${userId}"]`)
+      .classList.remove("has-new-notification");
+
     this.activeChatId = userId;
     $userElement.classList.add("active");
 
     this.$textInput.classList.remove("hidden");
 
+    this.renderMessages(userId);
+
     this.$textInput.addEventListener("keyup", (e) => {
       if (e.key === "Enter") {
-        console.log("submit");
         const message = {
           text: this.$textInput.value,
           recipientId: this.activeChatId,
@@ -99,9 +108,13 @@ class Chat {
     this.messages[userId].push(text);
   }
 
-  renderMessages(recipientId) {
+  renderMessages(userId) {
     this.$messagesList.innerHTML = "";
-    const $messages = this.messages[recipientId].map((message) => {
+
+    if (!this.messages[userId]) {
+      this.messages[userId] = [];
+    }
+    const $messages = this.messages[userId].map((message) => {
       const $message = document.createElement("div");
       $message.innerText = message;
       return $message;
@@ -114,34 +127,3 @@ class Chat {
     return await res.json();
   }
 }
-
-class WelcomeScreen {
-  constructor() {
-    this.initializeWelcomeScreen();
-  }
-
-  initializeWelcomeScreen() {
-    this.$welcomeScreen = document.querySelector(".welcome-screen");
-    this.$loginBtn = this.$welcomeScreen.querySelector("button");
-    this.$input = this.$welcomeScreen.querySelector("input");
-
-    this.initializeListeners();
-  }
-
-  initializeListeners() {
-    this.$loginBtn.addEventListener("click", () => {
-      if (this.$input.value === "") {
-        return;
-      }
-
-      const currentUser = {
-        name: this.$input.value,
-      };
-      socket.emit("user-connected", currentUser);
-      this.$welcomeScreen.classList.add("hidden");
-      new Chat({ currentUser });
-    });
-  }
-}
-
-new WelcomeScreen();

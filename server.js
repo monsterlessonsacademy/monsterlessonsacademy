@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
   socket.on("new-chat-message", (message) => {
     console.log("new-chat-message", message);
     socket.to(message.recipientId).emit("new-chat-message", {
-      message: message.text,
+      text: message.text,
       senderId: socket.id,
     });
   });
