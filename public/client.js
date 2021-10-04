@@ -2,6 +2,7 @@ const socket = io();
 
 class Chat {
   users = [];
+  messages = {};
   activeChatId = null;
 
   constructor({ currentUser }) {
@@ -17,6 +18,10 @@ class Chat {
 
     socket.on("new-chat-message", (message) => {
       console.log("new-chat-message", message);
+      this.addMessage(message.text, message.senderId);
+      if (message.senderId === this.activeChatId) {
+        this.renderMessages(message.senderId);
+      }
     });
   }
 
@@ -25,6 +30,7 @@ class Chat {
     this.$usersList = this.$chat.querySelector(".users-list");
     this.$currentUser = this.$chat.querySelector(".current-user");
     this.$textInput = this.$chat.querySelector("input");
+    this.$messagesList = this.$chat.querySelector(".messages-list");
 
     this.$chat.classList.remove("hidden");
 
@@ -74,13 +80,33 @@ class Chat {
     this.$textInput.addEventListener("keyup", (e) => {
       if (e.key === "Enter") {
         console.log("submit");
-        socket.emit("new-chat-message", {
+        const message = {
           text: this.$textInput.value,
           recipientId: this.activeChatId,
-        });
+        };
+        socket.emit("new-chat-message", message);
+        this.addMessage(message.text, message.recipientId);
+        this.renderMessages(message.recipientId);
         this.$textInput.value = "";
       }
     });
+  }
+
+  addMessage(text, userId) {
+    if (!this.messages[userId]) {
+      this.messages[userId] = [];
+    }
+    this.messages[userId].push(text);
+  }
+
+  renderMessages(recipientId) {
+    this.$messagesList.innerHTML = "";
+    const $messages = this.messages[recipientId].map((message) => {
+      const $message = document.createElement("div");
+      $message.innerText = message;
+      return $message;
+    });
+    this.$messagesList.append(...$messages);
   }
 
   async fetchUsers() {
