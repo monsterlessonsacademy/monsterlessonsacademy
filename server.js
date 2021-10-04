@@ -4,7 +4,7 @@ const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
-let users = [];
+const users = {};
 
 app.use(express.static("public"));
 
@@ -13,36 +13,27 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", (_, res) => {
-  res.send(users);
+  res.send(Object.values(users));
 });
 
 io.on("connection", (socket) => {
   socket.on("user-connected", (user) => {
-    users.push({ ...user, socketId: socket.id });
-    socket.broadcast.emit("users-changed", users);
+    users[socket.id] = { ...user, id: socket.id };
+    socket.broadcast.emit("users-changed", Object.values(users));
     console.log("user-connected", users);
   });
   socket.on("new-chat-message", (message) => {
-    const recipient = users.find((user) => user.id === message.recipient);
-    const sender = users.find((user) => user.socketId === socket.id);
-    console.log("new-chat-message", message, recipient, sender);
-    socket.to(recipient.socketId).emit("new-chat-message", {
+    console.log("new-chat-message", message);
+    socket.to(message.recipientId).emit("new-chat-message", {
       message: message.text,
-      sender,
+      sender: socket.id,
     });
   });
   socket.on("disconnect", () => {
-    const user = users.find((user) => user.socketId === socket.id);
-    if (!user) {
-      return;
-    }
+    delete users[socket.id];
 
-    const updatedUsers = users.filter(
-      (userToFind) => userToFind.id !== user.id
-    );
-    users = updatedUsers;
-    socket.broadcast.emit("users-changed", users);
-    console.log("users-changed", user, users);
+    socket.broadcast.emit("users-changed", Object.values(users));
+    console.log("users-changed", users);
   });
 });
 

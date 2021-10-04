@@ -35,7 +35,8 @@ class Chat {
   }
 
   renderUsers(users) {
-    this.users = users.filter((user) => user.id !== this.currentUser.id);
+    console.log("renderUsers", users);
+    this.users = users.filter((user) => user.id !== socket.id);
 
     this.$usersList.innerHTML = "";
     const $users = this.users.map((user) => {
@@ -75,7 +76,7 @@ class Chat {
         console.log("submit");
         socket.emit("new-chat-message", {
           text: this.$textInput.value,
-          recipient: this.activeChatId,
+          recipientId: this.activeChatId,
         });
         this.$textInput.value = "";
       }
@@ -108,7 +109,6 @@ class WelcomeScreen {
       }
 
       const currentUser = {
-        id: Math.round(Math.random() * Math.pow(2, 32)).toString(16),
         name: this.$input.value,
       };
       socket.emit("user-connected", currentUser);
