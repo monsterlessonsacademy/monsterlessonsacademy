@@ -1,5 +1,5 @@
-<div class="todoapp">
-  <app-todos-header></app-todos-header>
-  <app-todos-main></app-todos-main>
-  <app-todos-footer></app-todos-footer>
-</div>
+<app-todos-todo *ngFor="let todo of todos" [todo]="todo"></app-todos-todo>
+
+<div><input type="text" (keyup)="changeText()" /></div>
+
+<div><button (click)="changeArray()">Change array</button></div>
