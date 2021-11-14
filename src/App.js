@@ -1,7 +1,7 @@
-import Repos from "./Repos";
+import ReposHooks from "./ReposHooks";
 
 const App = () => {
-  return <Repos />;
+  return <ReposHooks />;
 };
 
 export default App;
