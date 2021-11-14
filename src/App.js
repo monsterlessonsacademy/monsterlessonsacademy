@@ -1,5 +1,7 @@
+import Repos from "./Repos";
+
 const App = () => {
-  return <h1>Hello monsterlessons</h1>;
+  return <Repos />;
 };
 
 export default App;
