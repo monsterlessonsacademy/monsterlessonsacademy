@@ -1,8 +1,7 @@
-import React from "react";
 import useDataFetching from "./useDataFetching";
 
-export default () => {
-  const { isLoading, data, error } = useDataFetching(
+const ReposHooks = () => {
+  const { error, isLoading, data } = useDataFetching(
     "https://api.github.com/users/monsterlessonsacademy/repos"
   );
 
@@ -26,3 +25,5 @@ export default () => {
     </ul>
   );
 };
+
+export default ReposHooks;

@@ -1,14 +1,18 @@
-import React from "react";
+import { Component } from "react";
 
-const withDataFetching = (props) => (WrappedComponent) => {
-  class WithDataFetching extends React.Component {
+const withDataFetching = (props) => (WrapperComponent) => {
+  class WithDataFetching extends Component {
     constructor() {
       super();
       this.state = {
-        data: [],
         isLoading: true,
+        data: [],
         error: null,
       };
+    }
+
+    componentDidMount() {
+      this.fetchData();
     }
 
     async fetchData() {
@@ -29,20 +33,14 @@ const withDataFetching = (props) => (WrappedComponent) => {
         });
       }
     }
-
-    componentDidMount() {
-      this.fetchData();
-    }
-
     render() {
       const { data, isLoading, error } = this.state;
-
       return (
-        <WrappedComponent
+        <WrapperComponent
           data={data}
           isLoading={isLoading}
           error={error}
-          {...this.props}
+          {...props}
         />
       );
     }

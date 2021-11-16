@@ -6,7 +6,7 @@ export default (dataSource) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
         const data = await fetch(dataSource);
         const json = await data.json();
@@ -19,16 +19,10 @@ export default (dataSource) => {
         setIsLoading(false);
         setError(error.message);
       }
-
-      setIsLoading(false);
-    }
+    };
 
     fetchData();
   }, [dataSource]);
 
-  return {
-    error,
-    isLoading,
-    data,
-  };
+  return { isLoading, data, error };
 };
