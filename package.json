@@ -1,0 +1,13 @@
+{
+  "name": "monsterlessonsacademy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@monsterlessonsacademy.github.com:monsterlessonsacademy/monsterlessonsacademy.git",
+  "license": "MIT",
+  "scripts": "node server.js",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
