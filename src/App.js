@@ -1,5 +1,6 @@
+import ClickOutside from "./ClickOutside";
 const App = () => {
-  return <h1>Hello monsterlessons</h1>;
+  return <ClickOutside />;
 };
 
 export default App;
