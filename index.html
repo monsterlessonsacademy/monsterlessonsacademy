@@ -4,6 +4,44 @@
     <title>This is the title of the webpage</title>
   </head>
   <body>
-    <script src="main.js"></script>
+    <div>
+      <input placeholder="Enter your name" class="name" />
+      <button class="login">Login</button>
+    </div>
+    <br />
+    <div>
+      <input placeholder="Send to" class="recipient" />
+      <input placeholder="Message" class="message" />
+      <button class="send">Send</button>
+    </div>
+    <br />
+    <div>
+      <input placeholder="Enter room name" class="room" />
+      <button class="join">Join room</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const $loginBtn = document.querySelector(".login");
+      const $nameInput = document.querySelector(".name");
+      const $sendBtn = document.querySelector(".send");
+      const $recipientInput = document.querySelector(".recipient");
+      const $messageInput = document.querySelector(".message");
+      const $roomInput = document.querySelector(".room");
+      const $joinBtn = document.querySelector(".join");
+      $loginBtn.addEventListener("click", () => {
+        console.log("login as", $nameInput.value);
+        socket.emit("login", $nameInput.value);
+      });
+
+      $sendBtn.addEventListener("click", () => {
+        console.log("send to", $recipientInput.value, $messageInput.value);
+      });
+
+      $joinBtn.addEventListener("click", () => {
+        console.log("join", $roomInput.value);
+      });
+    </script>
   </body>
 </html>
