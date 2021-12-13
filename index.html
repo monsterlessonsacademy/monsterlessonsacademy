@@ -23,6 +23,23 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io();
+
+      socket.on("new-login", (name) => {
+        console.log("new-login", name);
+      });
+
+      socket.on("private-message", (params) => {
+        console.log("private-message", params);
+      });
+
+      socket.on("joined-room", () => {
+        console.log("successfully joined");
+      });
+
+      socket.on("public-message", (message) => {
+        console.log(message);
+      });
+
       const $loginBtn = document.querySelector(".login");
       const $nameInput = document.querySelector(".name");
       const $sendBtn = document.querySelector(".send");
@@ -37,10 +54,15 @@
 
       $sendBtn.addEventListener("click", () => {
         console.log("send to", $recipientInput.value, $messageInput.value);
+        socket.emit("send-to", {
+          recipient: $recipientInput.value,
+          message: $messageInput.value,
+        });
       });
 
       $joinBtn.addEventListener("click", () => {
         console.log("join", $roomInput.value);
+        socket.emit("join-room", $roomInput.value);
       });
     </script>
   </body>
