@@ -1,12 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const { graphqlHTTP } = require("express-graphql");
 const { connect } = require("./db");
 const artistsController = require("./controllers/artists");
+const schema = require("./schema");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    pretty: true,
+    graphiql: true,
+  })
+);
 
 app.get("/", (_, res) => {
   res.send("Hello API");
