@@ -5,30 +5,32 @@ const {
   GraphQLNonNull,
   GraphQLID,
   GraphQLString,
+  GraphQLInputObjectType,
 } = require("graphql");
+const Artists = require("../models/artists");
 
 const artistType = new GraphQLObjectType({
   name: "Artist",
   fields: () => ({
-    id: {
+    _id: {
       type: new GraphQLNonNull(GraphQLID),
-      description: "The categoryId",
+      description: "ID",
     },
     name: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: "The name of the category.",
     },
   }),
 });
 
-const artistInputType = new GraphQLObjectType({
+const artistInputType = new GraphQLInputObjectType({
   name: "ArtistInput",
-  fields: () => ({
+  fields: {
     name: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: "The name of the category.",
     },
-  }),
+  },
 });
 
 const rootMutation = new GraphQLObjectType({
@@ -37,10 +39,18 @@ const rootMutation = new GraphQLObjectType({
     createArtist: {
       type: artistType,
       args: {
-        artist: new GraphQLNonNull(artistInputType),
+        artist: {
+          type: new GraphQLNonNull(artistInputType),
+        },
       },
-      resolve: async (_, { artist }) => {
-        return await Artists.create(artist);
+      resolve: async (root, args) => {
+        console.log("artist", root, args.artist.name);
+        try {
+          const doc = await Artists.create(args.artist);
+          return doc;
+        } catch (err) {
+          throw new Error(err.message);
+        }
       },
     },
   },
