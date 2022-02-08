@@ -35,7 +35,10 @@ export const getComments = async () => {
   ];
 };
 
-export const createComment = async (text, parentId = null) => {
+export const createComment = async (
+  text: string,
+  parentId: string | null = null
+) => {
   return {
     id: Math.random().toString(36).substr(2, 9),
     body: text,
@@ -46,10 +49,10 @@ export const createComment = async (text, parentId = null) => {
   };
 };
 
-export const updateComment = async (text) => {
+export const updateComment = async (id: string, text: string) => {
   return { text };
 };
 
-export const deleteComment = async () => {
+export const deleteComment = async (id: string) => {
   return {};
 };
