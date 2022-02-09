@@ -7,13 +7,13 @@
     <comment
       *ngFor="let rootComment of rootComments"
       [comment]="rootComment"
-      replies="getReplies(rootComment.id)"
+      [replies]="getReplies(rootComment.id)"
       activeComment="activeComment"
-      (setActiveComment)="setActiveComment()"
+      (setActiveComment)="setActiveComment($event)"
       (addComment)="addComment($event)"
       (deleteComment)="deleteComment()"
       (updateComment)="updateComment()"
-      currentUserId="currentUserId"
+      [currentUserId]="currentUserId"
     >
     </comment>
   </div>

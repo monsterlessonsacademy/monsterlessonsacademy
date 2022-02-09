@@ -1,21 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommentComponent } from './components/comment/comment.component';
 import { CommentFormComponent } from './components/commentForm/commentForm.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CommentsService } from './services/comments.service';
 
-const routes = [
-  {
-    path: '',
-    component: CommentsComponent,
-  },
-];
-
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule],
   declarations: [CommentsComponent, CommentComponent, CommentFormComponent],
   providers: [CommentsService],
+  exports: [CommentsComponent],
 })
 export class CommentsModule {}

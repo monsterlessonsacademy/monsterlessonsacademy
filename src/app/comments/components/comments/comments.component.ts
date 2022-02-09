@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CommentsService } from '../../services/comments.service';
+import { ActiveCommentInterface } from '../../types/activeComment.interface';
 import { CommentInterface } from '../../types/comment.interface';
 
 @Component({
@@ -8,8 +9,11 @@ import { CommentInterface } from '../../types/comment.interface';
   templateUrl: './comments.component.html',
 })
 export class CommentsComponent implements OnInit {
+  @Input() currentUserId!: string;
+
   comments: CommentInterface[] = [];
   rootComments: CommentInterface[] = [];
+  activeComment: ActiveCommentInterface | null = null;
 
   constructor(private commentsService: CommentsService) {}
 
@@ -26,7 +30,18 @@ export class CommentsComponent implements OnInit {
 
   deleteComment(): void {}
 
-  setActiveComment(): void {}
+  setActiveComment(activeComment: ActiveCommentInterface): void {
+    this.activeComment = activeComment;
+  }
 
   addComment(foo: any): void {}
+
+  getReplies(commentId: string): CommentInterface[] {
+    return this.comments
+      .filter((comment) => comment.parentId === commentId)
+      .sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+  }
 }

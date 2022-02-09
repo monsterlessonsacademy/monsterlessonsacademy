@@ -1,64 +1,72 @@
-    <div class="comment">
-      <div class="comment-image-container">
-        <img src="/user-icon.png" />
+<div class="comment">
+  <div class="comment-image-container">
+    <img src="/assets/user-icon.png" />
+  </div>
+  <div class="comment-right-part">
+    <div class="comment-content">
+      <div class="comment-author">{{ comment.username }}</div>
+      <div>{{ createdAt }}</div>
+    </div>
+    <div class="comment-text" *ngIf="!isEditing">{{ comment.body }}</div>
+    <!-- <comment-form -->
+    <!--   *ngIf="isEditing" -->
+    <!--   submitLabel="Update" -->
+    <!--   [hasCancelButton]="true" -->
+    <!--   [initialText]="comment.body" -->
+    <!--   (handleSubmit)="updateComment($event, comment.id)" -->
+    <!--   (handleCancel)="setActiveComment(null)" -->
+    <!--   ></comment-form> -->
+    <div class="comment-actions">
+      <div
+        *ngIf="canReply"
+        class="comment-action"
+        (click)="
+          setActiveComment.emit({
+            id: comment.id,
+            type: activeCommentType.replying
+          })
+        "
+      >
+        Reply
       </div>
-      <div class="comment-right-part">
-        <div class="comment-content">
-          <div class="comment-author">{{comment.username}}</div>
-          <div>{{createdAt}}</div>
-        </div>
-        <div class="comment-text" *ngIf="!isEditing">{{comment.body}}</div>
-          <comment-form
-            *ngIf="isEditing"
-            submitLabel="Update"
-            [hasCancelButton]="true"
-            [initialText]="comment.body"
-            (handleSubmit)="updateComment($event, comment.id)"
-            (handleCancel)="setActiveComment(null)"
-            ></comment-form>
-        <div class="comment-actions">
-            <div
-              *ngIf="canReply"
-              class="comment-action"
-              (click)=
-                "setActiveComment({ id: comment.id, type: "replying" })"
-            >
-              Reply
-            </div>
-            <div
-              *ngIf="canEdit"
-              class="comment-action"
-              (click)=
-                "setActiveComment({ id: comment.id, type: "editing" })"
-            >
-              Edit
-            </div>
-            <div
-              *ngIf="canDelete"
-              class="comment-action"
-              (click)="deleteComment(comment.id)}"
-            >
-              Delete
-            </div>
-        </div>
-          <comment-form
-            *ngIf="isReplying"
-            submitLabel="Reply"
-            (handleSubmit)="addComment($event, replyId)}"
-            ></comment-form>
-        <div class="replies" *ngIf="replies.length > 0">
-              <comment
-                *ngFor="reply of replies"
-                [comment]="reply"
-                (setActiveComment)="setActiveComment($event)"
-                [activeComment]="activeComment($event)"
-                (updateComment)="updateComment($event)"
-                (deleteComment)="deleteComment($event)"
-                (addComment)="addComment($event)"
-                [parentId]="comment.id"
-                [replies]="[]"
-                [currentUserId]="currentUserId"
-                  ></comment>
-          </div>
+      <div
+        *ngIf="canEdit"
+        class="comment-action"
+        (click)="
+          setActiveComment.emit({
+            id: comment.id,
+            type: activeCommentType.editing
+          })
+        "
+      >
+        Edit
+      </div>
+      <div
+        *ngIf="canDelete"
+        class="comment-action"
+        (click)="deleteComment.emit(comment.id)"
+      >
+        Delete
       </div>
     </div>
+    <!-- <comment-form -->
+    <!--   *ngIf="isReplying" -->
+    <!--   submitLabel="Reply" -->
+    <!--   (handleSubmit)="addComment($event, replyId)}" -->
+    <!--   ></comment-form> -->
+    <!-- <div class="replies" *ngIf="replies.length > 0"> -->
+    <!--     <comment -->
+    <!--       *ngFor="reply of replies" -->
+    <!--       [comment]="reply" -->
+    <!--       (setActiveComment)="setActiveComment($event)" -->
+    <!--       [activeComment]="activeComment($event)" -->
+    <!--       (updateComment)="updateComment($event)" -->
+    <!--       (deleteComment)="deleteComment($event)" -->
+    <!--       (addComment)="addComment($event)" -->
+    <!--       [parentId]="comment.id" -->
+    <!--       [replies]="[]" -->
+    <!--       [currentUserId]="currentUserId" -->
+    <!--         ></comment> -->
+    <!-- </div> -->
+  </div>
+</div>
