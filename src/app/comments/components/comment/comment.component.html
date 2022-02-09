@@ -8,14 +8,16 @@
       <div>{{ createdAt }}</div>
     </div>
     <div class="comment-text" *ngIf="!isEditing">{{ comment.body }}</div>
-    <!-- <comment-form -->
-    <!--   *ngIf="isEditing" -->
-    <!--   submitLabel="Update" -->
-    <!--   [hasCancelButton]="true" -->
-    <!--   [initialText]="comment.body" -->
-    <!--   (handleSubmit)="updateComment($event, comment.id)" -->
-    <!--   (handleCancel)="setActiveComment(null)" -->
-    <!--   ></comment-form> -->
+    <comment-form
+      *ngIf="isEditing"
+      submitLabel="Update"
+      [hasCancelButton]="true"
+      [initialText]="comment.body"
+      (handleSubmit)="
+        updateComment.emit({ text: $event, commentId: comment.id })
+      "
+      (handleCancel)="setActiveComment.emit(null)"
+    ></comment-form>
     <div class="comment-actions">
       <div
         *ngIf="canReply"

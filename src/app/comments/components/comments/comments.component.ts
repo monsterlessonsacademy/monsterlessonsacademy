@@ -30,7 +30,7 @@ export class CommentsComponent implements OnInit {
 
   deleteComment(): void {}
 
-  setActiveComment(activeComment: ActiveCommentInterface): void {
+  setActiveComment(activeComment: ActiveCommentInterface | null): void {
     this.activeComment = activeComment;
   }
 

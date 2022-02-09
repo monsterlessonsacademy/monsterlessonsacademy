@@ -13,9 +13,11 @@ export class CommentComponent implements OnInit {
   @Input() currentUserId!: string;
 
   @Output()
-  setActiveComment = new EventEmitter<ActiveCommentInterface>();
+  setActiveComment = new EventEmitter<ActiveCommentInterface | null>();
   @Output()
   deleteComment = new EventEmitter<string>();
+  @Output()
+  updateComment = new EventEmitter<{ text: string; commentId: string }>();
 
   createdAt: string = '';
   isEditing: boolean = false;
