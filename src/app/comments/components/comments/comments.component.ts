@@ -31,10 +31,19 @@ export class CommentsComponent implements OnInit {
   deleteComment(): void {}
 
   setActiveComment(activeComment: ActiveCommentInterface | null): void {
+    console.log('setActiveComment', activeComment);
     this.activeComment = activeComment;
   }
 
-  addComment(foo: any): void {}
+  addComment({
+    text,
+    parentId,
+  }: {
+    text: string;
+    parentId: string | null;
+  }): void {
+    console.log('addComment', text, parentId);
+  }
 
   getReplies(commentId: string): CommentInterface[] {
     return this.comments

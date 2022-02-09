@@ -51,24 +51,24 @@
         Delete
       </div>
     </div>
-    <!-- <comment-form -->
-    <!--   *ngIf="isReplying" -->
-    <!--   submitLabel="Reply" -->
-    <!--   (handleSubmit)="addComment($event, replyId)}" -->
-    <!--   ></comment-form> -->
-    <!-- <div class="replies" *ngIf="replies.length > 0"> -->
-    <!--     <comment -->
-    <!--       *ngFor="reply of replies" -->
-    <!--       [comment]="reply" -->
-    <!--       (setActiveComment)="setActiveComment($event)" -->
-    <!--       [activeComment]="activeComment($event)" -->
-    <!--       (updateComment)="updateComment($event)" -->
-    <!--       (deleteComment)="deleteComment($event)" -->
-    <!--       (addComment)="addComment($event)" -->
-    <!--       [parentId]="comment.id" -->
-    <!--       [replies]="[]" -->
-    <!--       [currentUserId]="currentUserId" -->
-    <!--         ></comment> -->
-    <!-- </div> -->
+    <comment-form
+      *ngIf="isReplying()"
+      submitLabel="Reply"
+      (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
+    ></comment-form>
+    <div class="replies" *ngIf="replies.length > 0">
+      <comment
+        *ngFor="let reply of replies"
+        [comment]="reply"
+        (setActiveComment)="setActiveComment.emit($event)"
+        [activeComment]="activeComment"
+        (updateComment)="updateComment.emit($event)"
+        (deleteComment)="deleteComment.emit($event)"
+        (addComment)="addComment.emit($event)"
+        [parentId]="comment.id"
+        [replies]="[]"
+        [currentUserId]="currentUserId"
+      ></comment>
+    </div>
   </div>
 </div>
