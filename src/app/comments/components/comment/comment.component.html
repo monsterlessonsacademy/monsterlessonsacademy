@@ -5,7 +5,7 @@
       <div class="comment-right-part">
         <div class="comment-content">
           <div class="comment-author">{{comment.username}}</div>
-          <div>{createdAt}</div>
+          <div>{{createdAt}}</div>
         </div>
         <div class="comment-text" *ngIf="!isEditing">{{comment.body}}</div>
           <comment-form
@@ -17,58 +17,48 @@
             (handleCancel)="setActiveComment(null)"
             ></comment-form>
         <div class="comment-actions">
-          {canReply && (
             <div
+              *ngIf="canReply"
               class="comment-action"
-              onClick={() =>
-                setActiveComment({ id: comment.id, type: "replying" })
-              }
+              (click)=
+                "setActiveComment({ id: comment.id, type: "replying" })"
             >
               Reply
             </div>
-          )}
-          {canEdit && (
             <div
+              *ngIf="canEdit"
               class="comment-action"
-              onClick={() =>
-                setActiveComment({ id: comment.id, type: "editing" })
-              }
+              (click)=
+                "setActiveComment({ id: comment.id, type: "editing" })"
             >
               Edit
             </div>
-          )}
-          {canDelete && (
             <div
+              *ngIf="canDelete"
               class="comment-action"
-              onClick={() => deleteComment(comment.id)}
+              (click)="deleteComment(comment.id)}"
             >
               Delete
             </div>
-          )}
         </div>
-        {isReplying && (
-          <CommentForm
+          <comment-form
+            *ngIf="isReplying"
             submitLabel="Reply"
-            handleSubmit={(text) => addComment(text, replyId)}
-          />
-        )}
-        {replies.length > 0 && (
-          <div class="replies">
-            {replies.map((reply) => (
-              <Comment
-                comment={reply}
-                key={reply.id}
-                setActiveComment={setActiveComment}
-                activeComment={activeComment}
-                updateComment={updateComment}
-                deleteComment={deleteComment}
-                addComment={addComment}
-                parentId={comment.id}
-                replies={[]}
-                currentUserId={currentUserId}
-              />
-            ))}
+            (handleSubmit)="addComment($event, replyId)}"
+            ></comment-form>
+        <div class="replies" *ngIf="replies.length > 0">
+              <comment
+                *ngFor="reply of replies"
+                [comment]="reply"
+                (setActiveComment)="setActiveComment($event)"
+                [activeComment]="activeComment($event)"
+                (updateComment)="updateComment($event)"
+                (deleteComment)="deleteComment($event)"
+                (addComment)="addComment($event)"
+                [parentId]="comment.id"
+                [replies]="[]"
+                [currentUserId]="currentUserId"
+                  ></comment>
           </div>
-        )}
       </div>
     </div>
