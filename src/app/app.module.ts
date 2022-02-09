@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,7 +8,7 @@ import { CommentsModule } from './comments/comments.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, CommentsModule],
+  imports: [BrowserModule, AppRoutingModule, CommentsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

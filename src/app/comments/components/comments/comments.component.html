@@ -1,11 +1,12 @@
-<div className="comments">
-  <h3 className="comments-title">Comments</h3>
-  <div className="comment-form-title">Write comment</div>
+<div class="comments">
+  <h3 class="comments-title">Comments</h3>
+  <div class="comment-form-title">Write comment</div>
   <comment-form submitLabel="Write" (handleSubmit)="addComment($event)">
   </comment-form>
-  <div className="comments-container">
+  <div class="comments-container">
     <comment
-      comment="rootComment"
+      *ngFor="let rootComment of rootComments"
+      [comment]="rootComment"
       replies="getReplies(rootComment.id)"
       activeComment="activeComment"
       (setActiveComment)="setActiveComment()"

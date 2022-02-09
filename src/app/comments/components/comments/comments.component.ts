@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CommentsService } from '../../services/comments.service';
 import { CommentInterface } from '../../types/comment.interface';
@@ -7,13 +7,20 @@ import { CommentInterface } from '../../types/comment.interface';
   selector: 'comments',
   templateUrl: './comments.component.html',
 })
-export class CommentsComponent {
-  rootComments$: Observable<CommentInterface[]>;
+export class CommentsComponent implements OnInit {
+  comments: CommentInterface[] = [];
+  rootComments: CommentInterface[] = [];
 
-  constructor(private commentsService: CommentsService) {
-    this.
+  constructor(private commentsService: CommentsService) {}
+
+  ngOnInit(): void {
+    this.commentsService.getComments().subscribe((comments) => {
+      this.comments = comments;
+      this.rootComments = comments.filter(
+        (comment) => comment.parentId === null
+      );
+    });
   }
-
 
   updateComment(): void {}
 
