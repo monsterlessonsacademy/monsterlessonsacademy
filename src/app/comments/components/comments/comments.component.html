@@ -8,14 +8,14 @@
   </comment-form>
   <div class="comments-container">
     <comment
-      *ngFor="let rootComment of rootComments"
+      *ngFor="let rootComment of getRootComments()"
       [comment]="rootComment"
       [replies]="getReplies(rootComment.id)"
       [activeComment]="activeComment"
       (setActiveComment)="setActiveComment($event)"
       (addComment)="addComment($event)"
-      (deleteComment)="deleteComment()"
-      (updateComment)="updateComment()"
+      (deleteComment)="deleteComment($event)"
+      (updateComment)="updateComment($event)"
       [currentUserId]="currentUserId"
     >
     </comment>

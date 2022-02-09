@@ -13,12 +13,22 @@ export class CommentsService {
     );
   }
 
-  // createComment(
-  //   text: string,
-  //   parentId: string | null = null
-  // ): Observable<CommentInterface> {
-  //   return from(api.createComment(text, parentId));
-  // }
+  createComment(
+    text: string,
+    parentId: string | null = null
+  ): Observable<CommentInterface> {
+    return this.httpClient.post<CommentInterface>(
+      'http://localhost:3000/comments',
+      {
+        body: text,
+        parentId,
+        // Should not be set here
+        createdAt: new Date().toISOString(),
+        userId: '1',
+        username: 'John',
+      }
+    );
+  }
 
   // updateComment(id: string, text: string): Observable<{ text: string }> {
   //   return from(api.updateComment(id, text));
