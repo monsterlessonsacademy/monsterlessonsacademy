@@ -30,11 +30,16 @@ export class CommentsService {
     );
   }
 
-  // updateComment(id: string, text: string): Observable<{ text: string }> {
-  //   return from(api.updateComment(id, text));
-  // }
+  updateComment(id: string, text: string): Observable<CommentInterface> {
+    return this.httpClient.patch<CommentInterface>(
+      `http://localhost:3000/comments/${id}`,
+      {
+        body: text,
+      }
+    );
+  }
 
-  // deleteComment(id: string): Observable<{}> {
-  //   return from(api.deleteComment(id));
-  // }
+  deleteComment(id: string): Observable<{}> {
+    return this.httpClient.delete(`http://localhost:3000/comments/${id}`);
+  }
 }

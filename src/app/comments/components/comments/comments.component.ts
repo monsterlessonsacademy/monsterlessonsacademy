@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CommentsService } from '../../services/comments.service';
 import { ActiveCommentInterface } from '../../types/activeComment.interface';
 import { CommentInterface } from '../../types/comment.interface';
@@ -33,15 +32,29 @@ export class CommentsComponent implements OnInit {
     text: string;
     commentId: string;
   }): void {
-    console.log('updateComment', text, commentId);
+    this.commentsService
+      .updateComment(commentId, text)
+      .subscribe((updatedComment) => {
+        this.comments = this.comments.map((comment) => {
+          if (comment.id === commentId) {
+            return updatedComment;
+          }
+          return comment;
+        });
+
+        this.activeComment = null;
+      });
   }
 
   deleteComment(commentId: string): void {
-    console.log('deleteComment', commentId);
+    this.commentsService.deleteComment(commentId).subscribe(() => {
+      this.comments = this.comments.filter(
+        (comment) => comment.id !== commentId
+      );
+    });
   }
 
   setActiveComment(activeComment: ActiveCommentInterface | null): void {
-    console.log('setActiveComment', activeComment);
     this.activeComment = activeComment;
   }
 
@@ -52,11 +65,11 @@ export class CommentsComponent implements OnInit {
     text: string;
     parentId: string | null;
   }): void {
-    console.log('addComment', text, parentId);
     this.commentsService
       .createComment(text, parentId)
       .subscribe((createdComment) => {
         this.comments = [...this.comments, createdComment];
+        this.activeComment = null;
       });
   }
 

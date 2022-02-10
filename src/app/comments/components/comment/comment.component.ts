@@ -24,7 +24,6 @@ export class CommentComponent implements OnInit {
   updateComment = new EventEmitter<{ text: string; commentId: string }>();
 
   createdAt: string = '';
-  isEditing: boolean = false;
   canReply: boolean = false;
   canEdit: boolean = false;
   canDelete: boolean = false;
@@ -54,6 +53,16 @@ export class CommentComponent implements OnInit {
     return (
       this.activeComment.id === this.comment.id &&
       this.activeComment.type === this.activeCommentType.replying
+    );
+  }
+
+  isEditing(): boolean {
+    if (!this.activeComment) {
+      return false;
+    }
+    return (
+      this.activeComment.id === this.comment.id &&
+      this.activeComment.type === 'editing'
     );
   }
 }
