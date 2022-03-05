@@ -1,3 +1,8 @@
-<h1>Monsterlessons academy</h1>
-
-<comments currentUserId="1"></comments>
+<div class="menu-container" clickOutside (clickOutside)="clickedOutside()">
+  <div class="menu-toggler" (click)="toggleMenu()">Toggle menu</div>
+  <div class="menu" *ngIf="isMenuOpen">
+    <div class="menu-item">News</div>
+    <div class="menu-item">Contacts</div>
+    <div class="menu-item">About</div>
+  </div>
+</div>
