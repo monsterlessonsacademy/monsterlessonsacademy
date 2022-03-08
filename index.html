@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>This is the title of the webpage</title>
+    <title>Monsterlessons Academy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <script src="main.js"></script>
+    <div class="form-container">
+      <div class="form-container__details">
+        <div class="form-container__title">Registration</div>
+        <div class="form-container__subtitle">
+          Welcome to Monsterlessons Academy
+        </div>
+      </div>
+      <form class="form">
+        <div class="form__field">
+          <div class="form__label">Name</div>
+          <input class="form__input" />
+        </div>
+        <div class="form__field">
+          <div class="form__label">Email</div>
+          <input class="form__input" />
+        </div>
+        <div class="form__field">
+          <div class="form__label">Password</div>
+          <input class="form__input" type="password" />
+        </div>
+        <button class="form__submit">Register</button>
+      </form>
+      <div class="form-container__line-divider"></div>
+      <div class="form-container__links">
+        <a href="#" class="form-container__link">Login</a>
+        <a href="#" class="form-container__link">Forgot password</a>
+      </div>
+    </div>
   </body>
 </html>
