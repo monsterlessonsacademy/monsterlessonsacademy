@@ -6,14 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  isMenuOpen: boolean = false;
-
-  clickedOutside(): void {
-    console.log('clickedOutside');
-    this.isMenuOpen = false;
-  }
+  isMenuOpened: boolean = false;
 
   toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  clickedOutside(): void {
+    this.isMenuOpened = false;
   }
 }
