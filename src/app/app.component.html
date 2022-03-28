@@ -1,1 +1,9 @@
 <h1>Monsterlessons academy</h1>
+
+<ng-picker-overlay
+  [apikey]="filestackApiKey"
+  (uploadSuccess)="uploadSuccess($event)"
+  (uploadError)="uploadError($event)"
+>
+  <button>Open picker</button>
+</ng-picker-overlay>

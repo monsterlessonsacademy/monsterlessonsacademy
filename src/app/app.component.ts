@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,13 @@ import { of } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  foo$ = of('fooo');
+  filestackApiKey = environment.filestackApiKey;
+
+  uploadSuccess(res: object) {
+    console.log('uploadSuccess', res);
+  }
+
+  uploadError(err: any) {
+    console.log('###uploadError', err);
+  }
 }
