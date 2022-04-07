@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,10 +10,10 @@ export class AppComponent {
   filestackApiKey = environment.filestackApiKey;
 
   uploadSuccess(res: object) {
-    console.log('uploadSuccess', res);
+    console.log('res', res);
   }
 
   uploadError(err: any) {
-    console.log('###uploadError', err);
+    console.log('err', err);
   }
 }
