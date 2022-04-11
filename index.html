@@ -2,8 +2,40 @@
 <html>
   <head>
     <title>This is the title of the webpage</title>
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
+    <div class="form-container">
+      <div class="form-container__details">
+        <div class="form-container__title">Registration</div>
+        <div class="form-container__subtitle">
+          Welcome to Monsterlessons Academy
+        </div>
+      </div>
+      <form class="form js-form">
+        <div class="form__field">
+          <div class="form__label">Name</div>
+          <input class="form__input js-name-input" />
+          <div class="form__error js-error"></div>
+        </div>
+        <div class="form__field">
+          <div class="form__label">Email</div>
+          <input class="form__input js-email-input" />
+          <div class="form__error js-error"></div>
+        </div>
+        <div class="form__field">
+          <div class="form__label">Password</div>
+          <input class="form__input js-password-input" type="password" />
+          <div class="form__error js-error"></div>
+        </div>
+        <button class="form__submit">Register</button>
+      </form>
+      <div class="form-container__line-divider"></div>
+      <div class="form-container__links">
+        <a href="#" class="form-container__link">Login</a>
+        <a href="#" class="form-container__link">Forgot password</a>
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
