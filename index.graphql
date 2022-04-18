@@ -1,0 +1,3 @@
+schema @sdl(files: ["rest.graphql"]) {
+  query: Query
+}
