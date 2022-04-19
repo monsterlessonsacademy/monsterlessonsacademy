@@ -18,6 +18,11 @@ type Article {
   updatedAt: DateTime
 }
 
+type GlobalFeed {
+  articles: [Article]
+  articlesCount: Int
+}
+
 type CurrentUser {
   bio: String
   email: String
@@ -26,34 +31,16 @@ type CurrentUser {
   username: String
 }
 
-input ArticleInput {
-  title: String!
-}
-
-type GlobalFeed {
-  articles: [Article]
-  articlesCount: Int
-}
-
-type debug {
-  args: JSON
-  data: JSON
-  files: JSON
-  form: JSON
-  headers: JSON
-  json: JSON
-  method: String
-  url: String
-}
 
 type Query {
-  globalFeed(limit: Int!, offset:Int!): GlobalFeed
+  globalFeed (limit: Int!, offset: Int!): GlobalFeed
     @rest(
       endpoint: "https://api.realworld.io/api/articles?limit=$limit&offset=$offset"
     )
+
   article(slug: String!): Article
     @rest(
-      endpoint: "https://api.realworld.io/api/articles/Explore-implementations-1"
+      endpoint: "https://api.realworld.io/api/articles/$slug"
       resultroot: "article"
     )
 }
@@ -61,24 +48,18 @@ type Query {
 type Mutation {
   register(username: String!, email: String!, password: String!): CurrentUser
     @rest(
-      method: POST
-      endpoint: "https://api.realworld.io/api/users"
-      postbody: "{\"user\":{\"email\":\"{{.Get \"email\"}}\",\"password\":\"{{.Get \"password\"}}\",\"username\":\"{{.Get \"username\"}}\"}}"
+      endpoint: "https://api.realworld.io/api/users",
+      method: POST,
+      postbody: "{\"user\": {\"username\": \"{{.Get \"username\"}}\", \"email\": \"{{.Get \"email\"}}\", \"password\": \"{{.Get \"password\"}}\"}}",
       resultroot: "user"
     )
-  login(email: String!, password: String!): CurrentUser
-    @rest(
-      method: POST
-      endpoint: "https://api.realworld.io/api/users/login"
-      postbody: "{\"user\":{\"email\":\"{{.Get \"email\"}}\",\"password\":\"{{.Get \"password\"}}\"}}"
-      resultroot: "user"
-    )
+
   createArticle(title: String!, description: String, body: String, token: String!): Article
     @rest(
-      method: POST
-      endpoint: "https://api.realworld.io/api/articles"
-      headers: [{ name: "Authorization", value: "Token $token"}]
-      postbody: "{\"article\":{\"title\":\"{{.Get \"title\"}}\",\"description\":\"{{.Get \"description\"}}\",\"body\":\"{{.Get \"body\"}}\"}}"
+      endpoint: "https://api.realworld.io/api/articles",
+      method: POST,
+      headers: [{name: "Authorization", value: "Token $token"}]
+      postbody: "{\"article\":{\"title\":\"{{.Get \"title\"}}\",\"description\":\"{{.Get \"description\"}}\",\"body\":\"{{.Get \"body\"}}\"}}",
       resultroot: "article"
     )
 }
