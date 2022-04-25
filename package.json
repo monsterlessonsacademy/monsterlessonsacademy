@@ -1,0 +1,14 @@
+{
+  "name": "monsterlessonsacademy",
+  "version": "1.0.0",
+  "repository": "git@monsterlessonsacademy.github.com:monsterlessonsacademy/monsterlessonsacademy.git",
+  "author": "Oleksandr Kocherhin <monsterlessonsacademy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "rm -rf dist/lib && tsc && tsc --build tsconfig.es5.json"
+  },
+  "devDependencies": {
+    "parcel": "^2.5.0",
+    "typescript": "^4.6.3"
+  }
+}
