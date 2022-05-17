@@ -1,13 +1,9 @@
-import Comments from "./comments/Comments";
-
+import SingleLine from "./SingleLine";
 const App = () => {
   return (
     <div>
       <h1>Hello monsterlessons</h1>
-      <Comments
-        commentsUrl="http://localhost:3004/comments"
-        currentUserId="1"
-      />
+      <SingleLine />
     </div>
   );
 };
