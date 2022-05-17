@@ -10,24 +10,21 @@ exports.create = async (comment) => {
     .get()
     .collection("comments")
     .insertOne({ ...comment, createdAt: new Date() });
-  return {
-    id: result.insertedId,
-    body: comment.body,
-    parentId: comment.parentId,
-    userId: comment.userId,
-    createdAt: createdAt,
-  };
+
+  return db.get().collection("comments").findOne({ _id: result.insertedId });
 };
 
 exports.update = async (id, newData) => {
+  console.log("update", id, newData);
   await db
     .get()
     .collection("comments")
     .updateOne({ _id: ObjectId(id) }, { $set: newData });
-  return {
-    ...newData,
-    _id: id,
-  };
+
+  return db
+    .get()
+    .collection("comments")
+    .findOne({ _id: ObjectId(id) });
 };
 
 exports.delete = (id) => {

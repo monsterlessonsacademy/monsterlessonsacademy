@@ -1,25 +1,23 @@
 const Comments = require("../models/comments");
 
+const normalizeComment = (doc) => {
+  const comment = { ...doc };
+  comment.id = doc._id;
+  delete comment._id;
+  return comment;
+};
+
 exports.all = async (_, res, next) => {
   try {
     const docs = await Comments.all();
-    res.send(docs);
+    const response = docs.map((doc) => normalizeComment(doc));
+    res.send(response);
   } catch (err) {
     return next(err);
   }
 };
 
-// exports.findById = async (req, res, next) => {
-//   try {
-//     const doc = await Artists.findById(req.params.id);
-//     res.send(doc);
-//   } catch (err) {
-//     return next(err);
-//   }
-// };
-
 exports.create = async (req, res, next) => {
-  console.log("create", req.body);
   try {
     const comment = {
       body: req.body.text,
@@ -27,8 +25,8 @@ exports.create = async (req, res, next) => {
       userId: "1",
     };
     const doc = await Comments.create(comment);
-    console.log("doc", doc);
-    res.send(doc);
+    const response = normalizeComment(doc);
+    res.send(response);
   } catch (err) {
     return next(err);
   }
@@ -37,7 +35,8 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
   try {
     const doc = await Comments.update(req.params.id, { body: req.body.text });
-    res.send(doc);
+    const response = normalizeComment(doc);
+    res.send(response);
   } catch (err) {
     return next(err);
   }
