@@ -12,15 +12,10 @@ app.get("/", (_, res) => {
   res.send("Hello API");
 });
 
-// app.get("/artists", artistsController.all);
-
-// app.get("/artists/:id", artistsController.findById);
-
+app.get("/comments", commentsController.all);
 app.post("/comments", commentsController.create);
-
-// app.put("/artists/:id", artistsController.update);
-
-// app.delete("/artists/:id", artistsController.delete);
+app.put("/comments/:id", commentsController.update);
+app.delete("/comments/:id", commentsController.delete);
 
 const startServer = async () => {
   await connect("mongodb://localhost:27017/comments");
