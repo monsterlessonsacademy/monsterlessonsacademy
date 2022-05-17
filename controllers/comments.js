@@ -19,6 +19,7 @@ exports.all = async (_, res, next) => {
 // };
 
 exports.create = async (req, res, next) => {
+  console.log("create", req.body);
   try {
     const comment = {
       body: req.body.text,
@@ -26,6 +27,7 @@ exports.create = async (req, res, next) => {
       userId: "1",
     };
     const doc = await Comments.create(comment);
+    console.log("doc", doc);
     res.send(doc);
   } catch (err) {
     return next(err);

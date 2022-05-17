@@ -6,8 +6,17 @@ exports.all = () => {
 };
 
 exports.create = async (comment) => {
-  await db.get().collection("comments").insertOne(comment);
-  return comment;
+  const result = await db
+    .get()
+    .collection("comments")
+    .insertOne({ ...comment, createdAt: new Date() });
+  return {
+    id: result.insertedId,
+    body: comment.body,
+    parentId: comment.parentId,
+    userId: comment.userId,
+    createdAt: createdAt,
+  };
 };
 
 exports.update = async (id, newData) => {
