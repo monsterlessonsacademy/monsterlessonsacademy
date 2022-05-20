@@ -20,6 +20,6 @@ exports.connect = async (url, dbname) => {
   }
 };
 
-exports.get = function () {
+exports.get = () => {
   return state.db;
 };

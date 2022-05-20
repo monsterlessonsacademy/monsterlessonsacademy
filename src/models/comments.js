@@ -15,7 +15,6 @@ exports.create = async (comment) => {
 };
 
 exports.update = async (id, newData) => {
-  console.log("update", id, newData);
   await db
     .get()
     .collection("comments")
