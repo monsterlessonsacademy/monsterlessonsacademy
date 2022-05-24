@@ -2,22 +2,16 @@
 
 <button (click)="fadeInOut()">Fade in / out</button>
 
-<!-- v5 -->
-<!-- <div @fadeInOut *ngIf="isShown">This is a block with fade in / out</div> -->
+<div @fadeInOut *ngIf="isShown">This is a block with fade in / out</div>
 
-<!-- v3 v4 -->
+<!-- v2 -->
 <!-- <div -->
-<!--   [@fadeInOut]="isShown ? 'open' : 'closed'" -->
+<!--   [@fadeInOut]="isShown ? 'open' : 'close'" -->
 <!--   (@fadeInOut.start)="onAnimationStart($event)" -->
-<!--   (@fadeInOut.done)="onAnimationEnd($event)" -->
+<!--   (@fadeInOut.done)="onAnimationDone($event)" -->
 <!-- > -->
 <!--   This is a block with fade in / out -->
 <!-- </div> -->
 
-<!-- v2 -->
-<!-- <div [@fadeInOut]="isShown ? 'open' : 'closed'"> -->
-<!--   This is a block with fade in / out -->
-<!-- </div> -->
-
 <!-- v1 -->
-<div *ngIf="isShown" @fadeIn @fadeOut>This is a block with fade in / out</div>
+<!-- <div *ngIf="isShown" @fadeIn @fadeOut>This is a block with fade in / out</div> -->
