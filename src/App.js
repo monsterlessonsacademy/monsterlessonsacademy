@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import ArticlesTable from "./ArticlesTable";
 
@@ -30,22 +30,55 @@ const initialArticles = [
   },
 ];
 
-const App = () => {
-  const [articles, setArticles] = useState(initialArticles);
-  const filterArticles = (searchValue) => {
-    if (searchValue === "") {
-      setArticles(initialArticles);
-      return;
-    }
-    const filteredArticles = articles.filter((article) =>
-      article.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
+const fetchArticles = (searchValue) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (searchValue === "") {
+        resolve(initialArticles);
+        return;
+      }
 
+      const filteredArticles = initialArticles.filter((article) =>
+        article.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      resolve(filteredArticles);
+    }, 2000);
+  });
+};
+
+const filterArticles = (searchValue) => {
+  if (searchValue === "") {
+    return initialArticles;
+  }
+  return initialArticles.filter((article) =>
+    article.title.toLowerCase().includes(searchValue.toLowerCase())
+  );
+};
+
+const App = () => {
+  // const [articles, setArticles] = useState(initialArticles);
+  const [articles, setArticles] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  console.log("searchValue", searchValue);
+
+  useEffect(() => {
+    const filteredArticles = filterArticles(searchValue);
     setArticles(filteredArticles);
-  };
+  }, [searchValue]);
+
+  // useEffect(() => {
+  //   setArticles([]);
+  //   fetchArticles(searchValue).then((articles) => {
+  //     setArticles(articles);
+  //   });
+  // }, [searchValue]);
+
   return (
-    <div>
-      <SearchBar callback={filterArticles} />
+    <div className="container">
+      <SearchBar
+        callback={(searchValue) => setSearchValue(searchValue)}
+        searchValue={searchValue}
+      />
       <ArticlesTable articles={articles} />
     </div>
   );

@@ -1,8 +1,10 @@
 const ArticlesTable = ({ articles }) => {
   return (
-    <div>
+    <div className="articlesTable">
       {articles.map((article) => (
-        <div key={article.id}>{article.title}</div>
+        <div key={article.id} className="article">
+          {article.title}
+        </div>
       ))}
     </div>
   );
