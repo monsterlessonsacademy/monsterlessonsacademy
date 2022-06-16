@@ -1,23 +1,52 @@
-import ImageSlider from "./ImageSlider";
+import { useState } from "react";
+import SearchBar from "./SearchBar";
+import ArticlesTable from "./ArticlesTable";
+
+const initialArticles = [
+  {
+    id: "1",
+    slug: "/posts/5-tips-to-be-a-better-programmer",
+    title: "5 Tips to Be a Better Programmer",
+  },
+  {
+    id: "2",
+    slug: "/posts/how-to-center-elements-using-css",
+    title: "How to Center Elements Using CSS",
+  },
+  {
+    id: "3",
+    slug: "/posts/how-to-validate-javascript-forms-for-beginners",
+    title: "How to Validate Javascript Forms for Beginners",
+  },
+  {
+    id: "4",
+    slug: "/posts/sort-array-method-you-need-to-know-this-cases",
+    title: "Sort Array Method - You Need to Know This Cases",
+  },
+  {
+    id: "5",
+    slug: "/posts/25-coding-terms-for-beginners",
+    title: "25 Coding Terms for Beginners",
+  },
+];
+
 const App = () => {
-  const slides = [
-    { url: "http://localhost:3000/image-1.jpg", title: "beach" },
-    { url: "http://localhost:3000/image-2.jpg", title: "boat" },
-    { url: "http://localhost:3000/image-3.jpg", title: "forest" },
-    { url: "http://localhost:3000/image-4.jpg", title: "city" },
-    { url: "http://localhost:3000/image-5.jpg", title: "italy" },
-  ];
-  const containerStyles = {
-    width: "500px",
-    height: "280px",
-    margin: "0 auto",
+  const [articles, setArticles] = useState(initialArticles);
+  const filterArticles = (searchValue) => {
+    if (searchValue === "") {
+      setArticles(initialArticles);
+      return;
+    }
+    const filteredArticles = articles.filter((article) =>
+      article.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    setArticles(filteredArticles);
   };
   return (
     <div>
-      <h1>Hello monsterlessons</h1>
-      <div style={containerStyles}>
-        <ImageSlider slides={slides} />
-      </div>
+      <SearchBar callback={filterArticles} />
+      <ArticlesTable articles={articles} />
     </div>
   );
 };
