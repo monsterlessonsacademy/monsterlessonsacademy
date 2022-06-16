@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +6,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  article = { title: 'Foo' };
+  article: { title: string } | null = { title: 'Foo' };
+
   numbers = [1, 2, 3];
 }

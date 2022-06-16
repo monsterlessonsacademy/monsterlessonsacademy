@@ -4,8 +4,25 @@
   *ngTemplateOutlet="articleTemplate;context: {article}"
 ></ng-container>
 
+<!-- <app-child> -->
+<!--   <div>{{ article?.title }}</div> -->
+<!-- </app-child> -->
+
+<!-- <ng-container *ngIf="numbers"> -->
+<!--   <ng-container *ngFor="let number of numbers">{{ number }}</ng-container> -->
+<!-- </ng-container> -->
+
+<!-- <div class="article" *ngIf="article; else loading">{{ article.title }}</div> -->
+
+<!-- <div class="article" *ngIf="article">{{ article.title }}</div> -->
+<!-- <div *ngIf="!article">Loading...</div> -->
+
+<!-- <ng-template [ngIf]="article" [ngIfElse]="loading"> -->
+<!--   <div class="article">{{ article.title }}</div> -->
+<!-- </ng-template> -->
+
 <ng-template #loadingTemplate>
-  <div>Loading...</div>
+  <div>Loading..</div>
 </ng-template>
 
 <ng-template #articleTemplate let-article="article">
