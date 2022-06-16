@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import ArticleTable from "./ArticleTable";
 import SearchBar from "./SearchBar";
-import ArticlesTable from "./ArticlesTable";
 
 const initialArticles = [
   {
@@ -37,7 +37,6 @@ const fetchArticles = (searchValue) => {
         resolve(initialArticles);
         return;
       }
-
       const filteredArticles = initialArticles.filter((article) =>
         article.title.toLowerCase().includes(searchValue.toLowerCase())
       );
@@ -56,30 +55,21 @@ const filterArticles = (searchValue) => {
 };
 
 const App = () => {
-  // const [articles, setArticles] = useState(initialArticles);
   const [articles, setArticles] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  console.log("searchValue", searchValue);
 
   useEffect(() => {
-    const filteredArticles = filterArticles(searchValue);
-    setArticles(filteredArticles);
+    setArticles([]);
+    fetchArticles(searchValue).then((articles) => {
+      setArticles(articles);
+    });
+    // const filteredArticles = filterArticles(searchValue);
+    // setArticles(filteredArticles);
   }, [searchValue]);
-
-  // useEffect(() => {
-  //   setArticles([]);
-  //   fetchArticles(searchValue).then((articles) => {
-  //     setArticles(articles);
-  //   });
-  // }, [searchValue]);
-
   return (
     <div className="container">
-      <SearchBar
-        callback={(searchValue) => setSearchValue(searchValue)}
-        searchValue={searchValue}
-      />
-      <ArticlesTable articles={articles} />
+      <SearchBar callback={(searchValue) => setSearchValue(searchValue)} />
+      <ArticleTable articles={articles} />
     </div>
   );
 };

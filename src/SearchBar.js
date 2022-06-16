@@ -1,31 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const SearchBar = ({ placeholder = "Search...", searchValue, callback }) => {
+const SearchBar = ({callback}) => {
   const [innerValue, setInnerValue] = useState("");
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    callback(innerValue);
-  };
-  const clearSearch = () => {
-    setInnerValue("");
-    callback("");
-  };
-
-  useEffect(() => {
-    setInnerValue(searchValue);
-  }, [searchValue]);
+  const handleSubmit = e => {
+    e.preventDefault()
+    callback(innerValue)
+  }
   return (
-    <form onSubmit={handleSubmit} className="searchBar">
+    <form className="searchBar" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder={placeholder}
+        className="searchBarInput"
         value={innerValue}
         onChange={(e) => setInnerValue(e.target.value)}
-      className="searchBarInput"
       />
-      <div onClick={clearSearch} className="searchBarClear">
-        &times;
-      </div>
     </form>
   );
 };
