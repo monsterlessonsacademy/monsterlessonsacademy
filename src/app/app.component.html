@@ -1,17 +1,13 @@
 <h1>Monsterlessons academy</h1>
 
-<button (click)="fadeInOut()">Fade in / out</button>
+<ng-container
+  *ngTemplateOutlet="articleTemplate;context: {article}"
+></ng-container>
 
-<div @fadeInOut *ngIf="isShown">This is a block with fade in / out</div>
+<ng-template #loadingTemplate>
+  <div>Loading...</div>
+</ng-template>
 
-<!-- v2 -->
-<!-- <div -->
-<!--   [@fadeInOut]="isShown ? 'open' : 'close'" -->
-<!--   (@fadeInOut.start)="onAnimationStart($event)" -->
-<!--   (@fadeInOut.done)="onAnimationDone($event)" -->
-<!-- > -->
-<!--   This is a block with fade in / out -->
-<!-- </div> -->
-
-<!-- v1 -->
-<!-- <div *ngIf="isShown" @fadeIn @fadeOut>This is a block with fade in / out</div> -->
+<ng-template #articleTemplate let-article="article">
+  <div>{{ article.title }}</div>
+</ng-template>
