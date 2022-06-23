@@ -1,75 +1,53 @@
+import { Component, OnInit } from '@angular/core';
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import { Component } from '@angular/core';
-
-// const enterTransition = transition(':enter', [
-//   style({
-//     opacity: 0,
-//   }),
-//   animate('1s ease-in', style({ opacity: 1 })),
-// ]);
-// const exitTransition = transition(':leave', [
-//   style({
-//     opacity: 1,
-//   }),
-//   animate('1s ease-out', style({ opacity: 0 })),
-// ]);
-// const fadeIn = trigger('fadeIn', [enterTransition]);
-// const fadeOut = trigger('fadeOut', [exitTransition]);
-
-// v2
-// const fadeInOut = trigger('fadeInOut', [
-//   state(
-//     'open',
-//     style({
-//       opacity: 1,
-//     })
-//   ),
-//   state(
-//     'close',
-//     style({
-//       opacity: 0,
-//     })
-//   ),
-//   transition('open => *', [animate('1s ease-out')]),
-//   transition('* => open', [animate('1s ease-in')]),
-// ]);
-
-const fadeInOut = trigger('fadeInOut', [
-  state(
-    'in',
-    style({
-      opacity: 1,
-    })
-  ),
-  transition('void => *', [style({ opacity: 0 }), animate('1s ease-out')]),
-  transition('* => void', [animate('1s ease-out'), style({ opacity: 0 })]),
-]);
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  fromEvent,
+  map,
+  of,
+} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [fadeInOut],
-  // animations: [fadeIn, fadeOut],
 })
-export class AppComponent {
-  isShown = false;
+export class AppComponent implements OnInit {
+  users$ = of([
+    { id: '1', name: 'John', isActive: true },
+    { id: '2', name: 'Jack', isActive: true },
+    { id: '2', name: 'Mike', isActive: true },
+  ]);
 
-  fadeInOut(): void {
-    this.isShown = !this.isShown;
-  }
+  usernames$ = this.users$.pipe(map((users) => users.map((user) => user.name)));
 
-  onAnimationStart(event: any) {
-    console.log('onAnimationStart', event);
-  }
+  user$ = new BehaviorSubject<{ id: string; name: string } | null>(null);
 
-  onAnimationDone(event: any) {
-    console.log('onAnimationDone', event);
+  filteredUsers$ = this.users$.pipe(
+    filter((users) => users.every((user) => user.isActive))
+  );
+
+  documentClick$ = fromEvent(document, 'click');
+
+  data$ = combineLatest([
+    this.users$,
+    this.usernames$,
+    this.filteredUsers$,
+  ]).pipe(
+    map(([users, usernames, filteredUsers]) => ({
+      users,
+      usernames,
+      filteredUsers,
+    }))
+  );
+
+  ngOnInit(): void {
+    this.data$.subscribe((data) => {
+      console.log('data', data);
+    });
+    // setTimeout(() => {
+    //   this.user$.next({ id: '1', name: 'John' });
+    // }, 2000);
   }
 }
