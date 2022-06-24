@@ -14,21 +14,18 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  users$ = of([
+  users = [
     { id: '1', name: 'John', isActive: true },
     { id: '2', name: 'Jack', isActive: true },
     { id: '2', name: 'Mike', isActive: true },
-  ]);
-
-  usernames$ = this.users$.pipe(map((users) => users.map((user) => user.name)));
-
+  ];
   user$ = new BehaviorSubject<{ id: string; name: string } | null>(null);
 
+  users$ = of(this.users);
+  usernames$ = this.users$.pipe(map((users) => users.map((user) => user.name)));
   filteredUsers$ = this.users$.pipe(
     filter((users) => users.every((user) => user.isActive))
   );
-
-  documentClick$ = fromEvent(document, 'click');
 
   data$ = combineLatest([
     this.users$,
@@ -42,12 +39,20 @@ export class AppComponent implements OnInit {
     }))
   );
 
+  // documentClick$ = fromEvent(document, 'click');
+
   ngOnInit(): void {
-    this.data$.subscribe((data) => {
-      console.log('data', data);
-    });
+    // this.documentClick$.subscribe((e) => {
+    //   console.log('e', e);
+    // });
     // setTimeout(() => {
     //   this.user$.next({ id: '1', name: 'John' });
     // }, 2000);
+    // this.user$.subscribe((user) => {
+    //   console.log('user', user);
+    // });
+    // this.filteredUsers$.subscribe((users) => {
+    //   console.log('users', users);
+    // });
   }
 }

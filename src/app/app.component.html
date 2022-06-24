@@ -5,15 +5,29 @@
     {{ user.name }}
   </div>
 
-  ---
+  ----
 
   <div *ngFor="let username of data.usernames">
     {{ username }}
   </div>
 
-  ---
+  ----
 
   <div *ngFor="let user of data.filteredUsers">
     {{ user.name }}
   </div>
 </div>
+
+<!-- <div *ngFor="let user of users$ | async"> -->
+<!--   {{ user.name }} -->
+<!-- </div> -->
+
+<!-- <div *ngFor="let username of usernames$ | async"> -->
+<!--   {{ username }} -->
+<!-- </div> -->
+
+<!-- <div *ngFor="let user of filteredUsers$ | async"> -->
+<!--   {{ user.name }} -->
+<!-- </div> -->
+
+<!-- <div *ngIf="user$ | async as user">{{ user.name }}</div> -->
