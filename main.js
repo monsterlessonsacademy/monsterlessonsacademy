@@ -11,6 +11,9 @@ const clone = (input) => {
   }, initialOutput);
 };
 
-const a = { b: { c: 1 } };
+const a = { b: { c: 2 } };
+// const newA = JSON.parse(JSON.stringify(a));
 const newA = clone(a);
-newA.b.d = 2;
+newA.b.f = 3;
+// const newA = Object.assign({}, a, { c: 2 });
+console.log(a, newA);
