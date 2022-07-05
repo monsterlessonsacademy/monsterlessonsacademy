@@ -1,1 +1,9 @@
-Posts
+<h1>Posts Page</h1>
+
+<div *ngIf="error$ | async as error">{{ error }}</div>
+
+<div *ngIf="isLoading$ | async as isLoading">Loading...</div>
+
+<div *ngFor="let post of posts$ | async">
+  {{ post.title }}
+</div>
