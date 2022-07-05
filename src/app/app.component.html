@@ -1,17 +1,3 @@
 <h1>Monsterlessons academy</h1>
 
-<button (click)="fadeInOut()">Fade in / out</button>
-
-<div @fadeInOut *ngIf="isShown">This is a block with fade in / out</div>
-
-<!-- v2 -->
-<!-- <div -->
-<!--   [@fadeInOut]="isShown ? 'open' : 'close'" -->
-<!--   (@fadeInOut.start)="onAnimationStart($event)" -->
-<!--   (@fadeInOut.done)="onAnimationDone($event)" -->
-<!-- > -->
-<!--   This is a block with fade in / out -->
-<!-- </div> -->
-
-<!-- v1 -->
-<!-- <div *ngIf="isShown" @fadeIn @fadeOut>This is a block with fade in / out</div> -->
+<posts></posts>

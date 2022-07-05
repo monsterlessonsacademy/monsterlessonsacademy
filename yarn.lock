@@ -1209,6 +1209,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@ngrx/store@^14.0.1":
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-14.0.1.tgz#5a9de1bb0c322f0b4ce953339dc3ca4925c41af5"
+  integrity sha512-DoaH7MwRoE8KW6+c+mKczW7HrG9+Uuw+z8jWxZvL3wTnGyBaEOpu7GlVO/JN0nyz4/FW0MIBMYubCM5AAaaDpw==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@13.2.2":
   version "13.2.2"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-13.2.2.tgz#b0e3b6441432dc899c42e0ada1a95c72898bc3bc"
