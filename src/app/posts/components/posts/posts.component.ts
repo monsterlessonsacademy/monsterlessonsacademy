@@ -1,35 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AppStateInterface } from 'src/app/types/appState.interface';
-import * as PostsActions from '../../store/actions';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  errorSelector,
-  isLoadingSelector,
-  postsSelector,
-} from '../../store/selectors';
-import { PostInterface } from '../../types/post.interface';
+  interval,
+  Subject,
+  Subscription,
+  take,
+  takeUntil,
+  takeWhile,
+} from 'rxjs';
+import { Unsub } from './unsub.class';
 
 @Component({
   selector: 'posts',
   templateUrl: './posts.component.html',
 })
-export class PostsComponent implements OnInit {
-  isLoading$: Observable<boolean>;
-  posts$: Observable<PostInterface[]>;
-  error$: Observable<string | null>;
-
-  constructor(private store: Store<AppStateInterface>) {
-    this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    this.posts$ = this.store.pipe(select(postsSelector));
-    this.error$ = this.store.pipe(select(errorSelector));
-  }
+export class PostsComponent extends Unsub implements OnInit, OnDestroy {
+  data$ = interval(1000);
 
   ngOnInit(): void {
-    this.store.dispatch(PostsActions.getPosts());
-
-    this.posts$.subscribe((res) => {
-      console.log('res', res);
+    this.data$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+      console.log('data', data);
     });
   }
 }
