@@ -16,20 +16,16 @@ import { PostInterface } from '../../types/post.interface';
 })
 export class PostsComponent implements OnInit {
   isLoading$: Observable<boolean>;
-  posts$: Observable<PostInterface[]>;
   error$: Observable<string | null>;
+  posts$: Observable<PostInterface[]>;
 
   constructor(private store: Store<AppStateInterface>) {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    this.posts$ = this.store.pipe(select(postsSelector));
     this.error$ = this.store.pipe(select(errorSelector));
+    this.posts$ = this.store.pipe(select(postsSelector));
   }
 
   ngOnInit(): void {
     this.store.dispatch(PostsActions.getPosts());
-
-    this.posts$.subscribe((res) => {
-      console.log('res', res);
-    });
   }
 }
