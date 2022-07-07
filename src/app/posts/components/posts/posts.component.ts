@@ -13,7 +13,7 @@ import { Unsub } from './unsub.class';
   selector: 'posts',
   templateUrl: './posts.component.html',
 })
-export class PostsComponent extends Unsub implements OnInit, OnDestroy {
+export class PostsComponent extends Unsub implements OnInit {
   data$ = interval(1000);
 
   ngOnInit(): void {
