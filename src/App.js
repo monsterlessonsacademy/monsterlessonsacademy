@@ -3,7 +3,6 @@ import Pagination from "./Pagination";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("currentPage", currentPage);
   return (
     <div className="container">
       <Pagination

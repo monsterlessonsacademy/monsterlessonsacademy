@@ -1,6 +1,5 @@
-import React from "react";
-import classNames from "classnames";
 import "./pagination.css";
+import classNames from "classnames";
 
 const range = (start, end) => {
   return [...Array(end).keys()].map((el) => el + start);
@@ -9,7 +8,7 @@ const range = (start, end) => {
 const PaginationItem = ({ page, currentPage, onPageChange }) => {
   const liClasses = classNames({
     "page-item": true,
-    active: currentPage === page,
+    active: page === currentPage,
   });
   return (
     <li className={liClasses} onClick={() => onPageChange(page)}>
@@ -18,10 +17,9 @@ const PaginationItem = ({ page, currentPage, onPageChange }) => {
   );
 };
 
-const Pagination = ({ total, limit, url, currentPage, onPageChange }) => {
+const Pagination = ({ currentPage, total, limit, onPageChange }) => {
   const pagesCount = Math.ceil(total / limit);
   const pages = range(1, pagesCount);
-
   return (
     <ul className="pagination">
       {pages.map((page) => (
@@ -35,5 +33,4 @@ const Pagination = ({ total, limit, url, currentPage, onPageChange }) => {
     </ul>
   );
 };
-
 export default Pagination;
