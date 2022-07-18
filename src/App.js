@@ -1,16 +1,26 @@
-import { useState } from "react";
-import Pagination from "./Pagination";
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./Home";
+const About = React.lazy(() => import("./About"));
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   return (
     <div className="container">
-      <Pagination
-        currentPage={currentPage}
-        total={500}
-        limit={20}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </div>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route
+          path="about"
+          element={
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <About />
+            </React.Suspense>
+          }
+        />
+      </Routes>
     </div>
   );
 };
