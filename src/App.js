@@ -1,6 +1,7 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
+// import About from "./About";
 const About = React.lazy(() => import("./About"));
 
 const App = () => {
@@ -15,7 +16,7 @@ const App = () => {
         <Route
           path="about"
           element={
-            <React.Suspense fallback={<div>Loading...</div>}>
+            <React.Suspense fallback={<div>Loading..</div>}>
               <About />
             </React.Suspense>
           }
