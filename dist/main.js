@@ -1,15 +1,4 @@
-var statuses = {
-    notStarted: 0,
-    inProgress: 1,
-    done: 2
+var foo = function (a, b) {
+    var bar = 1;
+    return a + b;
 };
-console.log(statuses.inProgress);
-var Status;
-(function (Status) {
-    Status["NotStarted"] = "notStarted";
-    Status["InProgress"] = "inProgress";
-    Status["Done"] = "done";
-})(Status || (Status = {}));
-var notStrartedStatus = Status.NotStarted;
-notStrartedStatus = Status.Done;
-console.log(Status.InProgress);
