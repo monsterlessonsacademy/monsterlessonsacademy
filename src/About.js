@@ -1,7 +1,7 @@
-import { hasAboutPageFeature } from "./featureFlag";
+// import { hasAboutPageFeature } from "./featureFlag";
 import { Navigate } from "react-router-dom";
 
-const About = () => {
+const About = ({ hasAboutPageFeature }) => {
   if (!hasAboutPageFeature) {
     return <Navigate to="/" />;
   }
