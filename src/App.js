@@ -1,11 +1,11 @@
-import RechartsExample from "./RechartsExample";
-import ChartJsExample from "./ChartJsExample";
+import Users from "./Users";
+import { usersStore } from "./usersStore";
+
 const App = () => {
   return (
     <div>
       <h1>Monsterlessons Academy</h1>
-      <RechartsExample />
-      <ChartJsExample />
+      <Users store={usersStore} />
     </div>
   );
 };
