@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-// import { hasAboutPageFeature } from "./featureFlag";
+import { hasAboutPageFeature } from "./featureFlag";
 
 const App = () => {
   const [features, setFeatures] = useState([]);
@@ -22,7 +22,10 @@ const App = () => {
       </div>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="about" element={<About hasAboutPageFeature={hasAboutPageFeature} />} />
+        <Route
+          path="about"
+          element={<About hasAboutPageFeature={hasAboutPageFeature} />}
+        />
       </Routes>
     </div>
   );
