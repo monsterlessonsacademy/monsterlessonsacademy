@@ -1,4 +1,4 @@
-import { observable, makeObservable, action, computed } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 
 class UsersStore {
   users = [];
@@ -11,7 +11,7 @@ class UsersStore {
     });
   }
 
-  addUser(name) {
+  addUser = (name) => {
     setTimeout(
       action(() => {
         const newUser = {
@@ -22,7 +22,7 @@ class UsersStore {
       }),
       2000
     );
-  }
+  };
 
   get total() {
     return this.users.length;

@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { observer } from "mobx-react";
+import { useState } from "react";
 
 const Users = observer(({ store }) => {
   const [inputValue, setInputValue] = useState("");
