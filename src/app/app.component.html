@@ -1,3 +1,12 @@
 <h1>Monsterlessons academy</h1>
+<button
+  type="button"
+  class="btn btn-primary"
+  [tooltip]="tooltip"
+  container="body"
+  triggers="click"
+>
+  Simple demo
+</button>
 
-<posts></posts>
+<ng-template #tooltip> Hello {{ username }} </ng-template>
