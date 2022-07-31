@@ -1,23 +1,29 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "./redux/actions/createUser";
+import { getUsers } from "./redux/actions/getUsers";
 
 const Users = () => {
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
-  const [users, setUsers] = useState([]);
+  const users = useSelector((state) => state.users.data);
+  // const [users, setUsers] = useState([]);
   const addUser = () => {
-    const newUser = {
-      id: +Math.random().toFixed(4),
-      name: inputValue,
-    };
-    setUsers([...users, newUser]);
+    dispatch(createUser(inputValue));
+    // const newUser = {
+    //   id: +Math.random().toFixed(4),
+    //   name: inputValue,
+    // };
+    // setUsers([...users, newUser]);
     setInputValue("");
   };
 
   useEffect(() => {
-    axios.get("http://localhost:3004/users").then((response) => {
-      setUsers(response.data);
-    });
-  }, []);
+    dispatch(getUsers());
+    // axios.get("http://localhost:3004/users").then((response) => {
+    //   setUsers(response.data);
+    // });
+  }, [dispatch]);
 
   return (
     <div>
