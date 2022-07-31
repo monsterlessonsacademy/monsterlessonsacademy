@@ -1,9 +1,9 @@
-import SingleLine from "./SingleLine";
+import Users from "./Users";
 const App = () => {
   return (
     <div>
       <h1>Hello monsterlessons</h1>
-      <SingleLine />
+      <Users />
     </div>
   );
 };
