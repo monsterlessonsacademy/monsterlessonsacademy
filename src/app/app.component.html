@@ -1,23 +1,24 @@
 <h1>Monsterlessons academy</h1>
+
 <button
   type="button"
   class="btn btn-primary"
   [tooltip]="tooltip"
-  container="body"
   triggers="click"
+  container="body"
 >
-  Simple demo
+  Checking tooltip
 </button>
 
-<ng-template #tooltip> Hello {{ username }} </ng-template>
+<ng-template #tooltip>Hello {{ username }}</ng-template>
 
 <hr />
 
-<button type="button" class="btn btn-primary" (click)="openModal(template)">
-  Create template modal
+<button type="button" class="btn btn-primary" (click)="openModal(modal)">
+  Open modal
 </button>
 
-<ng-template #template>
+<ng-template #modal>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Modal</h4>
     <button

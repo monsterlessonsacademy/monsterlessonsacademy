@@ -1,5 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,6 @@ export class AppComponent {
   }
 
   onValueChange(value: any): void {
-    console.log('value', value);
+    console.log('onValueChange', value);
   }
 }
