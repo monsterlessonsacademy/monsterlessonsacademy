@@ -1,9 +1,6 @@
-.field {
-  margin-bottom: 10px;
-}
-
-.error {
-  display: inline;
-  color: red;
-  margin-left: 10px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: inherit;
 }

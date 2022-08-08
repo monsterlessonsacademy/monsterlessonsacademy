@@ -1,92 +1,60 @@
-import { Formik } from "formik";
+import styled from "styled-components";
+import Register from "./Register";
+
+const Title = styled.h1`
+  font-size: "16px";
+  text-align: center;
+  color: green;
+`;
+
+const Wrapper = styled.div`
+  padding: 10px;
+`;
+
+const Button = styled.button`
+  color: ${(props) => (props.danger ? "white" : "#CA0B00")};
+  background: ${(props) => (props.danger ? "#CA0B00" : "white")};
+  font-size: 14px;
+  padding: 4px;
+  border: 2px solid #ca0b00;
+  border-radius: 3px;
+`;
+
+const CommentButton = styled(Button)`
+  color: white;
+  background: blue;
+  border: 2px solid transparent;
+`;
+
+const Link = ({ route, name, className }) => (
+  <a href={route} className={className}>
+    {name}
+  </a>
+);
+
+const StyledLink = styled(Link)`
+  color: white;
+  background: purple;
+  &:hover {
+    color: red;
+  }
+`;
 
 const App = () => {
-  const initialValues = {
-    email: "",
-    password: "",
-    username: "",
-  };
-  const registerUser = (values, { setSubmitting }) => {
-    console.log("registerUser", values);
-    setSubmitting(false);
-  };
-  const validate = (values) => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = "Email is required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
-    }
-    if (!values.password) {
-      errors.password = "Password is required";
-    }
-    if (!values.username) {
-      errors.username = "Username is required";
-    }
-    return errors;
-  };
   return (
-    <div>
-      <h1>Hello monsterlessons</h1>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={registerUser}
-        validate={validate}
-      >
-        {({
-          values,
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          errors,
-          touched,
-          isSubmitting,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <div className="field">
-              <input
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
-
-              <div className="error">
-                {errors.email && touched.email && errors.email}
-              </div>
-            </div>
-            <div className="field">
-              <input
-                name="username"
-                placeholder="Username"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.username}
-              />
-              <div className="error">
-                {errors.username && touched.username && errors.username}
-              </div>
-            </div>
-            <div className="field">
-              <input
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
-              <div className="error">
-                {errors.password && touched.password && errors.password}
-              </div>
-            </div>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </form>
-        )}
-      </Formik>
-    </div>
+    <Wrapper>
+      <Title>Hello monsterlessons</Title>
+      <Button>Normal</Button>
+      <Button danger>Normal</Button>
+      <CommentButton>Add comment</CommentButton>
+      <Button as="a" href="#">
+        Link
+      </Button>
+      <Link route="/" name="Some link" />
+      <StyledLink route="/" name="Styled link" />
+      <br />
+      <Register />
+    </Wrapper>
   );
 };
 
