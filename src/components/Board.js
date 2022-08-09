@@ -1,28 +1,25 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
 
-const Board = ({ currentPlayer }) => {
-  const initializeBoard = () => {
-    const cells = generateCells();
-    console.log("cells", cells);
-  };
-
-  useEffect(() => {
-    initializeBoard();
-  }, []);
-
+const Board = ({ currentPlayer, cells, grid }) => {
   return (
     <div>
       <h3>Current player {currentPlayer}</h3>
       <div className="board">
-        {cells.map((row, rowIndex) => (
+        {grid.map((row, rowIndex) => (
           <React.Fragment key={rowIndex}>
-            {row.map((cell) => (
+            {row.map((cellId) => (
               <div
-                key={cell.cellIndex}
-                className={classNames("cell", cell.color)}
+                key={cellId}
+                className={classNames("cell", cells[cellId].cellColor)}
               >
-                <div className="available"></div>
+                {!cells[cellId].figureName && <div className="available"></div>}
+                {cells[cellId].figureName && (
+                  <img
+                    src={`/figures/${cells[cellId].figureColor}-${cells[cellId].figureName}.png`}
+                    alt=""
+                  />
+                )}
               </div>
             ))}
           </React.Fragment>
