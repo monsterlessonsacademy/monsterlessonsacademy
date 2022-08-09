@@ -1,5 +1,3 @@
-import { range } from "./utils";
-
 export const generateBoard = () => {
   const grid = [];
   const cells = {};

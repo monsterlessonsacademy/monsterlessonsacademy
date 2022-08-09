@@ -1,7 +1,17 @@
-import React, { useEffect } from "react";
-import classNames from "classnames";
+import React, { useEffect, useState } from "react";
+import Cell from "./Cell";
 
 const Board = ({ currentPlayer, cells, grid }) => {
+  const [selectedCell, setSelectedCell] = useState(null);
+  const cellClick = (cellId) => {
+    const isCurrentPlayerFigure = cells[cellId].figureColor === currentPlayer;
+    if (selectedCell && selectedCell !== cells[cellId]) {
+      // TODO
+    } else if (isCurrentPlayerFigure) {
+      setSelectedCell(cellId);
+    }
+  };
+
   return (
     <div>
       <h3>Current player {currentPlayer}</h3>
@@ -9,18 +19,12 @@ const Board = ({ currentPlayer, cells, grid }) => {
         {grid.map((row, rowIndex) => (
           <React.Fragment key={rowIndex}>
             {row.map((cellId) => (
-              <div
+              <Cell
+                cell={cells[cellId]}
+                isSelectedCell={selectedCell === cellId}
                 key={cellId}
-                className={classNames("cell", cells[cellId].cellColor)}
-              >
-                {!cells[cellId].figureName && <div className="available"></div>}
-                {cells[cellId].figureName && (
-                  <img
-                    src={`/figures/${cells[cellId].figureColor}-${cells[cellId].figureName}.png`}
-                    alt=""
-                  />
-                )}
-              </div>
+                onCellClick={() => cellClick(cellId)}
+              />
             ))}
           </React.Fragment>
         ))}
