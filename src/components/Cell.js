@@ -1,17 +1,19 @@
 import classNames from "classnames";
 
-const Cell = ({ cell, onCellClick, isSelectedCell }) => {
+const Cell = ({ cell, onCellClick, isSelectedCell, figures }) => {
   const cellStyles = classNames({
     cell: true,
     [cell.cellColor]: true,
     selected: isSelectedCell,
   });
+  const cellFigure = figures.find((figure) => figure.cellId === cell.cellId);
+  console.log("cellFigure", cellFigure, cell.cellId);
   return (
     <div className={cellStyles} onClick={onCellClick}>
-      {!cell.figureName && <div className="available"></div>}
-      {cell.figureName && (
+      {!cellFigure && <div className="available"></div>}
+      {cellFigure && (
         <img
-          src={`/figures/${cell.figureColor}-${cell.figureName}.png`}
+          src={`/figures/${cellFigure.figureColor}-${cellFigure.figureName}.png`}
           alt=""
         />
       )}
