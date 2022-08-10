@@ -1,23 +1,18 @@
-import { useState } from "react";
-import Board from "./components/Board";
-import { generateBoard, addDefaultFigures } from "./helpers/board";
-import { getDefaultFigures } from "./helpers/figures";
+import React from "react";
+import { Link, Route, Routes } from "react-router-dom";
+import About from "./About";
+import Home from "./Home";
 
 const App = () => {
-  const [currentPlayer, setCurrentPlayer] = useState("white");
-  const { grid, cells } = generateBoard();
-  const figures = getDefaultFigures();
-  console.log("cells", cells);
-  console.log("grid", grid);
-  console.log("figures", figures);
   return (
     <div className="app">
-      <Board
-        currentPlayer={currentPlayer}
-        cells={cells}
-        grid={grid}
-        figures={figures}
-      />
+      <h1>Hello Monsterlessons</h1>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+      </Routes>
     </div>
   );
 };
