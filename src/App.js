@@ -1,89 +1,84 @@
-import { Formik } from "formik";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import * as Yup from "yup";
 
 const App = () => {
   const initialValues = {
     email: "",
-    password: "",
     username: "",
+    password: "",
   };
-  const registerUser = (values, { setSubmitting }) => {
-    console.log("registerUser", values);
-    setSubmitting(false);
+  const onSubmit = (values) => {
+    console.log("onSubmit", values);
   };
-  const validate = (values) => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = "Email is required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
-    }
-    if (!values.password) {
-      errors.password = "Password is required";
-    }
-    if (!values.username) {
-      errors.username = "Username is required";
-    }
-    return errors;
-  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid email adress"),
+    password: Yup.string().required("Password is required"),
+    username: Yup.string().required("Username is required"),
+  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     email: "",
+  //     username: "",
+  //     password: "",
+  //   },
+  //   onSubmit: (values) => {
+  //     console.log("onSubmit", values);
+  //   },
+  //   validationSchema: Yup.object({
+  //     email: Yup.string()
+  //       .required("Email is required")
+  //       .email("Invalid email adress"),
+  //     password: Yup.string().required("Password is required"),
+  //     username: Yup.string().required("Username is required"),
+  //   }),
+  // validate: (values) => {
+  //   const errors = {};
+  //   if (!values.email) {
+  //     errors.email = "Email is required";
+  //   }
+  //   if (!values.username) {
+  //     errors.username = "Username is required";
+  //   }
+  //   if (!values.password) {
+  //     errors.password = "Password is required";
+  //   }
+  //   return errors;
+  // },
+  // });
   return (
     <div>
       <h1>Hello monsterlessons</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={registerUser}
-        validate={validate}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
       >
-        {({
-          values,
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          errors,
-          touched,
-          isSubmitting,
-        }) => (
-          <form onSubmit={handleSubmit}>
+        {() => (
+          <Form>
             <div className="field">
-              <input
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-              />
+              <Field name="email" placeholder="Email" />
 
               <div className="error">
-                {errors.email && touched.email && errors.email}
+                <ErrorMessage name="email" component="span" />
               </div>
             </div>
             <div className="field">
-              <input
-                name="username"
-                placeholder="Username"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.username}
-              />
+              <Field name="username" placeholder="Username" />
               <div className="error">
-                {errors.username && touched.username && errors.username}
+                <ErrorMessage name="username" component="span" />
               </div>
             </div>
             <div className="field">
-              <input
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-              />
+              <Field name="password" placeholder="Password" type="password" />
               <div className="error">
-                {errors.password && touched.password && errors.password}
+                <ErrorMessage name="password" component="span" />
               </div>
             </div>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </form>
+            <button type="submit">Submit</button>
+          </Form>
         )}
       </Formik>
     </div>
