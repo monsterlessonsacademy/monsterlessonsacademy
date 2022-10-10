@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Register from "./Register";
 
 const Title = styled.h1`
-  font-size: "16px";
+  font-size: 16px;
   text-align: center;
   color: green;
 `;
@@ -41,21 +41,7 @@ const StyledLink = styled(Link)`
 `;
 
 const App = () => {
-  return (
-    <Wrapper>
-      <Title>Hello monsterlessons</Title>
-      <Button>Normal</Button>
-      <Button danger>Normal</Button>
-      <CommentButton>Add comment</CommentButton>
-      <Button as="a" href="#">
-        Link
-      </Button>
-      <Link route="/" name="Some link" />
-      <StyledLink route="/" name="Styled link" />
-      <br />
-      <Register />
-    </Wrapper>
-  );
+  return <Register />;
 };
 
 export default App;
