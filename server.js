@@ -1,9 +1,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const { getArticles, createArticle, login } = require("./db");
+const { getArticles, login, createArticle } = require("./db");
 const authMiddleware = require("./authMiddleware");
-
 app.use(bodyParser.json());
 
 app.get("/articles", (req, res) => {

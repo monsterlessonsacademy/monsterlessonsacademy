@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const bcryptjs = require("bcryptjs");
 
 const articles = [
   { id: 1, title: "Typescript Eslint - How to use them together", userId: 1 },
@@ -32,11 +31,11 @@ exports.createArticle = (title, user) => {
 exports.login = (username, password) => {
   const user = users.find((user) => user.username === username);
 
-  if (!user) {
+  if (!user || password !== "123") {
     return null;
   }
+  const token = jwt.sign({ id: user.id, username: user.username }, "foobarbaz");
 
-  const token = jwt.sign({ id: user.id, username: username }, "secret");
   return {
     id: user.id,
     username,
