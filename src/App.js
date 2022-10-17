@@ -1,4 +1,4 @@
-import Users from "./features/users/Users";
+import Users from "./Users";
 const App = () => {
   return (
     <div>

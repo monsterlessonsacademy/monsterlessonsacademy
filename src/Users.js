@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsersAsync, createUserAsync } from "./usersSlice";
+import { getUsers } from "../../api";
 
 const Users = () => {
-  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
-  const users = useSelector((state) => state.users.data);
   const addUser = () => {
-    dispatch(createUserAsync(inputValue));
+    // dispatch(createUserAsync(inputValue));
     setInputValue("");
   };
 
   useEffect(() => {
-    dispatch(getUsersAsync());
-  }, [dispatch]);
+    // dispatch(getUsersAsync());
+  }, []);
 
   return (
     <div>
