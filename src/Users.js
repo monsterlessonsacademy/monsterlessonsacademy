@@ -1,16 +1,20 @@
-import { useState, useEffect } from "react";
-import { getUsers } from "../../api";
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getUsers, createUser } from "./api";
 
 const Users = () => {
+  const queryClient = useQueryClient();
+  const { data: users = [] } = useQuery(["users"], getUsers);
+  const createUserMutation = useMutation(createUser, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+    },
+  });
   const [inputValue, setInputValue] = useState("");
   const addUser = () => {
-    // dispatch(createUserAsync(inputValue));
+    createUserMutation.mutate(inputValue);
     setInputValue("");
   };
-
-  useEffect(() => {
-    // dispatch(getUsersAsync());
-  }, []);
 
   return (
     <div>

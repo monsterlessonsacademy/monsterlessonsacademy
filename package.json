@@ -3,18 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@redux-devtools/extension": "^3.2.2",
-    "@reduxjs/toolkit": "^1.8.6",
     "@tanstack/react-query": "^4.12.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@tanstack/react-query-devtools": "^4.12.0",
     "axios": "^0.27.2",
     "json-server": "^0.17.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
