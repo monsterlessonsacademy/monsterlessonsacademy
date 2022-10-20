@@ -1,24 +1,33 @@
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getUsers, createUser } from "./api";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Users = () => {
-  const queryClient = useQueryClient();
-  const { data: users = [] } = useQuery(["users"], getUsers);
-  const createUserMutation = useMutation(createUser, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
-    },
-  });
   const [inputValue, setInputValue] = useState("");
+  const [users, setUsers] = useState([]);
   const addUser = () => {
-    createUserMutation.mutate(inputValue);
+    createUser();
     setInputValue("");
   };
+  const fetchUsers = async () => {
+    const response = await axios.get("http://localhost:3004/users");
+    console.log("fetchUsers", response);
+    setUsers(response.data);
+  };
+  const createUser = async () => {
+    const response = await axios.post("http://localhost:3004/users", {
+      name: inputValue,
+    });
+    const updatedUsers = [...users, response.data];
+    setUsers(updatedUsers);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <div>
-      <div>Total: {users.length}</div>
+      <div data-testid="totals">Total: {users.length}</div>
       <div>
         <input
           type="text"
@@ -27,7 +36,7 @@ const Users = () => {
         />
         <button onClick={addUser}>Add user</button>
       </div>
-      <div>
+      <div data-testid="users-list">
         {users.map((user, index) => (
           <div key={index}>{user.name}</div>
         ))}
