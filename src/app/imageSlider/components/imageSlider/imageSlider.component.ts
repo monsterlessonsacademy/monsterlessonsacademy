@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SlideInterface } from '../../types/slide.interface';
 
 @Component({
@@ -9,9 +9,27 @@ import { SlideInterface } from '../../types/slide.interface';
 export class ImageSliderComponent {
   @Input() slides: SlideInterface[] = [];
 
-  goToPrevious(): void {}
+  currentIndex: number = 0;
 
-  goToNext(): void {}
+  goToPrevious(): void {
+    const isFirstSlide = this.currentIndex === 0;
+    const newIndex = isFirstSlide
+      ? this.slides.length - 1
+      : this.currentIndex - 1;
+    this.currentIndex = newIndex;
+  }
 
-  goToSlide(slideIndex: number): void {}
+  goToNext(): void {
+    const isLastSlide = this.currentIndex === this.slides.length - 1;
+    const newIndex = isLastSlide ? 0 : this.currentIndex + 1;
+    this.currentIndex = newIndex;
+  }
+
+  goToSlide(slideIndex: number): void {
+    this.currentIndex = slideIndex;
+  }
+
+  getCurrentSlideUrl() {
+    return `url('${this.slides[this.currentIndex].url}')`;
+  }
 }

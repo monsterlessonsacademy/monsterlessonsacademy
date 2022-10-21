@@ -8,10 +8,10 @@ import { SlideInterface } from './imageSlider/types/slide.interface';
 })
 export class AppComponent {
   slides: SlideInterface[] = [
-    { url: 'http://localhost:3000/image-1.jpg', title: 'beach' },
-    { url: 'http://localhost:3000/image-2.jpg', title: 'boat' },
-    { url: 'http://localhost:3000/image-3.jpg', title: 'forest' },
-    { url: 'http://localhost:3000/image-4.jpg', title: 'city' },
-    { url: 'http://localhost:3000/image-5.jpg', title: 'italy' },
+    { url: '/assets/image-1.jpeg', title: 'beach' },
+    { url: '/assets/image-2.jpeg', title: 'boat' },
+    { url: '/assets/image-3.jpeg', title: 'forest' },
+    { url: '/assets/image-4.jpeg', title: 'city' },
+    { url: '/assets/image-5.jpeg', title: 'italy' },
   ];
 }
