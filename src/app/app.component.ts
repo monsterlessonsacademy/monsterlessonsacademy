@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,9 @@ import { of } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  foo$ = of('fooo');
+  currentPage = 1;
+
+  changePage(page: number): void {
+    this.currentPage = page;
+  }
 }
