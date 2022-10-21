@@ -1,5 +1,11 @@
 import Users from "./Users";
-import { render, screen, wait } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElement,
+  waitForElementToBeRemoved,
+  waitFor,
+} from "@testing-library/react";
 import axios from "axios";
 
 jest.mock("axios");
@@ -18,6 +24,7 @@ describe("Users", () => {
   // });
 
   it("renders initial totals", () => {
+    axios.get.mockResolvedValueOnce({ data: [] });
     render(<Users />);
     expect(screen.getByTestId("totals").textContent).toEqual("Total: 0");
   });
@@ -26,8 +33,10 @@ describe("Users", () => {
     axios.get.mockResolvedValueOnce({ data: mockedUsers });
 
     render(<Users />);
-    expect(screen.getByTestId("users-list").textContent).toEqual("foobar");
 
-    await wait();
+    await waitForElementToBeRemoved(() => screen.getByTestId("loading"));
+
+    expect(screen.getByTestId("totals").textContent).toEqual("Total: 2");
+    expect(screen.getByTestId("users-list").textContent).toEqual("foobar");
   });
 });
