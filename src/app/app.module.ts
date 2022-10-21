@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PaginationModule } from './pagination/pagination.module';
+import { ImageSliderModule } from './imageSlider/imageSlider.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +12,7 @@ import { PaginationModule } from './pagination/pagination.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    PaginationModule,
+    ImageSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
