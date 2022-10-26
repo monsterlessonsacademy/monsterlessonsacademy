@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { getUsers, createUser } from "./api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Users = () => {
   const queryClient = useQueryClient();
