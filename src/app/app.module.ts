@@ -5,21 +5,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatTableModule } from '@angular/material/table';
-import { UsersService } from './services/users.service';
-import { MatSortModule } from '@angular/material/sort';
+import { ChildComponent } from './child.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ChildComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MatTableModule,
-    MatSortModule,
     BrowserAnimationsModule,
   ],
-  providers: [UsersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
