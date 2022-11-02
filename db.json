@@ -1,62 +1,29 @@
 {
-  "comments": [
-    {
-      "id": "1",
-      "body": "First comment",
-      "username": "Jack",
-      "userId": "1",
-      "parentId": null,
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "id": "2",
-      "body": "Second comment",
-      "username": "John",
-      "userId": "2",
-      "parentId": null,
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "id": "3",
-      "body": "First comment first child",
-      "username": "John",
-      "userId": "2",
-      "parentId": "1",
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "id": "4",
-      "body": "Second comment second child",
-      "username": "John",
-      "userId": "2",
-      "parentId": "2",
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "body": "fggg",
-      "parentId": null,
-      "id": "05Xzmd8"
-    },
-    {
-      "body": "qqqq",
-      "parentId": null,
-      "id": "qIKJhn8"
-    },
-    {
-      "body": "mark",
-      "parentId": null,
-      "id": "evA3CpT"
-    },
-    {
-      "body": "dgdf",
-      "parentId": null,
-      "createdAt": "2022-02-09T16:35:26.310Z",
-      "id": "CDGuw_T"
-    },
-    {
-      "body": "qqqq",
-      "parentId": "1",
-      "id": "V1Wg8w6"
-    }
+  "users": [
+      {
+        "id": "1",
+        "name": "Jack",
+        "age": 25
+      },
+      {
+        "id": "2",
+        "name": "John",
+        "age": 20
+      },
+      {
+        "id": "3",
+        "name": "Mike",
+        "age": 30
+      },
+      {
+        "id": "4",
+        "name": "Peter",
+        "age": 25
+      },
+      {
+        "id": "5",
+        "name": "Olaf",
+        "age": 31
+      }
   ]
 }
