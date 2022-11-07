@@ -1,3 +1,5 @@
-<h1>Monsterlessons academy</h1>
-
-<child></child>
+<ng-container *ngIf="data$ | async as data">
+  <h1>Monsterlessons academy</h1>
+  <child [currentPage]="data.currentPage"></child>
+  {{ data.foo }}
+</ng-container>

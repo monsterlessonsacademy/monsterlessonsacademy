@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'child',
-  template: '<div>Child</div>',
+  template: '<div>{{currentPage}}</div>',
 })
 export class ChildComponent {
-  @Input() currentPage: number | undefined;
+  @Input() currentPage: number = 0;
 }
