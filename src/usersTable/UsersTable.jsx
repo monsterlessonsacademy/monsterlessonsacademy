@@ -1,8 +1,7 @@
-import "./usersTable.css";
 import { useEffect, useState } from "react";
+import "./usersTable.css";
 
 const HeaderCell = ({ column, sorting, sortTable }) => {
-  const name = column.charAt(0).toUpperCase() + column.substring(1);
   const isDescSorting = sorting.column === column && sorting.order === "desc";
   const isAscSorting = sorting.column === column && sorting.order === "asc";
   const futureSortingOrder = isDescSorting ? "asc" : "desc";
@@ -12,7 +11,7 @@ const HeaderCell = ({ column, sorting, sortTable }) => {
       className="users-table-cell"
       onClick={() => sortTable({ column, order: futureSortingOrder })}
     >
-      {name}
+      {column}
       {isDescSorting && <span>▼</span>}
       {isAscSorting && <span>▲</span>}
     </th>
@@ -25,9 +24,9 @@ const Header = ({ columns, sorting, sortTable }) => {
       <tr>
         {columns.map((column) => (
           <HeaderCell
-            key={column}
             column={column}
             sorting={sorting}
+            key={column}
             sortTable={sortTable}
           />
         ))}
@@ -73,29 +72,31 @@ const SearchBar = ({ searchTable }) => {
 };
 
 const UsersTable = () => {
-  const columns = ["id", "name", "age"];
   const [users, setUsers] = useState([]);
   const [sorting, setSorting] = useState({ column: "id", order: "asc" });
-  const [searchName, setSearchName] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const columns = ["id", "name", "age"];
   const sortTable = (newSorting) => {
     setSorting(newSorting);
   };
-  const searchTable = (searchValue) => {
-    setSearchName(searchValue);
+  const searchTable = (newSearchValue) => {
+    setSearchValue(newSearchValue);
   };
+
   useEffect(() => {
-    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.order}&name_like=${searchName}`;
+    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.order}&name_like=${searchValue}`;
     fetch(url)
       .then((res) => res.json())
       .then((users) => {
         setUsers(users);
       });
-  }, [sorting, searchName]);
+  }, [sorting, searchValue]);
+
   return (
     <div>
       <SearchBar searchTable={searchTable} />
       <table className="users-table">
-        <Header columns={columns} sortTable={sortTable} sorting={sorting} />
+        <Header columns={columns} sorting={sorting} sortTable={sortTable} />
         <Content entries={users} columns={columns} />
       </table>
     </div>

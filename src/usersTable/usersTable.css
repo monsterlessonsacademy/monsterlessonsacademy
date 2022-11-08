@@ -1,13 +1,13 @@
+.users-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .users-table-cell {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
-}
-
-.users-table {
-  border-collapse: collapse;
-  table-layout: fixed;
-  width: 100%;
 }
 
 .search-bar {
