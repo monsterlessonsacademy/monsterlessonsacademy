@@ -5,15 +5,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChildComponent } from './child.component';
+import { UsersTableModule } from './usersTable/usersTable.module';
 
 @NgModule({
-  declarations: [AppComponent, ChildComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    UsersTableModule,
   ],
   bootstrap: [AppComponent],
 })
