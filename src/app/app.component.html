@@ -1,12 +1,12 @@
 <h1>Monsterlessons academy</h1>
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+<form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="field">
     <label class="label">username</label>
     <input
       type="text"
-      formControlName="username"
       class="input"
+      formControlName="username"
       [class.invalid]="
         registerForm.get('username')?.invalid &&
         (registerForm.get('username')?.dirty ||
@@ -22,16 +22,15 @@
           isSubmitted)
       "
       class="error"
+      >This field is required.</span
     >
-      This field is required
-    </span>
   </div>
   <div class="field">
     <label class="label">email</label>
     <input
       type="text"
-      formControlName="email"
       class="input"
+      formControlName="email"
       [class.invalid]="
         registerForm.get('email')?.invalid &&
         (registerForm.get('email')?.dirty ||
@@ -44,8 +43,8 @@
     <label class="label">password</label>
     <input
       type="text"
-      formControlName="password"
       class="input"
+      formControlName="password"
       [class.invalid]="
         registerForm.get('password')?.invalid &&
         (registerForm.get('password')?.dirty ||
@@ -60,6 +59,7 @@
       {{ role.title }}
     </option>
   </select>
+
   <div>
     <button type="submit" class="button">Register</button>
   </div>
