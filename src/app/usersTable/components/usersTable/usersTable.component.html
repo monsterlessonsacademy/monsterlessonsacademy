@@ -1,33 +1,61 @@
-<div>
-  <div class="search-bar">
-    <form [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
-      <input
-        type="text"
-        placeholder="Search..."
-        formControlName="searchValue"
-      />
-    </form>
-  </div>
-  <table class="users-table">
-    <thead>
-      <tr>
-        <th
-          *ngFor="let column of columns"
-          class="users-table-cell"
-          (click)="sortTable(column)"
-        >
-          {{ capitalize(column) }}
-          <span *ngIf="isDescSorting(column)">▼</span>
-          <span *ngIf="isAscSorting(column)">▲</span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td *ngFor="let column of columns" class="users-table-cell">
-          {{ user[column] }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div *ngIf="dataSource.isLoading$ | async">Loading...</div>
+
+<table
+  class="users-table"
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  matSortActive="id"
+  matSortDirection="asc"
+  matSortDisableClear
+  (matSortChange)="sortUsers($event)"
+>
+  <ng-container matColumnDef="id">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      class="users-table-cell"
+    >
+      ID
+    </th>
+    <td mat-cell *matCellDef="let element" class="users-table-cell">
+      {{ element.id }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      class="users-table-cell"
+    >
+      Name
+    </th>
+    <td mat-cell *matCellDef="let element" class="users-table-cell">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="age">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      class="users-table-cell"
+    >
+      Age
+    </th>
+    <td mat-cell *matCellDef="let element" class="users-table-cell">
+      {{ element.age }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="selectRow(row)"
+  ></tr>
+</table>

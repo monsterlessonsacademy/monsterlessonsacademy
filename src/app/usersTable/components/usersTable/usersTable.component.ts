@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Sort } from '@angular/material/sort';
+import { UsersDataSource } from '../../services/users.dataSource';
 import { UsersService } from '../../services/users.service';
-import { SortingInterface } from '../../types/sorting.interface';
 import { UserInterface } from '../../types/user.interface';
 
 @Component({
@@ -10,52 +10,20 @@ import { UserInterface } from '../../types/user.interface';
   styleUrls: ['./usersTable.component.scss'],
 })
 export class UsersTableComponent implements OnInit {
-  columns: Array<keyof UserInterface> = ['id', 'name', 'age'];
-  sorting: SortingInterface = {
-    column: 'id',
-    order: 'asc',
-  };
-  users: UserInterface[] = [];
-  searchValue: string = '';
-  searchForm = this.fb.nonNullable.group({
-    searchValue: '',
-  });
+  dataSource = new UsersDataSource(this.usersService);
+  displayedColumns: string[] = ['id', 'name', 'age'];
 
-  constructor(private usersService: UsersService, private fb: FormBuilder) {}
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
-    this.fetchData();
+    this.dataSource.loadUsers({ active: 'id', direction: 'asc' });
   }
 
-  fetchData(): void {
-    this.usersService.getUsers(this.sorting, this.searchValue).subscribe((users) => {
-      this.users = users;
-    });
+  selectRow(row: UserInterface): void {
+    console.log('selectRow', row);
   }
 
-  capitalize(str: string): string {
-    return str.charAt(0).toUpperCase() + str.substring(1);
-  }
-
-  isDescSorting(column: string): boolean {
-    return this.sorting.column === column && this.sorting.order === 'desc';
-  }
-
-  isAscSorting(column: string): boolean {
-    return this.sorting.column === column && this.sorting.order === 'asc';
-  }
-
-  sortTable(column: string): void {
-    const futureSortingOrder = this.isDescSorting(column) ? 'asc' : 'desc';
-    this.sorting = {
-      column,
-      order: futureSortingOrder,
-    };
-    this.fetchData();
-  }
-
-  onSearchSubmit(): void {
-    this.searchValue = this.searchForm.value.searchValue ?? '';
-    this.fetchData();
+  sortUsers(sort: Sort): void {
+    this.dataSource.loadUsers(sort);
   }
 }
