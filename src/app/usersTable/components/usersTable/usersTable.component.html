@@ -1,20 +1,19 @@
 <div *ngIf="dataSource.isLoading$ | async">Loading...</div>
-
 <table
-  class="users-table"
   mat-table
-  [dataSource]="dataSource"
   matSort
   matSortActive="id"
   matSortDirection="asc"
   matSortDisableClear
   (matSortChange)="sortUsers($event)"
+  [dataSource]="dataSource"
+  class="users-table"
 >
   <ng-container matColumnDef="id">
     <th
       mat-header-cell
-      *matHeaderCellDef
       mat-sort-header
+      *matHeaderCellDef
       class="users-table-cell"
     >
       ID
@@ -27,8 +26,8 @@
   <ng-container matColumnDef="name">
     <th
       mat-header-cell
-      *matHeaderCellDef
       mat-sort-header
+      *matHeaderCellDef
       class="users-table-cell"
     >
       Name
@@ -41,8 +40,8 @@
   <ng-container matColumnDef="age">
     <th
       mat-header-cell
-      *matHeaderCellDef
       mat-sort-header
+      *matHeaderCellDef
       class="users-table-cell"
     >
       Age
@@ -53,9 +52,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr
-    mat-row
-    *matRowDef="let row; columns: displayedColumns"
-    (click)="selectRow(row)"
-  ></tr>
+
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

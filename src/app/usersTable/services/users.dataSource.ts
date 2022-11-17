@@ -1,6 +1,6 @@
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserInterface } from '../types/user.interface';
 import { UsersService } from './users.service';
@@ -14,13 +14,12 @@ export class UsersDataSource extends DataSource<UserInterface> {
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<UserInterface[]> {
+  connect(): Observable<UserInterface[]> {
     return this.users$.asObservable();
   }
 
-  disconnect(collectionViewer: CollectionViewer): void {
+  disconnect(): void {
     this.users$.complete();
-    this.isLoading$.complete();
   }
 
   loadUsers(sort: Sort): void {
