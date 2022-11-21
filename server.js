@@ -1,25 +1,60 @@
 const express = require("express");
+const uuid = require("uuid");
 const app = express();
 const bodyParser = require("body-parser");
-const { getArticles, login, createArticle } = require("./db");
-const authMiddleware = require("./authMiddleware");
+const cookieParser = require("cookie-parser");
+const users = [
+  {
+    id: 1,
+    username: "foo",
+  },
+];
+const sessions = {};
+
 app.use(bodyParser.json());
+app.use(cookieParser());
 
-app.get("/articles", (req, res) => {
-  const articles = getArticles();
-  res.send(articles);
-});
+app.get("/private", (req, res) => {
+  const sessionToken = req.cookies["session_token"];
 
-app.post("/articles", authMiddleware, (req, res) => {
-  const article = createArticle(req.body.title, req.user);
-  res.send(article);
+  if (!sessionToken) {
+    return res.status(401);
+  }
+
+  const currentUserSession = sessions[sessionToken];
+
+  if (!currentUserSession) {
+    return res.status(401);
+  }
+
+  if (currentUserSession.expiresAt < new Date()) {
+    return res.status(401);
+  }
+
+  console.log("currentUserSession", currentUserSession);
+
+  const currentUser = users.find(
+    (user) => currentUserSession.userId === user.id
+  );
+
+  res.send(`Hello authorized user ${currentUser.username}`);
 });
 
 app.post("/login", (req, res) => {
-  const user = login(req.body.username, req.body.password);
-  if (!user) {
+  const user = users.find((user) => req.body.username === user.username);
+
+  if (!user || req.body.password !== "123") {
     return res.status(422).json({ error: "Incorrect email or password" });
   }
+
+  const sessionToken = uuid.v4();
+  const expiresAt = new Date().setFullYear(new Date().getFullYear() + 1);
+  sessions[sessionToken] = {
+    expiresAt,
+    userId: user.id,
+  };
+
+  res.cookie("session_token", sessionToken, { maxAge: expiresAt });
   res.send(user);
 });
 
