@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAtom } from "jotai";
 import { getUsers } from "./api";
+import { useAtom } from "jotai";
 import { buttonColorAtom, themeAtom } from "./App";
 
 const Users = () => {
@@ -17,7 +17,6 @@ const Users = () => {
       {users.map((user) => (
         <div key={user.id}>{user.name}</div>
       ))}
-
       <div>
         Our theme is {theme}{" "}
         <button onClick={toggleTheme} style={{ background: buttonColor }}>

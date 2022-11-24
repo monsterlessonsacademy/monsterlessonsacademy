@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { atom, useAtom } from "jotai";
 import { getUsers } from "./api";
+import { useAtom } from "jotai";
 import { themeAtom } from "./App";
 
 const PopularUsers = () => {
@@ -12,6 +12,7 @@ const PopularUsers = () => {
       {users.map((user) => (
         <div key={user.id}>{user.name}</div>
       ))}
+
       <div>Our theme is {theme}</div>
     </div>
   );

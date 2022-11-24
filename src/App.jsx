@@ -1,7 +1,7 @@
-import { atom } from "jotai";
 import { Link, Route, Routes } from "react-router-dom";
 import PopularUsers from "./PopularUsers";
 import Users from "./Users";
+import { atom } from "jotai";
 
 export const themeAtom = atom("light");
 export const buttonColorAtom = atom((get) =>
