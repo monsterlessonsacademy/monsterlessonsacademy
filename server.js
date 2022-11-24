@@ -1,8 +1,8 @@
 const express = require("express");
 const uuid = require("uuid");
+const cookieParser = require("cookie-parser");
 const app = express();
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 const users = [
   {
     id: 1,
@@ -34,7 +34,7 @@ app.get("/private", (req, res) => {
   console.log("currentUserSession", currentUserSession);
 
   const currentUser = users.find(
-    (user) => currentUserSession.userId === user.id
+    (user) => user.id === currentUserSession.userId
   );
 
   res.send(`Hello authorized user ${currentUser.username}`);
@@ -49,12 +49,14 @@ app.post("/login", (req, res) => {
 
   const sessionToken = uuid.v4();
   const expiresAt = new Date().setFullYear(new Date().getFullYear() + 1);
+
   sessions[sessionToken] = {
     expiresAt,
     userId: user.id,
   };
 
   res.cookie("session_token", sessionToken, { maxAge: expiresAt });
+
   res.send(user);
 });
 
