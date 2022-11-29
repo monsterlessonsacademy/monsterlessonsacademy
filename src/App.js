@@ -2,12 +2,12 @@ import { useState } from "react";
 import Pagination from "./Pagination";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(24);
   return (
     <div className="container">
       <Pagination
         currentPage={currentPage}
-        total={500}
+        total={480}
         limit={20}
         onPageChange={(page) => setCurrentPage(page)}
       />

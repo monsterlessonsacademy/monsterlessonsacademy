@@ -8,6 +8,8 @@ const range = (start, end) => {
 const getPagesCut = ({ pagesCount, pagesCutCount, currentPage }) => {
   const ceiling = Math.ceil(pagesCutCount / 2);
   const floor = Math.floor(pagesCutCount / 2);
+  console.log("ceiling", ceiling);
+  console.log("floor", floor);
 
   if (pagesCount < pagesCutCount) {
     return { start: 1, end: pagesCount + 1 };
@@ -35,29 +37,24 @@ const PaginationItem = ({ page, currentPage, onPageChange, isDisabled }) => {
 
 const Pagination = ({ currentPage, total, limit, onPageChange }) => {
   const pagesCount = Math.ceil(total / limit);
+  const pagesCut = getPagesCut({ pagesCount, pagesCutCount: 5, currentPage });
+  const pages = range(pagesCut.start, pagesCut.end);
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pagesCount;
-  const pagesCut = getPagesCut({
-    pagesCount,
-    pagesCutCount: 3,
-    currentPage,
-  });
-  const pages = range(pagesCut.start, pagesCut.end);
   return (
     <ul className="pagination">
       <PaginationItem
         page="First"
-        onPageChange={() => onPageChange(1)}
         currentPage={currentPage}
+        onPageChange={() => onPageChange(1)}
         isDisabled={isFirstPage}
       />
       <PaginationItem
         page="Prev"
-        onPageChange={() => onPageChange(currentPage - 1)}
         currentPage={currentPage}
+        onPageChange={() => onPageChange(currentPage - 1)}
         isDisabled={isFirstPage}
       />
-
       {pages.map((page) => (
         <PaginationItem
           page={page}
@@ -66,18 +63,16 @@ const Pagination = ({ currentPage, total, limit, onPageChange }) => {
           onPageChange={onPageChange}
         />
       ))}
-
       <PaginationItem
         page="Next"
-        onPageChange={() => onPageChange(currentPage + 1)}
         currentPage={currentPage}
+        onPageChange={() => onPageChange(currentPage + 1)}
         isDisabled={isLastPage}
       />
-
       <PaginationItem
         page="Last"
-        onPageChange={() => onPageChange(pagesCount)}
         currentPage={currentPage}
+        onPageChange={() => onPageChange(pages.length)}
         isDisabled={isLastPage}
       />
     </ul>
