@@ -35,10 +35,14 @@ const slidesContainerStyles = {
   height: "100%",
 };
 
+const sliderContainerOverflowStyles = {
+  overflow: "hidden",
+  height: "100%",
+};
+
 const sliderStyles = {
   position: "relative",
   height: "100%",
-  overflow: "hidden",
 };
 
 const dotsContainerStyles = {
@@ -104,13 +108,15 @@ const ImageSlider = ({ slides, parentWidth }) => {
           ❱
         </div>
       </div>
-      <div style={getSlidesContainerStylesWithWidth()}>
-        {slides.map((_, slideIndex) => (
-          <div
-            style={getSlideStylesWidthBackground(slideIndex)}
-            key={slideIndex}
-          ></div>
-        ))}
+      <div style={sliderContainerOverflowStyles}>
+        <div style={getSlidesContainerStylesWithWidth()}>
+          {slides.map((_, slideIndex) => (
+            <div
+              style={getSlideStylesWidthBackground(slideIndex)}
+              key={slideIndex}
+            ></div>
+          ))}
+        </div>
       </div>
       <div style={dotsContainerStyles}>
         {slides.map((_, slideIndex) => (
