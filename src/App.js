@@ -16,7 +16,7 @@ const App = () => {
     <div>
       <h1>Hello monsterlessons</h1>
       <div style={containerStyles}>
-        <ImageSlider slides={slides} />
+        <ImageSlider slides={slides} parentWidth={500} />
       </div>
     </div>
   );

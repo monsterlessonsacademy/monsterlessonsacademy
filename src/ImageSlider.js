@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const slideStyles = {
-  width: "100%",
   height: "100%",
   borderRadius: "10px",
   backgroundSize: "cover",
@@ -30,9 +29,16 @@ const leftArrowStyles = {
   cursor: "pointer",
 };
 
+const slidesContainerStyles = {
+  display: "flex",
+  transition: "transform ease-out 0.30s",
+  height: "100%",
+};
+
 const sliderStyles = {
   position: "relative",
   height: "100%",
+  overflow: "hidden",
 };
 
 const dotsContainerStyles = {
@@ -46,7 +52,7 @@ const dotStyle = {
   fontSize: "20px",
 };
 
-const ImageSlider = ({ slides }) => {
+const ImageSlider = ({ slides, parentWidth }) => {
   const timerRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -65,10 +71,16 @@ const ImageSlider = ({ slides }) => {
   const goToSlide = (slideIndex) => {
     setCurrentIndex(slideIndex);
   };
-  const slideStylesWidthBackground = {
+  const getSlideStylesWidthBackground = (slideIndex) => ({
     ...slideStyles,
-    backgroundImage: `url(${slides[currentIndex].url})`,
-  };
+    backgroundImage: `url(${slides[slideIndex].url})`,
+    width: `${parentWidth}px`,
+  });
+  const getSlidesContainerStylesWithWidth = () => ({
+    ...slidesContainerStyles,
+    width: parentWidth * slides.length,
+    transform: `translateX(${-(currentIndex * parentWidth)}px)`,
+  });
 
   useEffect(() => {
     if (timerRef.current) {
@@ -92,9 +104,16 @@ const ImageSlider = ({ slides }) => {
           ❱
         </div>
       </div>
-      <div style={slideStylesWidthBackground}></div>
+      <div style={getSlidesContainerStylesWithWidth()}>
+        {slides.map((_, slideIndex) => (
+          <div
+            style={getSlideStylesWidthBackground(slideIndex)}
+            key={slideIndex}
+          ></div>
+        ))}
+      </div>
       <div style={dotsContainerStyles}>
-        {slides.map((slide, slideIndex) => (
+        {slides.map((_, slideIndex) => (
           <div
             style={dotStyle}
             key={slideIndex}
