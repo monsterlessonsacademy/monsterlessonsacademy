@@ -2,7 +2,7 @@ import "./pagination.css";
 import classNames from "classnames";
 
 const range = (start, end) => {
-  return [...Array(end - start + 1).keys()].map((el) => el + start);
+  return [...Array(end - start).keys()].map((el) => el + start);
 };
 
 const getPagesCut = ({ pagesCount, pagesCutCount, currentPage }) => {
@@ -10,17 +10,13 @@ const getPagesCut = ({ pagesCount, pagesCutCount, currentPage }) => {
   const floor = Math.floor(pagesCutCount / 2);
 
   if (pagesCount < pagesCutCount) {
-    console.log("case 1");
-    return { start: 0, end: pagesCount };
+    return { start: 1, end: pagesCount + 1 };
   } else if (currentPage >= 1 && currentPage <= ceiling) {
-    console.log("case 2");
-    return { start: 0, end: pagesCutCount };
+    return { start: 1, end: pagesCutCount + 1 };
   } else if (currentPage + floor >= pagesCount) {
-    console.log("case 3");
-    return { start: pagesCount - pagesCutCount, end: pagesCount };
+    return { start: pagesCount - pagesCutCount + 1, end: pagesCount + 1 };
   } else {
-    console.log("case 4");
-    return { start: currentPage - ceiling, end: currentPage + floor };
+    return { start: currentPage - ceiling + 1, end: currentPage + floor + 1 };
   }
 };
 
@@ -47,7 +43,6 @@ const Pagination = ({ currentPage, total, limit, onPageChange }) => {
     currentPage,
   });
   const pages = range(pagesCut.start, pagesCut.end);
-  console.log("pagesCut", pagesCut, pagesCount, pages);
   return (
     <ul className="pagination">
       <PaginationItem
