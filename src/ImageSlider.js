@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const slideStyles = {
+  width: "100%",
   height: "100%",
   borderRadius: "10px",
   backgroundSize: "cover",
@@ -29,17 +30,6 @@ const leftArrowStyles = {
   cursor: "pointer",
 };
 
-const slidesContainerStyles = {
-  display: "flex",
-  transition: "transform ease-out 0.30s",
-  height: "100%",
-};
-
-const sliderContainerOverflowStyles = {
-  overflow: "hidden",
-  height: "100%",
-};
-
 const sliderStyles = {
   position: "relative",
   height: "100%",
@@ -56,26 +46,34 @@ const dotStyle = {
   fontSize: "20px",
 };
 
+const slidesContainerStyles = {
+  display: "flex",
+  height: "100%",
+  transition: "transform ease-out 0.3s",
+};
+
+const slidesContainerOverflowStyles = {
+  overflow: "hidden",
+  height: "100%",
+};
+
 const ImageSlider = ({ slides, parentWidth }) => {
   const timerRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
   };
-
   const goToNext = useCallback(() => {
     const isLastSlide = currentIndex === slides.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   }, [currentIndex, slides]);
-
   const goToSlide = (slideIndex) => {
     setCurrentIndex(slideIndex);
   };
-  const getSlideStylesWidthBackground = (slideIndex) => ({
+  const getSlideStylesWithBackground = (slideIndex) => ({
     ...slideStyles,
     backgroundImage: `url(${slides[slideIndex].url})`,
     width: `${parentWidth}px`,
@@ -90,7 +88,6 @@ const ImageSlider = ({ slides, parentWidth }) => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-
     timerRef.current = setTimeout(() => {
       goToNext();
     }, 2000);
@@ -108,18 +105,18 @@ const ImageSlider = ({ slides, parentWidth }) => {
           ❱
         </div>
       </div>
-      <div style={sliderContainerOverflowStyles}>
+      <div style={slidesContainerOverflowStyles}>
         <div style={getSlidesContainerStylesWithWidth()}>
           {slides.map((_, slideIndex) => (
             <div
-              style={getSlideStylesWidthBackground(slideIndex)}
               key={slideIndex}
+              style={getSlideStylesWithBackground(slideIndex)}
             ></div>
           ))}
         </div>
       </div>
       <div style={dotsContainerStyles}>
-        {slides.map((_, slideIndex) => (
+        {slides.map((slide, slideIndex) => (
           <div
             style={dotStyle}
             key={slideIndex}
