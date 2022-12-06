@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useUsersStore } from "./store/useUsersStore";
+import { useUsersStore } from "./stores/useUsersStore";
 
 const Users = () => {
-  const [inputValue, setInputValue] = useState("");
   const users = useUsersStore((state) => state.data);
-  const isLoading = useUsersStore((state) => state.isLoading);
   const getUsers = useUsersStore((state) => state.getUsers);
   const createUser = useUsersStore((state) => state.createUser);
+  // const isLoading = useUsersStore((state) => state.isLoading);
+  const [inputValue, setInputValue] = useState("");
   const addUser = () => {
     createUser(inputValue);
     setInputValue("");

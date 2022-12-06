@@ -1,7 +1,7 @@
 import create from "zustand";
 import { getUsers, createUser } from "../api/users";
 
-export const useUsersStore = create((set) => ({
+export const useUsersStore = create((set, get) => ({
   data: [],
   isLoading: false,
   error: null,
@@ -18,10 +18,12 @@ export const useUsersStore = create((set) => ({
     try {
       set({ isLoading: true });
       const response = await createUser(name);
-      set((state) => ({
-        isLoading: false,
-        data: [...state.data, response.data],
-      }));
+      const updatedData = [...get().data, response.data];
+      set({ isLoading: false, data: updatedData });
+      // set((state) => ({
+      //   isLoading: false,
+      //   data: [...state.data, response.data],
+      // }));
     } catch (err) {
       set({ error: err.message, isLoading: false });
     }
