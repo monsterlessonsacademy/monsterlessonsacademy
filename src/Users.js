@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsersAsync, createUserAsync } from "./usersSlice";
+import { useUsersStore } from "./store/useUsersStore";
 
 const Users = () => {
-  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
-  const users = useSelector((state) => state.users.data);
+  const users = useUsersStore((state) => state.data);
+  const isLoading = useUsersStore((state) => state.isLoading);
+  const getUsers = useUsersStore((state) => state.getUsers);
+  const createUser = useUsersStore((state) => state.createUser);
   const addUser = () => {
-    dispatch(createUserAsync(inputValue));
+    createUser(inputValue);
     setInputValue("");
   };
 
   useEffect(() => {
-    dispatch(getUsersAsync());
-  }, [dispatch]);
+    getUsers();
+  }, [getUsers]);
 
   return (
     <div>
