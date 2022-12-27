@@ -1,5 +1,18 @@
-<ng-container *ngIf="data$ | async as data">
-  <h1>Monsterlessons academy</h1>
-  <child [currentPage]="data.currentPage"></child>
-  {{ data.foo }}
-</ng-container>
+<h1>Monsterlessons academy</h1>
+
+<input type="text" [value]="searchValue" (keyup)="searchValueChange($event)" />
+
+<input type="text" [(ngModel)]="searchValue" />
+<input
+  type="text"
+  [ngModel]="searchValue"
+  (ngModelChange)="modelValueChange($event)"
+/>
+{{ searchValue }}
+
+<br />
+
+<form (ngSubmit)="onSearchFormSubmit()" #searchTplForm="ngForm">
+  <input type="text" [(ngModel)]="searchForm.searchValue" name="searchValue" />
+  <button type="submit" [disabled]="!searchTplForm.valid">Submit</button>
+</form>

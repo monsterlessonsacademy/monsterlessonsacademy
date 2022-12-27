@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { combineLatest, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +6,21 @@ import { combineLatest, map, of } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  currentPage$ = of(1);
-  foo$ = of(2);
-  bar$ = of(3);
+  searchValue = 'Initial value';
+  searchForm = {
+    searchValue: 'Initial value',
+  };
 
-  data$ = combineLatest([this.currentPage$, this.foo$, this.bar$]).pipe(
-    map(([currentPage, foo, bar]) => ({
-      currentPage,
-      foo,
-      bar,
-    }))
-  );
+  modelValueChange(value: string) {
+    this.searchValue = value;
+  }
+
+  searchValueChange(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchValue = value;
+  }
+
+  onSearchFormSubmit(): void {
+    console.log('onSearchFormSubmit', this.searchForm);
+  }
 }
