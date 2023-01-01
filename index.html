@@ -7,31 +7,28 @@
     <title>Vite App</title>
   </head>
   <body>
-    <form class="form">
-      <div class="form-group">
-        <label class="label" for="email">Email:</label>
-        <input class="form-control" type="email" id="email" name="email" />
-      </div>
-      <div class="form-group">
-        <label class="label" for="name">Name:</label>
-        <input class="form-control" type="text" id="name" name="name" />
-      </div>
-      <div class="form-group">
-        <label class="label" for="password">Password:</label>
-        <input
-          class="form-control"
-          type="password"
-          id="password"
-          name="password"
-        />
-      </div>
-      <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="Submit" />
-      </div>
-      <div class="form-links">
-        <a href="#">Login</a> <a href="#">Forgot password</a>
-      </div>
-    </form>
+    <div class="form-container">
+      <h1>Registration Form</h1>
+      <form class="form">
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-control" type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="name">Name</label>
+          <input class="form-control" type="text" id="name" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-control" type="password" id="password" required />
+        </div>
+        <input class="btn" type="submit" value="Submit" />
+        <div class="links">
+          <a class="link" href="#">Login</a>
+          <a class="link-right" href="#">Forgot password</a>
+        </div>
+      </form>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

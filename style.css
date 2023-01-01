@@ -4,66 +4,56 @@
   box-sizing: border-box;
   font-family: inherit;
 }
-
-.form {
-  max-width: 400px;
+.form-container {
+  width: 500px;
   margin: 0 auto;
-  text-align: left;
-  padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-.form-group {
+.form-container h1 {
+  text-align: center;
   margin-bottom: 20px;
 }
-
-.form-control {
+.form-container .form-group {
+  margin-bottom: 10px;
+}
+.form-container .form-label {
+  font-size: 15px;
+}
+.form-container .form-control {
   width: 100%;
-  padding: 12px 20px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
   box-sizing: border-box;
   font-size: 18px;
 }
-
-.btn {
+.form-container .btn {
   width: 100%;
   background-color: #4caf50;
   color: white;
-  padding: 14px 20px;
-  margin-bottom: 20px;
+  padding: 14px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
-
-.btn:hover {
+.form-container .btn:hover {
   background-color: #45a049;
 }
-
-.label {
-  font-size: 15px;
-}
-
-.form-links {
-  margin-top: 20px;
+.form-container .link {
   color: gray;
+  text-align: left;
+}
+.form-container .link-right {
+  color: gray;
+  text-align: right;
+}
+.form-container .links {
   display: flex;
   justify-content: space-between;
 }
-
-.form-links a {
-  color: gray;
-  text-decoration: none;
-}
-
-.form-links a:hover {
-  text-decoration: underline;
-}
-
-@media screen and (max-width: 600px) {
-  .form {
+@media (max-width: 600px) {
+  .form-container {
     width: 90%;
   }
 }
