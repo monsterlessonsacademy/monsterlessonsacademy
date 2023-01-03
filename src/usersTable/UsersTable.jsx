@@ -5,12 +5,15 @@ const HeaderCell = ({ column, sorting, sortTable }) => {
   const isDescSorting =
     sorting.column === column && sorting.direction === "desc";
   const isAscSorting = sorting.column === column && sorting.direction === "asc";
-  const futureSortingOrder = isDescSorting ? "asc" : "desc";
+  const handleClick = () => {
+    const newSorting = {
+      column,
+      direction: isDescSorting ? "asc" : "desc",
+    };
+    sortTable(newSorting);
+  };
   return (
-    <th
-      className="users-table-cell"
-      onClick={() => sortTable({ column, direction: futureSortingOrder })}
-    >
+    <th className="users-table-cell" onClick={handleClick}>
       {column}
       {isDescSorting && <span>▼</span>}
       {isAscSorting && <span>▲</span>}
@@ -23,12 +26,7 @@ const Header = ({ columns, sorting, sortTable }) => {
     <thead>
       <tr>
         {columns.map((column) => (
-          <HeaderCell
-            column={column}
-            key={column}
-            sorting={sorting}
-            sortTable={sortTable}
-          />
+          <HeaderCell column={column} sorting={sorting} sortTable={sortTable} />
         ))}
       </tr>
     </thead>
@@ -53,7 +51,7 @@ const Content = ({ users, columns }) => {
 
 const SearchBar = ({ searchTable }) => {
   const [searchValue, setSearchValue] = useState("");
-  const handleSearch = (e) => {
+  const handleChange = (e) => {
     setSearchValue(e.target.value);
   };
   const submitForm = (e) => {
@@ -61,13 +59,13 @@ const SearchBar = ({ searchTable }) => {
     searchTable(searchValue);
   };
   return (
-    <div className="search-bar">
+    <div>
       <form onSubmit={submitForm}>
         <input
           type="text"
-          placeholder="Search..."
           value={searchValue}
-          onChange={handleSearch}
+          onChange={handleChange}
+          placeholder="Search..."
         />
       </form>
     </div>
@@ -76,9 +74,9 @@ const SearchBar = ({ searchTable }) => {
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
+  const columns = ["id", "name", "age"];
   const [sorting, setSorting] = useState({ column: "id", direction: "asc" });
   const [searchValue, setSearchValue] = useState("");
-  const columns = ["id", "name", "age"];
   const sortTable = (newSorting) => {
     setSorting(newSorting);
   };
@@ -87,13 +85,11 @@ const UsersTable = () => {
   };
 
   useEffect(() => {
-    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.direction}&name_like=${searchValue}`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setUsers(data);
-      });
+    fetch(
+      `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.direction}&name_like=${searchValue}`
+    )
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
   }, [sorting, searchValue]);
 
   return (
