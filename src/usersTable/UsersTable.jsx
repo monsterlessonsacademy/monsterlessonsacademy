@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import "./usersTable.css";
 
 const HeaderCell = ({ column, sorting, sortTable }) => {
-  const isDescSorting = sorting.column === column && sorting.order === "desc";
-  const isAscSorting = sorting.column === column && sorting.order === "asc";
+  const isDescSorting =
+    sorting.column === column && sorting.direction === "desc";
+  const isAscSorting = sorting.column === column && sorting.direction === "asc";
   const futureSortingOrder = isDescSorting ? "asc" : "desc";
   return (
     <th
-      key={column}
       className="users-table-cell"
-      onClick={() => sortTable({ column, order: futureSortingOrder })}
+      onClick={() => sortTable({ column, direction: futureSortingOrder })}
     >
       {column}
       {isDescSorting && <span>▼</span>}
@@ -25,8 +25,8 @@ const Header = ({ columns, sorting, sortTable }) => {
         {columns.map((column) => (
           <HeaderCell
             column={column}
-            sorting={sorting}
             key={column}
+            sorting={sorting}
             sortTable={sortTable}
           />
         ))}
@@ -35,14 +35,14 @@ const Header = ({ columns, sorting, sortTable }) => {
   );
 };
 
-const Content = ({ entries, columns }) => {
+const Content = ({ users, columns }) => {
   return (
     <tbody>
-      {entries.map((entry) => (
-        <tr key={entry.id}>
+      {users.map((user) => (
+        <tr key={user.id}>
           {columns.map((column) => (
             <td key={column} className="users-table-cell">
-              {entry[column]}
+              {user[column]}
             </td>
           ))}
         </tr>
@@ -53,6 +53,9 @@ const Content = ({ entries, columns }) => {
 
 const SearchBar = ({ searchTable }) => {
   const [searchValue, setSearchValue] = useState("");
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
   const submitForm = (e) => {
     e.preventDefault();
     searchTable(searchValue);
@@ -64,7 +67,7 @@ const SearchBar = ({ searchTable }) => {
           type="text"
           placeholder="Search..."
           value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={handleSearch}
         />
       </form>
     </div>
@@ -73,7 +76,7 @@ const SearchBar = ({ searchTable }) => {
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
-  const [sorting, setSorting] = useState({ column: "id", order: "asc" });
+  const [sorting, setSorting] = useState({ column: "id", direction: "asc" });
   const [searchValue, setSearchValue] = useState("");
   const columns = ["id", "name", "age"];
   const sortTable = (newSorting) => {
@@ -84,11 +87,12 @@ const UsersTable = () => {
   };
 
   useEffect(() => {
-    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.order}&name_like=${searchValue}`;
+    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.direction}&name_like=${searchValue}`;
+
     fetch(url)
-      .then((res) => res.json())
-      .then((users) => {
-        setUsers(users);
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
       });
   }, [sorting, searchValue]);
 
@@ -97,7 +101,7 @@ const UsersTable = () => {
       <SearchBar searchTable={searchTable} />
       <table className="users-table">
         <Header columns={columns} sorting={sorting} sortTable={sortTable} />
-        <Content entries={users} columns={columns} />
+        <Content users={users} columns={columns} />
       </table>
     </div>
   );
