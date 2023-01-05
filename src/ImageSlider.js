@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, memo } from "react";
 
 const slideStyles = {
   width: "100%",
@@ -58,6 +58,7 @@ const slidesContainerOverflowStyles = {
 };
 
 const ImageSlider = ({ slides, parentWidth }) => {
+  console.log("ImageSlider");
   const timerRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const goToPrevious = () => {
@@ -85,6 +86,7 @@ const ImageSlider = ({ slides, parentWidth }) => {
   });
 
   useEffect(() => {
+    console.log("useEffect");
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
@@ -130,4 +132,14 @@ const ImageSlider = ({ slides, parentWidth }) => {
   );
 };
 
-export default ImageSlider;
+const comparator = (prevProps, nextProps) => {
+  if (prevProps.parentWidth !== nextProps.parentWidth) {
+    return false;
+  }
+
+  return prevProps.slides.every(
+    (el, index) => el.url === nextProps.slides[index].url
+  );
+};
+
+export default memo(ImageSlider, comparator);

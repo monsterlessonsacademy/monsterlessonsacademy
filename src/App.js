@@ -1,5 +1,7 @@
+import { useState } from "react";
 import ImageSlider from "./ImageSlider";
 const App = () => {
+  const [counter, setCounter] = useState(0);
   const slides = [
     { url: "http://localhost:3000/image-1.jpg", title: "beach" },
     { url: "http://localhost:3000/image-2.jpg", title: "boat" },
@@ -15,6 +17,7 @@ const App = () => {
   return (
     <div>
       <h1>Hello monsterlessons</h1>
+      <button onClick={() => setCounter(counter + 1)}>Counter</button>
       <div style={containerStyles}>
         <ImageSlider slides={slides} parentWidth={500} />
       </div>
