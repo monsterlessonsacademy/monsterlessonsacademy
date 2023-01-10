@@ -11,16 +11,21 @@ export class AuthGuardService implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean> {
-    return this.currentUserService.currentUser$
-      .pipe(filter((currentUser) => currentUser !== undefined))
-      .pipe(
-        map((isLoggedIn) => {
-          if (!isLoggedIn) {
-            this.router.navigateByUrl('/');
-            return false;
-          }
-          return true;
-        })
-      );
+    return this.currentUserService.currentUser$.pipe(
+      filter((currentUser) => currentUser !== undefined),
+      map((currentUser) => {
+        if (!currentUser) {
+          this.router.navigateByUrl('/');
+          return false;
+        }
+        return true;
+      })
+    );
   }
+  // canActivate(): boolean {
+  //   if (localStorage.getItem('token')) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }
