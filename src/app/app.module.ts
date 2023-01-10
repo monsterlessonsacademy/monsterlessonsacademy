@@ -5,7 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersTableModule } from './usersTable/usersTable.module';
+import { AuthGuardService } from './auth-guard.service';
+import { CurrentUserService } from './currentUser.service';
+import { PrivateModule } from './private/private.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,8 +16,9 @@ import { UsersTableModule } from './usersTable/usersTable.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    UsersTableModule,
+    PrivateModule,
   ],
   bootstrap: [AppComponent],
+  providers: [CurrentUserService, AuthGuardService],
 })
 export class AppModule {}
