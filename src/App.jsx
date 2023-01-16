@@ -1,7 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Protected from "./Protected";
-import Auth from "./Auth";
 import Dashboard from "./Dashboard";
+import Auth from "./Auth";
 
 const App = () => {
   return (

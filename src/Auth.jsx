@@ -7,18 +7,17 @@ const Auth = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
       if (localStorage.getItem("token")) {
-        setCurrentUser({ id: "1", name: "Foo" });
+        setCurrentUser({ id: "1", name: "foo" });
       } else {
         setCurrentUser(null);
       }
     }, 2000);
   }, []);
 
-  console.log("currentUser", currentUser);
-
   if (currentUser === undefined) {
     return null;
   }
+
   if (!currentUser) {
     return <Navigate to="/" />;
   }
