@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev:ssr": "ng run appName:serve-ssr",
+    "serve:ssr": "node dist/appName/server/main.js",
+    "build:ssr": "ng build && ng run appName:server",
+    "prerender": "ng run appName:prerender"
   },
   "private": true,
   "dependencies": {
@@ -19,7 +23,10 @@
     "@angular/material": "^14.2.7",
     "@angular/platform-browser": "^14.2.8",
     "@angular/platform-browser-dynamic": "^14.2.8",
+    "@angular/platform-server": "^14.2.8",
     "@angular/router": "^14.2.8",
+    "@nguniversal/express-engine": "^14.2.3",
+    "express": "^4.15.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -28,6 +35,8 @@
     "@angular-devkit/build-angular": "^14.2.7",
     "@angular/cli": "^14.2.7",
     "@angular/compiler-cli": "^14.2.8",
+    "@nguniversal/builders": "^14.2.3",
+    "@types/express": "^4.17.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",

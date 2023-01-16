@@ -10,8 +10,6 @@ export class AppComponent implements OnInit {
   constructor(private currentUserService: CurrentUserService) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.currentUserService.setCurrentUser();
-    }, 2000);
+    this.currentUserService.setCurrentUser();
   }
 }

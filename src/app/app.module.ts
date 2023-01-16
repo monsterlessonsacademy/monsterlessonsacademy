@@ -8,15 +8,17 @@ import { AppComponent } from './app.component';
 import { AuthGuardService } from './auth-guard.service';
 import { CurrentUserService } from './currentUser.service';
 import { PrivateModule } from './private/private.module';
+import { UsersTableModule } from './usersTable/usersTable.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     PrivateModule,
+    UsersTableModule,
   ],
   bootstrap: [AppComponent],
   providers: [CurrentUserService, AuthGuardService],
