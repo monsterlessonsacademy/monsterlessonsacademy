@@ -10,7 +10,6 @@ export class UsersService {
 
   getUsers(sorting: SortingInterface): Observable<UserType[]> {
     const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.order}`;
-    // return this.http.get<UserInterface[]>(url);
     return this.http.get<UserType[]>(url).pipe(
       map((users) => users.map((user) => UserSchema.parse(user))),
       map((users) => {
