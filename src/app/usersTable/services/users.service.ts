@@ -1,18 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { SortingInterface } from '../types/sorting.interface';
-import { UserInterface } from '../types/user.interface';
+import { UserSchema, UserType } from '../types/user.model';
 
 @Injectable()
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  getUsers(
-    sorting: SortingInterface,
-    searchValue: string
-  ): Observable<UserInterface[]> {
-    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.order}&name_like=${searchValue}`;
-    return this.http.get<UserInterface[]>(url);
+  getUsers(sorting: SortingInterface): Observable<UserType[]> {
+    const url = `http://localhost:3004/users?_sort=${sorting.column}&_order=${sorting.order}`;
+    // return this.http.get<UserInterface[]>(url);
+    return this.http.get<UserType[]>(url).pipe(
+      map((users) => users.map((user) => UserSchema.parse(user))),
+      map((users) => {
+        return users.map((user) => ({
+          ...user,
+          name: user.name.toUpperCase(),
+        }));
+      })
+    );
   }
 }

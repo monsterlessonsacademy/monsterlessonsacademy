@@ -16,19 +16,15 @@ export class UsersTableComponent implements OnInit {
     order: 'asc',
   };
   users: UserInterface[] = [];
-  searchValue: string = '';
-  searchForm = this.fb.nonNullable.group({
-    searchValue: '',
-  });
 
-  constructor(private usersService: UsersService, private fb: FormBuilder) {}
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.fetchData();
   }
 
   fetchData(): void {
-    this.usersService.getUsers(this.sorting, this.searchValue).subscribe((users) => {
+    this.usersService.getUsers(this.sorting).subscribe((users) => {
       this.users = users;
     });
   }
@@ -51,11 +47,6 @@ export class UsersTableComponent implements OnInit {
       column,
       order: futureSortingOrder,
     };
-    this.fetchData();
-  }
-
-  onSearchSubmit(): void {
-    this.searchValue = this.searchForm.value.searchValue ?? '';
     this.fetchData();
   }
 }
