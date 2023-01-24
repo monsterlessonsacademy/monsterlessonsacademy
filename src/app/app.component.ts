@@ -12,27 +12,24 @@ export class AppComponent {
   constructor(private zone: NgZone) {}
 
   mouseDown(event: any) {
-    console.log('mouseDown');
-    this.element = event.target;
     this.zone.runOutsideAngular(() => {
-      window.document.addEventListener('mousemove', this.mouseMove);
+      window.document.addEventListener('mousemove', this.mouseMove.bind(this));
     });
   }
 
-  mouseMove = (event: any) => {
-    event.preventDefault();
-    this.element.setAttribute('x', event.clientX);
-    this.element.setAttribute('y', event.clientY);
-  };
+  mouseMove(event: any) {
+    this.element.nativeElement.setAttribute('x', event.clientX);
+    this.element.nativeElement.setAttribute('y', event.clientY);
+  }
 
   mouseUp(event: any) {
     this.zone.run(() => {
       this.position = {
-        x: this.element.getAttribute('x'),
-        y: this.element.getAttribute('y'),
+        x: this.element.nativeElement.getAttribute('x'),
+        y: this.element.nativeElement.getAttribute('y'),
       };
     });
-    console.log('!!', this.mouseMove);
+
     window.document.removeEventListener('mousemove', this.mouseMove);
   }
 }
