@@ -1,38 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, NgZone, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  registerForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    roleId: [1, Validators.required],
-  });
-  isSubmitted = false;
-  roles = [
-    { id: 1, title: 'developer' },
-    { id: 2, title: 'qa' },
-  ];
+export class AppComponent {
+  @ViewChild('element', { static: true }) element: any;
+  position: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private zone: NgZone) {}
 
-  ngOnInit(): void {
-    this.registerForm.get('roleId')?.valueChanges.subscribe((roleId) => {
-      console.log('SEND API REQUEST AND UPDATE ROLE', roleId);
+  mouseDown(event: any) {
+    console.log('mouseDown');
+    this.element = event.target;
+    this.zone.runOutsideAngular(() => {
+      window.document.addEventListener('mousemove', this.mouseMove);
     });
   }
 
-  onSubmit(): void {
-    console.log(
-      'submitted form',
-      this.registerForm.value,
-      this.registerForm.invalid
-    );
-    this.isSubmitted = true;
+  mouseMove = (event: any) => {
+    event.preventDefault();
+    this.element.setAttribute('x', event.clientX);
+    this.element.setAttribute('y', event.clientY);
+  };
+
+  mouseUp(event: any) {
+    this.zone.run(() => {
+      this.position = {
+        x: this.element.getAttribute('x'),
+        y: this.element.getAttribute('y'),
+      };
+    });
+    console.log('!!', this.mouseMove);
+    window.document.removeEventListener('mousemove', this.mouseMove);
   }
 }

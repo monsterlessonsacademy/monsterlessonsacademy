@@ -1,66 +1,7 @@
 <h1>Monsterlessons academy</h1>
 
-<form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div class="field">
-    <label class="label">username</label>
-    <input
-      type="text"
-      class="input"
-      formControlName="username"
-      [class.invalid]="
-        registerForm.get('username')?.invalid &&
-        (registerForm.get('username')?.dirty ||
-          registerForm.get('username')?.touched ||
-          isSubmitted)
-      "
-    />
-    <span
-      *ngIf="
-        registerForm.get('username')?.hasError('required') &&
-        (registerForm.get('username')?.dirty ||
-          registerForm.get('username')?.touched ||
-          isSubmitted)
-      "
-      class="error"
-      >This field is required.</span
-    >
-  </div>
-  <div class="field">
-    <label class="label">email</label>
-    <input
-      type="text"
-      class="input"
-      formControlName="email"
-      [class.invalid]="
-        registerForm.get('email')?.invalid &&
-        (registerForm.get('email')?.dirty ||
-          registerForm.get('email')?.touched ||
-          isSubmitted)
-      "
-    />
-  </div>
-  <div class="field">
-    <label class="label">password</label>
-    <input
-      type="text"
-      class="input"
-      formControlName="password"
-      [class.invalid]="
-        registerForm.get('password')?.invalid &&
-        (registerForm.get('password')?.dirty ||
-          registerForm.get('password')?.touched ||
-          isSubmitted)
-      "
-    />
-  </div>
+<div (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" #element>
+  Element
+</div>
 
-  <select formControlName="roleId">
-    <option *ngFor="let role of roles" [ngValue]="role.id">
-      {{ role.title }}
-    </option>
-  </select>
-
-  <div>
-    <button type="submit" class="button">Register</button>
-  </div>
-</form>
+{{ position | json }}
