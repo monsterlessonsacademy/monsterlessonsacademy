@@ -1,7 +1,7 @@
 <h1>Monsterlessons academy</h1>
 
-<div (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)" #element>
-  Element
-</div>
-
-{{ position | json }}
+<div highlight color="red">This is some text</div>
+<div *appUnless="condition">This is some text</div>
+<ng-template [appUnless]="condition">
+  <div>This is some text</div>
+</ng-template>

@@ -6,9 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HighlightDirective } from './highlight.directive';
+import { UnlessDirective } from './unless.directive';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HighlightDirective, UnlessDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
