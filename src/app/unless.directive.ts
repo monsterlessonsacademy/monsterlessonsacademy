@@ -1,16 +1,10 @@
-import {
-  AfterViewInit,
-  Directive,
-  Input,
-  TemplateRef,
-  ViewContainerRef,
-} from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[appUnless]',
+  selector: '[unless]',
 })
 export class UnlessDirective {
-  @Input() set appUnless(condition: boolean) {
+  @Input() set unless(condition: boolean) {
     if (condition) {
       this.viewContainer.clear();
     } else {
