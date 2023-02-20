@@ -12,10 +12,10 @@ export interface UsersServiceConfigInterface {
   apiUrl: string;
 }
 
-export const USERS_SERVICE_TOKEN = new InjectionToken<UsersServiceConfigInterface>(
+export const USERS_SERVICE_TOKEN = new InjectionToken<UsersService>('');
+export const USERS_SERVICE_CONFIG_TOKEN = new InjectionToken<UsersServiceConfigInterface>(
   ''
 );
-export const USERS_SERVICE_CONFIG_TOKEN = new InjectionToken<UsersService>('');
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,9 +27,6 @@ export const USERS_SERVICE_CONFIG_TOKEN = new InjectionToken<UsersService>('');
     ReactiveFormsModule,
   ],
   bootstrap: [AppComponent],
-  // providers: [UsersService],
-  // providers: [{ provide: UsersService, useClass: UsersService }],
-  // providers: [{ provide: 'USERS_SERVICE', useClass: UsersService }],
   providers: [
     { provide: USERS_SERVICE_TOKEN, useClass: UsersService },
     {
