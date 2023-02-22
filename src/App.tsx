@@ -6,7 +6,10 @@ import {
   useState,
 } from "react";
 
-export const AppContext = createContext({ theme: "light" });
+interface User {
+  id: string;
+  name: string;
+}
 
 interface ButtonProps {
   text?: string;
@@ -14,14 +17,11 @@ interface ButtonProps {
   children?: JSX.Element;
 }
 
-interface User {
-  id: string;
-  name: string;
-}
-
 interface AppState {
   currentUser?: User;
 }
+
+const AppContext = createContext({ theme: "light" });
 
 const Button = ({
   text = "submit",
@@ -39,16 +39,14 @@ const Button = ({
 
 // class App extends Component<{}, AppState> {
 //   componentDidMount() {
-//     this.setState({
-//       currentUser: { id: "1", name: "Foo" },
-//     });
+//     this.setState({ currentUser: { id: "1", name: "foo" } });
 //   }
 
 //   render(): JSX.Element {
 //     return (
 //       <div>
-//         <h1>Monsterlessons Academy</h1>
-//         <Button text="Click me" icon="▼" />
+//         <h1>Monsterlessonss Academy</h1>
+//         <Button text="Fooo" icon="▼"></Button>
 //       </div>
 //     );
 //   }
@@ -57,11 +55,10 @@ const Button = ({
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
   const appContext = useContext(AppContext);
-
   return (
-    <AppContext.Provider value={{ theme: "light" }}>
-      <h1>Monsterlessons Academy</h1>
-      <Button text="Click me" icon="▼" />
+    <AppContext.Provider value={{ theme: "dark" }}>
+      <h1>Monsterlessonss Academy</h1>
+      <Button text="Fooo" icon="▼"></Button>
     </AppContext.Provider>
   );
 };
