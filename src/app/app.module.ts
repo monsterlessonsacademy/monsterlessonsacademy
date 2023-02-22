@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChildComponent } from './child.component';
 import { ParentComponent } from './parent.component';
-import { UsersService } from './users.service';
 
 @NgModule({
   declarations: [AppComponent, ParentComponent, ChildComponent],
