@@ -5,20 +5,13 @@
   font-family: inherit;
 }
 
-/* :root { */
-/*   --button-color: red; */
-/* } */
-
-.container {
-  /* --button-color: red; */
-  --button-color-default: orange;
+:root {
 }
 
-.comment-container {
-  --button-color: blue;
+.container {
+  /* --button-color-default: orange; */
 }
 
 .button {
-  /* color: var(--button-color, gray); */
-  color: var(--button-color, var(--button-color-default, gray));
+  color: var(--button-color, gray);
 }
