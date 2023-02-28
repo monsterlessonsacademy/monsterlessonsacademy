@@ -1,6 +1,9 @@
 import useLocalStorage from "./useLocalStorage";
+
 const App = () => {
   const [name, setName] = useLocalStorage("name", "Jack");
+  console.log(name);
+
   return (
     <div>
       <h1>Hello monsterlessons</h1>
