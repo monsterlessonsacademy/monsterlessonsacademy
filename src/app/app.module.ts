@@ -1,24 +1,15 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChildComponent } from './child.component';
-import { ParentComponent } from './parent.component';
+import { CurrentUserService } from './currentUser.service';
+import { PrivateModule } from './private/private.module';
 
 @NgModule({
-  declarations: [AppComponent, ParentComponent, ChildComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, PrivateModule],
+  providers: [CurrentUserService],
   bootstrap: [AppComponent],
-  providers: [],
 })
 export class AppModule {}
