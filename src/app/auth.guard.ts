@@ -10,6 +10,7 @@ export const authGuard = () => {
   return currentUserService.currentUser$.pipe(
     filter((currentUser) => currentUser !== undefined),
     map((currentUser) => {
+      console.log('currentUser', currentUser);
       if (!currentUser) {
         router.navigateByUrl('/');
         return false;
