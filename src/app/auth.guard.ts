@@ -4,8 +4,8 @@ import { filter, map } from 'rxjs';
 import { CurrentUserService } from './currentUser.service';
 
 export const authGuard = () => {
-  const router = inject(Router);
   const currentUserService = inject(CurrentUserService);
+  const router = inject(Router);
 
   return currentUserService.currentUser$.pipe(
     filter((currentUser) => currentUser !== undefined),
