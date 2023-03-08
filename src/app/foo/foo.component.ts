@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BarComponent } from '../bar/bar.component';
-import { Routes } from '@angular/router';
-
-// const routes: Routes = [
-//   {
-//     path: 'foo',
-//     component: FooComponent,
-//   },
-// ];
 
 @Component({
   selector: 'app-foo',
