@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentUserService } from './currentUser.service';
+import { BehaviorSubject, Subject } from 'rxjs';
+
+interface UserInterface {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -7,11 +12,22 @@ import { CurrentUserService } from './currentUser.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private currentUserService: CurrentUserService) {}
+  users$ = new BehaviorSubject<UserInterface[]>([]);
+  subject$ = new Subject<UserInterface[]>();
 
   ngOnInit(): void {
+    this.users$.subscribe((users) => {
+      console.log('users', users);
+    });
+
+    this.subject$.subscribe((users) => {
+      console.log('users from subject', users);
+    });
+
     setTimeout(() => {
-      this.currentUserService.setCurrentUser();
+      this.users$.next([{ id: '1', name: 'Foo' }]);
+      this.subject$.next([{ id: '1', name: 'Foo' }]);
+      console.log('setTimeout', this.users$.getValue());
     }, 2000);
   }
 }
