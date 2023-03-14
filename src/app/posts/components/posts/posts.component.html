@@ -1,5 +1,11 @@
 <h1>Posts Page</h1>
 
+<div>
+  <form [formGroup]="addForm" (ngSubmit)="onAdd()">
+    <input type="text" placeholder="Add..." formControlName="title" />
+  </form>
+</div>
+
 <div *ngIf="isLoading$ | async">Loading...</div>
 
 <div *ngIf="error$ | async as error">{{ error }}</div>

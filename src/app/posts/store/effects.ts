@@ -20,5 +20,19 @@ export class PostsEffects {
     )
   );
 
+  createPost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PostsActions.createPost),
+      mergeMap(({ post }) => {
+        return this.postsService.createPost(post).pipe(
+          map((post) => PostsActions.createPostSuccess({ post })),
+          catchError((error) =>
+            of(PostsActions.createPostFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
   constructor(private actions$: Actions, private postsService: PostsService) {}
 }
