@@ -1,9 +1,9 @@
+// API KEY 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
 const app = require("express")();
 const bodyParser = require("body-parser");
 const { Configuration, OpenAIApi } = require("openai");
-
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
@@ -21,7 +21,7 @@ app.post("/completion", async (req, res, next) => {
       frequency_penalty: 0,
       presence_penalty: 0,
     });
-    console.log("response", response.data.choices[0].text);
+    console.log("response", response.data.choices[0]);
     res.send(response.data.choices[0].text);
   } catch (err) {
     next(err);
