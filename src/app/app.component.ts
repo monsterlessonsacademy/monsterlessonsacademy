@@ -25,14 +25,16 @@ export class AppComponent implements OnInit {
       //   ...prevUsers,
       //   { id: '1', name: 'Foo' },
       // ]);
-      this.users.mutate((currUsers) => {
-        currUsers.push({ id: '1', name: 'Foo' });
-      });
+      this.users.mutate((currUsers) =>
+        currUsers.push({ id: '1', name: 'Foo' })
+      );
+      console.log(this.users());
     }, 2000);
   }
 
   changeTitle(event: Event) {
     const title = (event.target as HTMLInputElement).value;
+
     this.title.set(title);
   }
 }
