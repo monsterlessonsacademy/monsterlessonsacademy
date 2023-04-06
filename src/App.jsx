@@ -1,5 +1,4 @@
 import Accordion from "./Accordion";
-
 const accordionData = [
   {
     title: "Section 1",
