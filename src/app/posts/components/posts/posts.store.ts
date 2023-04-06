@@ -21,22 +21,21 @@ export class PostsStore extends ComponentStore<PostsComponentState> {
     error: this.error$,
     posts: this.posts$,
   });
-
-  addPosts = this.updater((state, posts: PostInterface[]) => ({
-    ...state,
-    posts,
-    isLoading: false,
-  }));
-  addPost = this.updater((state, post: PostInterface) => ({
-    ...state,
-    posts: [...state.posts, post],
-    isLoading: false,
-  }));
   setIsLoading = this.updater((state) => ({ ...state, isLoading: true }));
   setError = this.updater((state, error: HttpErrorResponse) => ({
     ...state,
     isLoading: false,
     error: error.message,
+  }));
+  addPosts = this.updater((state, posts: PostInterface[]) => ({
+    ...state,
+    isLoading: false,
+    posts,
+  }));
+  addPost = this.updater((state, post: PostInterface) => ({
+    ...state,
+    isLoading: false,
+    posts: [...state.posts, post],
   }));
 
   getPosts = this.effect((trigger$) => {
