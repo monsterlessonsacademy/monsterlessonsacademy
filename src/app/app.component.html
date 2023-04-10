@@ -1,3 +1,7 @@
 <h1>Monsterlessons Academy</h1>
-<posts></posts>
+<button (click)="openModal(modalTemplate)">Open modal</button>
 <router-outlet></router-outlet>
+
+<ng-template #modalTemplate>
+  <div>This is our custom modal content</div>
+</ng-template>
