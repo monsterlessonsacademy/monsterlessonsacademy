@@ -10,6 +10,10 @@ export class AppComponent {
   constructor(private modalService: ModalService) {}
 
   openModal(modalTemplate: TemplateRef<any>) {
-    this.modalService.open(modalTemplate, { size: 'lg', title: 'Foo' });
+    this.modalService
+      .open(modalTemplate, { size: 'lg', title: 'Foo' })
+      .subscribe((action) => {
+        console.log('modalAction', action);
+      });
   }
 }
