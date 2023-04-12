@@ -1,7 +1,5 @@
 <h1>Monsterlessons Academy</h1>
-<button (click)="openModal(modalTemplate)">Open modal</button>
+<button tooltip tooltipText="This is our tooltip text">
+  Hover to see tooltip
+</button>
 <router-outlet></router-outlet>
-
-<ng-template #modalTemplate>
-  <div>This is our custom modal content</div>
-</ng-template>

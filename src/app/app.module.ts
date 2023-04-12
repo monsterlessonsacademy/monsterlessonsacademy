@@ -5,10 +5,17 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalService } from './modal/services/modal.service';
 import { ModalModule } from './modal/modal.module';
+import { TooltipModule } from './tooltip/tooltip.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ModalModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ModalModule,
+    TooltipModule,
+  ],
   bootstrap: [AppComponent],
   providers: [ModalService],
 })
