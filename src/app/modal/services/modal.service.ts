@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  ApplicationRef,
   ComponentFactoryResolver,
   Inject,
   Injectable,
@@ -15,19 +14,19 @@ export class ModalService {
   private modalNotifier?: Subject<string>;
   constructor(
     private resolver: ComponentFactoryResolver,
-    private applicationRef: ApplicationRef,
     private injector: Injector,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
   open(content: TemplateRef<any>, options?: { size?: string; title?: string }) {
-    const modalComponentfactory = this.resolver.resolveComponentFactory(
+    const modalComponentFactory = this.resolver.resolveComponentFactory(
       ModalComponent
     );
     const contentViewRef = content.createEmbeddedView(null);
-    const modalComponent = modalComponentfactory.create(this.injector, [
+    const modalComponent = modalComponentFactory.create(this.injector, [
       contentViewRef.rootNodes,
     ]);
+
     modalComponent.instance.size = options?.size;
     modalComponent.instance.title = options?.title;
     modalComponent.instance.closeEvent.subscribe(() => this.closeModal());

@@ -14,6 +14,7 @@ import {
 export class ModalComponent {
   @Input() size? = 'md';
   @Input() title? = 'Modal title';
+
   @Output() closeEvent = new EventEmitter();
   @Output() submitEvent = new EventEmitter();
 
