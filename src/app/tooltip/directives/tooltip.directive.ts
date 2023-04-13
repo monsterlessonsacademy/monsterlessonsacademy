@@ -64,10 +64,10 @@ export class TooltipDirective {
   }
 
   constructor(
-    private elementRef: ElementRef,
-    private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
+    private elementRef: ElementRef,
+    private appRef: ApplicationRef,
     @Inject(DOCUMENT) private document: Document
   ) {}
 }
