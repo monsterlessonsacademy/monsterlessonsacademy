@@ -1,0 +1,31 @@
+.container {
+  margin: 0 auto;
+  width: 500px;
+  margin-top: 50px;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBarClear {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.searchBarInput {
+  heigth: 30px;
+  width: 300px;
+  font-size: 16px;
+}
+
+.articlesTable {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.article {
+  margin: 10px 0;
+}

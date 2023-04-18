@@ -1,5 +1,19 @@
-<h1>Monsterlessons Academy</h1>
-<button tooltip tooltipText="This is our tooltip text">
-  Hover to see tooltip
-</button>
-<router-outlet></router-outlet>
+<div class="container">
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="onSearchSubmit()"
+    class="searchBar"
+  >
+    <input
+      type="text"
+      placeholder="Search..."
+      formControlName="searchValue"
+      class="searchBarInput"
+    />
+  </form>
+  <div class="articlesTable">
+    <div class="article" *ngFor="let article of articles">
+      {{ article.title }}
+    </div>
+  </div>
+</div>
