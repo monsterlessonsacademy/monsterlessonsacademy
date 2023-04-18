@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ArticleInterface } from './article.interface';
 import { ArticlesService } from './articles.service';
 
@@ -9,11 +9,11 @@ import { ArticlesService } from './articles.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  searchValue = '';
   articles: ArticleInterface[] = [];
   searchForm = this.fb.nonNullable.group({
     searchValue: '',
   });
-  searchValue: string = '';
 
   constructor(
     private articlesService: ArticlesService,
