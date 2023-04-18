@@ -1,37 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ArticleInterface } from './article.interface';
-import { ArticlesService } from './articles.service';
+import { Component, ViewChild } from '@angular/core';
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+  PageEvent,
+} from '@angular/material/paginator';
+import { PaginatorIntl } from './paginatorIntl.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntl }],
 })
-export class AppComponent implements OnInit {
-  articles: ArticleInterface[] = [];
-  searchForm = this.fb.nonNullable.group({
-    searchValue: '',
-  });
-  searchValue: string = '';
-
-  constructor(
-    private articlesService: ArticlesService,
-    private fb: FormBuilder
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchData();
-  }
-
-  fetchData(): void {
-    this.articlesService.getArticles(this.searchValue).subscribe((articles) => {
-      this.articles = articles;
-    });
-  }
-
-  onSearchSubmit(): void {
-    this.searchValue = this.searchForm.value.searchValue ?? '';
-    this.fetchData();
+export class AppComponent {
+  currentPage = 0;
+  handlePageEvent(e: PageEvent) {
+    console.log('handlePageEvent', e);
+    this.currentPage = e.pageIndex;
   }
 }
