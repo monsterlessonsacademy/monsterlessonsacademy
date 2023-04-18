@@ -1,9 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import {
-  MatPaginator,
-  MatPaginatorIntl,
-  PageEvent,
-} from '@angular/material/paginator';
+import { Component } from '@angular/core';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { PaginatorIntl } from './paginatorIntl.service';
 
 @Component({
@@ -14,8 +10,9 @@ import { PaginatorIntl } from './paginatorIntl.service';
 })
 export class AppComponent {
   currentPage = 0;
-  handlePageEvent(e: PageEvent) {
-    console.log('handlePageEvent', e);
-    this.currentPage = e.pageIndex;
+
+  handlePageEvent(pageEvent: PageEvent) {
+    console.log('handlePageEvent', pageEvent);
+    this.currentPage = pageEvent.pageIndex;
   }
 }

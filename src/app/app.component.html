@@ -1,12 +1,11 @@
 <h1>Monsterlessons Academy</h1>
 
 <mat-paginator
-  (page)="handlePageEvent($event)"
   [length]="500"
   [pageSize]="20"
   [showFirstLastButtons]="true"
-  [pageSizeOptions]="[5, 10, 25]"
-  [hidePageSize]="true"
+  [pageSizeOptions]="[5, 10, 20]"
   [pageIndex]="currentPage"
+  (page)="handlePageEvent($event)"
 >
 </mat-paginator>
