@@ -3,8 +3,8 @@ import { createContext, useEffect, useRef, useState } from "react";
 const AlertContext = createContext();
 
 export const AlertProvider = ({ children }) => {
-  const timerRef = useRef(null);
   const [alert, setAlert] = useState(null);
+  const timerRef = useRef(null);
 
   useEffect(() => {
     if (timerRef.current) {

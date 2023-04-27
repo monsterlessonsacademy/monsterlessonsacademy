@@ -29,17 +29,15 @@ const severityStyles = {
 
 const Alert = () => {
   const [alert] = useContext(AlertContext);
-  console.log("alert", alert);
 
   if (!alert) {
     return null;
   }
-
   const fullStyles = {
     ...alertStyles,
     ...severityStyles[alert.type],
   };
+
   return <div style={fullStyles}>{alert.text}</div>;
 };
-
 export default Alert;

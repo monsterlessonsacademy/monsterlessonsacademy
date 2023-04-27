@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import AlertContext from "./alert.context";
 import Alert from "./Alert";
+import AlertContext from "./alert.context";
 
 const App = () => {
   const [, setAlert] = useContext(AlertContext);
   const showAlert = (type) => {
     setAlert({
-      text: "This is an alert — check it out!",
+      text: "This is a custom alert",
       type,
     });
   };
