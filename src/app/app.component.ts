@@ -13,13 +13,12 @@ import { AlertTypeEnum } from './alert/types/alertType.enum';
 })
 export class AppComponent {
   alertTypes = AlertTypeEnum;
-
   constructor(private alertService: AlertService) {}
 
-  showAlert(type: AlertTypeEnum): void {
+  showAlert(type: AlertTypeEnum) {
     this.alertService.setAlert({
-      text: 'This is text alert',
       type,
+      text: 'THis is our test alert',
     });
   }
 }
