@@ -3,7 +3,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import "./app.css";
 
 const getUsers = async ({ pageParam = 0 }) => {
-  console.log("getUsers", pageParam);
   const res = await fetch(
     `https://api.realworld.io/api/articles?limit=10&offset=${pageParam}`
   );
@@ -16,21 +15,17 @@ const App = () => {
     queryKey: ["users"],
     queryFn: getUsers,
     getNextPageParam: (lastPage) => {
-      console.log(
-        "getNextPageParam",
-        lastPage.prevOffset + 10 > lastPage.articlesCount / 10,
-        lastPage.prevOffset,
-        lastPage.articlesCount / 10
-      );
-      if (lastPage.prevOffset + 10 > lastPage.articlesCount) {
+      if (lastPage.prevOffset + 10 > lastPage.articleCount) {
         return false;
       }
+
       return lastPage.prevOffset + 10;
     },
   });
   const articles = data?.pages.reduce((acc, page) => {
     return [...acc, ...page.articles];
   }, []);
+  console.log(articles);
 
   return (
     <div>
@@ -40,7 +35,7 @@ const App = () => {
         dataLength={articles ? articles.length : 0}
         next={() => fetchNextPage()}
         hasMore={hasNextPage}
-        loader={<div>Loading...</div>}
+        loading={<div>Loading...</div>}
       >
         <div>
           {articles &&
