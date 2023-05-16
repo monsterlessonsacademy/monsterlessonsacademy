@@ -1,19 +1,15 @@
-import { Component, TemplateRef } from '@angular/core';
-import { ModalService } from './modal/services/modal.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { MlaUsersService } from 'mla-users';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  constructor(private modalService: ModalService) {}
+export class AppComponent implements OnInit {
+  usersService = inject(MlaUsersService);
 
-  openModal(modalTemplate: TemplateRef<any>) {
-    this.modalService
-      .open(modalTemplate, { size: 'lg', title: 'Foo' })
-      .subscribe((action) => {
-        console.log('modalAction', action);
-      });
+  ngOnInit(): void {
+    this.usersService.getUsers().subscribe((res) => console.log(res));
   }
 }

@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalModule } from './modal/modal.module';
+import { MlaUsersModule } from 'mla-users';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ModalModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MlaUsersModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
