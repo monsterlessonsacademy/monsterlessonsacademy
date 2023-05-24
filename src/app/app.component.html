@@ -1,7 +1,5 @@
 <h1>Monsterlessons Academy</h1>
 
-<input type="text" [value]="title()" (keyup)="changeTitle($event)" />
-{{ title() }}
-{{ usersTotal() }}
+{{ page$ | async }}
 
 <router-outlet></router-outlet>

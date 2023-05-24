@@ -1,9 +1,32 @@
-import { Component, computed, effect, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewRef,
+  inject,
+} from '@angular/core';
+import { UsersService } from './users-service';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, filter, map, takeUntil } from 'rxjs';
 
-interface UserInterface {
-  id: string;
-  name: string;
-}
+const getPageParam = () => {
+  return inject(ActivatedRoute).queryParams.pipe(
+    filter((params) => params['page']),
+    map((params) => params['page'])
+  );
+};
+
+const onDestroy = () => {
+  const destroy$ = new Subject<void>();
+  const viewRef = inject(ChangeDetectorRef) as ViewRef;
+
+  viewRef.onDestroy(() => {
+    destroy$.next();
+    destroy$.complete();
+  });
+
+  return destroy$;
+};
 
 @Component({
   selector: 'app-root',
@@ -11,30 +34,14 @@ interface UserInterface {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = signal('');
-  users = signal<UserInterface[]>([]);
-  titleChangeEffect = effect(() => {
-    console.log('titleChangeEffect', this.title());
-  });
-  usersTotal = computed(() => this.users().length);
+  usersService = inject(UsersService);
+  page$ = getPageParam();
+  destroy$ = onDestroy();
 
   ngOnInit(): void {
-    setTimeout(() => {
-      // this.users.set([{ id: '1', name: 'Foo' }]);
-      // this.users.update((prevUsers) => [
-      //   ...prevUsers,
-      //   { id: '1', name: 'Foo' },
-      // ]);
-      this.users.mutate((currUsers) =>
-        currUsers.push({ id: '1', name: 'Foo' })
-      );
-      console.log(this.users());
-    }, 2000);
-  }
-
-  changeTitle(event: Event) {
-    const title = (event.target as HTMLInputElement).value;
-
-    this.title.set(title);
+    this.usersService
+      .getUsers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(console.log);
   }
 }
