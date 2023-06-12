@@ -1,0 +1,16 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user {
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 18px;
+  width: 400px;
+}
+
+.users-form {
+  margin-bottom: 20px;
+}
