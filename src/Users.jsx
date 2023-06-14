@@ -1,14 +1,14 @@
 import { useState } from "react";
 import "./users.css";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { data } from "./data";
+import { closestCenter, DndContext } from "@dnd-kit/core";
 import {
+  arrayMove,
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
-  arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { data } from "./data";
 
 const SortableUser = ({ user }) => {
   const {
@@ -18,10 +18,9 @@ const SortableUser = ({ user }) => {
     transform,
     transition,
   } = useSortable({ id: user.id });
-
   const style = {
-    transform: CSS.Transform.toString(transform),
     transition,
+    transform: CSS.Transform.toString(transform),
   };
 
   return (
@@ -32,7 +31,7 @@ const SortableUser = ({ user }) => {
       {...listeners}
       className="user"
     >
-      {user.name} {user.lastName}
+      {user.name}
     </div>
   );
 };
@@ -41,7 +40,6 @@ const Users = () => {
   const [users, setUsers] = useState(data);
   const [inputValue, setInputValue] = useState("");
   const addUser = () => {
-    createUserMutation.mutate(inputValue);
     newUser = {
       id: Date.now().toString(),
       name: inputValue,
@@ -49,6 +47,7 @@ const Users = () => {
     setInputValue("");
     setUsers((users) => [...users, newUser]);
   };
+
   const onDragEnd = (event) => {
     const { active, over } = event;
     if (active.id === over.id) {
@@ -57,7 +56,6 @@ const Users = () => {
     setUsers((users) => {
       const oldIndex = users.findIndex((user) => user.id === active.id);
       const newIndex = users.findIndex((user) => user.id === over.id);
-
       return arrayMove(users, oldIndex, newIndex);
     });
   };
