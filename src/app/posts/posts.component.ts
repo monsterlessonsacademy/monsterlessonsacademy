@@ -1,11 +1,11 @@
 import {
   Component,
   DestroyRef,
-  inject,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
-import { interval, Subject } from 'rxjs';
+import { interval, Subject, takeUntil } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -13,22 +13,19 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './posts.component.html',
   standalone: true,
 })
-export class PostsComponent implements OnInit, OnDestroy {
+export class PostsComponent implements OnInit {
   data$ = interval(1000);
-  unsubscribe$ = new Subject<void>();
   destroyRef = inject(DestroyRef);
+  // unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
-    // this.data$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-    //   console.log('data', data);
-    // });
     this.data$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((data) => {
       console.log('data', data);
     });
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+  // ngOnDestroy(): void {
+  //   this.unsubscribe$.next();
+  //   this.unsubscribe$.complete();
+  // }
 }
