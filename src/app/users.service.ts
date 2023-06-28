@@ -1,16 +1,24 @@
-import { Injectable, Signal, computed, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { UserInterface } from 'dist/mla-users';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { ArticleInterface } from './article.interface';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
+  http = inject(HttpClient);
   // private users$ = new BehaviorSubject<UserInterface[]>([]);
   private usersSig = signal<UserInterface[]>([]);
 
-  getUsers(): Signal<UserInterface[]> {
-    return computed(this.usersSig);
+  getArticles(): Observable<ArticleInterface[]> {
+    return this.http
+      .get<{ articles: ArticleInterface[] }>(
+        'https://conduit.productionready.io/api/articles/feed?limit=10&offset=0'
+      )
+      .pipe(map((response) => response.articles));
   }
 
   addUser(user: UserInterface): void {
