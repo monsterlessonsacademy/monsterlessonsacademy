@@ -3,7 +3,7 @@
   <input type="text" formControlName="name" />
 </form>
 
-<div *ngFor="let user of users()">
+<div *ngFor="let user of usersSig()">
   {{ user.name }}
   <span (click)="removeUser(user.id)">X</span>
 </div>

@@ -15,11 +15,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 export class AppComponent {
   usersService = inject(UsersService);
   fb = inject(FormBuilder);
-  // users$ = this.usersService.getUsers();
-  users = this.usersService.getUsers();
   addForm = this.fb.nonNullable.group({
     name: '',
   });
+  usersSig = this.usersService.getUsers();
 
   onUserAdd(): void {
     const user: UserInterface = {
