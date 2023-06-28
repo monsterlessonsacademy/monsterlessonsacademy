@@ -1,10 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { UsersService } from './users.service';
 import { CommonModule } from '@angular/common';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { ArticleInterface } from './article.interface';
 
 @Component({
@@ -15,7 +14,6 @@ import { ArticleInterface } from './article.interface';
   imports: [RouterOutlet, RouterLink, CommonModule],
 })
 export class AppComponent {
-  usersService = inject(UsersService);
   http = inject(HttpClient);
   searchSig = signal<string>('');
   articles$ = toObservable(this.searchSig).pipe(
