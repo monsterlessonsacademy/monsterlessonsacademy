@@ -1,11 +1,21 @@
 <h1>Monsterlessons academy</h1>
+<form
+  [formGroup]="searchForm"
+  class="searchBar"
+  (ngSubmit)="onSearchSubmit()"
+>
+  <input
+    type="text"
+    placeholder="Search..."
+    formControlName="searchValue"
+    class="searchBarInput"
+  />
+</form>
 
-<div>
-  <a routerLink="/">Home</a>
+<button (click)="addUser()">Add user</button>
+
+<div *ngFor="let user of users$ | async">
+  {{user.name}}
 </div>
-<div>
-  <a routerLink="/posts">Posts</a>
-</div>
 
-<router-outlet> </router-outlet>
-
+<router-outlet/>
