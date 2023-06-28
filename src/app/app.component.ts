@@ -3,30 +3,34 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { UsersService } from './users.service';
 import { CommonModule } from '@angular/common';
 import { UserInterface } from 'dist/mla-users';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
+  imports: [RouterOutlet, RouterLink, CommonModule, ReactiveFormsModule],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   usersService = inject(UsersService);
-  users$ = this.usersService.getUsers();
+  fb = inject(FormBuilder);
+  // users$ = this.usersService.getUsers();
+  users = this.usersService.getUsers();
+  addForm = this.fb.nonNullable.group({
+    name: '',
+  });
 
-  ngOnInit(): void {
-    this.usersService.getUsers().subscribe((users) => {
-      console.log('users', users);
-    });
-  }
-
-  addUser(): void {
-    const id = Math.random().toString();
+  onUserAdd(): void {
     const user: UserInterface = {
-      id,
-      name: id,
+      id: Math.random().toString(),
+      name: this.addForm.getRawValue().name,
     };
     this.usersService.addUser(user);
+    this.addForm.reset();
+  }
+
+  removeUser(userId: string): void {
+    this.usersService.removeUser(userId);
   }
 }
