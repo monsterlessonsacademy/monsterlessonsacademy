@@ -5,7 +5,7 @@ const map = new Map([
 ]);
 map.set("foo", "foo");
 map.set("bar", "bar");
-map.set(1, "111");
+map.set("1", "111");
 
 const newMap = new Map(map);
 const merged = new Map([...map, ...newMap]);
@@ -31,3 +31,6 @@ console.log(
 
 Array.from(map, ([key, value]) => console.log("QQQ", key, value));
 Array.from(map.values(), (value) => console.log("EWWWW", value));
+
+console.log("fy", JSON.stringify(Array.from(map.entries())));
+console.log("fy", JSON.stringify(Object.fromEntries(map)));
