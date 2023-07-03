@@ -4,11 +4,11 @@
   <div
     cdkDropList
     [cdkDropListData]="users"
-    (cdkDropListDropped)="drop($event)"
     class="users-list"
+    (cdkDropListDropped)="drop($event)"
   >
     <div *ngFor="let user of users" cdkDrag class="user">{{ user.name }}</div>
   </div>
-
-  <router-outlet></router-outlet>
 </div>
+
+<router-outlet></router-outlet>
