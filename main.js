@@ -1,38 +1,3 @@
-// class BadQueue {
-//   items = [];
-
-//   enqueue(element) {
-//     this.items.push(element);
-//   }
-
-//   dequeue() {
-//     return this.items.shift();
-//   }
-
-//   isEmpty() {
-//     return this.size() === 0;
-//   }
-
-//   peek() {
-//     return this.items[0];
-//   }
-
-//   size() {
-//     return this.items.length;
-//   }
-// }
-
-// const badQueue = new BadQueue();
-// badQueue.enqueue({ id: "1", name: "foo" });
-// badQueue.enqueue({ id: "2", name: "bar" });
-// badQueue.enqueue({ id: "3", name: "baz" });
-// console.log("size", badQueue.size());
-// console.log("empty?", badQueue.isEmpty());
-// console.log(badQueue.items);
-// badQueue.dequeue();
-// console.log("first", badQueue.items);
-//
-
 class GoodQueue {
   items = {};
   tail = 0;
@@ -44,20 +9,22 @@ class GoodQueue {
   }
 
   dequeue() {
+    const item = this.items[this.head];
     delete this.items[this.head];
     this.head++;
+    return item;
   }
 
   isEmpty() {
     return this.size() === 0;
   }
 
-  peek() {
-    return this.items[this.head];
-  }
-
   size() {
     return this.tail - this.head;
+  }
+
+  peek() {
+    return this.items[this.head];
   }
 }
 
@@ -65,8 +32,7 @@ const goodQueue = new GoodQueue();
 goodQueue.enqueue({ id: "1", name: "foo" });
 goodQueue.enqueue({ id: "2", name: "bar" });
 goodQueue.enqueue({ id: "3", name: "baz" });
-console.log("size", goodQueue.size());
-console.log("empty?", goodQueue.isEmpty());
-console.log(goodQueue.items);
-goodQueue.dequeue();
-console.log("first", goodQueue.items);
+console.log(goodQueue.size());
+console.log(goodQueue.isEmpty());
+const firstElement = goodQueue.dequeue();
+console.log(firstElement, goodQueue.items);
