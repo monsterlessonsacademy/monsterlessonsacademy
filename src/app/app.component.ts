@@ -1,34 +1,40 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { HttpClient } from '@angular/common/http';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { ArticleInterface } from './article.interface';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { UserInterface } from './user.interface';
+import { data } from './data';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    CommonModule,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+  ],
 })
 export class AppComponent {
-  http = inject(HttpClient);
-  searchSig = signal<string>('');
-  articles$ = toObservable(this.searchSig).pipe(
-    debounceTime(300),
-    distinctUntilChanged(),
-    switchMap((searchValue) =>
-      this.http.get<ArticleInterface[]>(
-        `http://localhost:3004/articles?title_like=${searchValue}`
-      )
-    )
-  );
-  articlesSig = toSignal(this.articles$);
+  users: UserInterface[] = data;
 
-  search(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.searchSig.set(value);
+  drop(event: CdkDragDrop<UserInterface[]>): void {
+    console.log('drop', event);
+    moveItemInArray(
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 }
