@@ -1,4 +1,4 @@
-<li [ngClass]="{ editing: isEditing }">
+<li [ngClass]="{ editing: isEditing, completed: todo.isCompleted }">
   <div class="view">
     <input
       class="toggle"

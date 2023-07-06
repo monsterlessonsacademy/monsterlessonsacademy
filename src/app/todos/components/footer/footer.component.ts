@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TodosService } from '../../services/todos.service';
 import { FilterEnum } from '../../types/filter.enum';
 
@@ -11,20 +11,20 @@ import { FilterEnum } from '../../types/filter.enum';
 })
 export class FooterComponent {
   todosService = inject(TodosService);
+  filterSig = this.todosService.filterSig;
   filterEnum = FilterEnum;
-
-  activeCount = computed(
-    () => this.todosService.todos().filter((todo) => !todo.isCompleted).length
-  );
-
+  activeCount = computed(() => {
+    return this.todosService.todosSig().filter((todo) => !todo.isCompleted)
+      .length;
+  });
+  noTodosClass = computed(() => this.todosService.todosSig().length === 0);
   itemsLeftText = computed(
     () => `item${this.activeCount() !== 1 ? 's' : ''} left`
   );
-  noTodosClass = computed(() => this.todosService.todos().length === 0);
-  filter = this.todosService.filter;
 
   changeFilter(event: Event, filterName: FilterEnum): void {
     event.preventDefault();
     this.todosService.changeFilter(filterName);
+    console.log('after changeFilter', this.todosService.filterSig());
   }
 }

@@ -7,30 +7,26 @@
     <li>
       <a
         href="/"
-        [ngClass]="{ selected: filter() === filterEnum.all }"
+        [ngClass]="{ selected: filterSig() === filterEnum.all }"
         (click)="changeFilter($event, filterEnum.all)"
+        >All</a
       >
-        All
-      </a>
     </li>
     <li>
       <a
         href="/"
-        [ngClass]="{ selected: filter() === filterEnum.active }"
+        [ngClass]="{ selected: filterSig() === filterEnum.active }"
         (click)="changeFilter($event, filterEnum.active)"
+        >Active</a
       >
-        Active
-      </a>
     </li>
-
     <li>
       <a
         href="/"
-        [ngClass]="{ selected: filter() === filterEnum.completed }"
+        [ngClass]="{ selected: filterSig() === filterEnum.completed }"
         (click)="changeFilter($event, filterEnum.completed)"
+        >Completed</a
       >
-        Completed
-      </a>
     </li>
   </ul>
 </footer>

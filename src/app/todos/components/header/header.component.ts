@@ -7,8 +7,8 @@ import { TodosService } from '../../services/todos.service';
   standalone: true,
 })
 export class HeaderComponent {
+  todosService = inject(TodosService);
   text: string = '';
-  todoService = inject(TodosService);
 
   changeText(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -16,7 +16,7 @@ export class HeaderComponent {
   }
 
   addTodo(): void {
-    this.todoService.addTodo(this.text);
+    this.todosService.addTodo(this.text);
     this.text = '';
   }
 }
