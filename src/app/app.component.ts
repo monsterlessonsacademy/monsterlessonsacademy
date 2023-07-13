@@ -7,7 +7,7 @@ import { FooComponent } from './foo/foo.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [FooComponent, RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, FooComponent],
 })
 export class AppComponent {
   title = 'app';
