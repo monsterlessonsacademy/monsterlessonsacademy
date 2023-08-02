@@ -1,18 +1,12 @@
-class GoodQueue {
-  items = {};
-  tail = 0;
-  head = 0;
+class Stack {
+  items = [];
 
-  enqueue(element) {
-    this.items[this.tail] = element;
-    this.tail++;
+  push(element) {
+    this.items.push(element);
   }
 
-  dequeue() {
-    const item = this.items[this.head];
-    delete this.items[this.head];
-    this.head++;
-    return item;
+  pop() {
+    return this.items.pop();
   }
 
   isEmpty() {
@@ -20,19 +14,19 @@ class GoodQueue {
   }
 
   size() {
-    return this.tail - this.head;
+    return this.items.length;
   }
 
   peek() {
-    return this.items[this.head];
+    return this.items[this.size() - 1];
   }
 }
 
-const goodQueue = new GoodQueue();
-goodQueue.enqueue({ id: "1", name: "foo" });
-goodQueue.enqueue({ id: "2", name: "bar" });
-goodQueue.enqueue({ id: "3", name: "baz" });
-console.log(goodQueue.size());
-console.log(goodQueue.isEmpty());
-const firstElement = goodQueue.dequeue();
-console.log(firstElement, goodQueue.items);
+const stack = new Stack();
+stack.push({ id: "1", name: "foo" });
+stack.push({ id: "2", name: "bar" });
+stack.push({ id: "3", name: "baz" });
+console.log(stack.size());
+console.log(stack.isEmpty());
+const firstElement = stack.pop();
+console.log(firstElement, stack.items);
