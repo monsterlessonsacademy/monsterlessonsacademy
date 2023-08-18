@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class SinglyLinkedList {
+class LinkedList {
   constructor() {
     this.size = 0;
     this.head = null;
@@ -28,19 +28,6 @@ class SinglyLinkedList {
     this.size++;
   }
 
-  addByIndex(index, value) {
-    const newNode = new Node(value);
-    if (this.size === 0) {
-      this.head = newNode;
-      return;
-    }
-
-    const previousNode = this.getByIndex(index - 1);
-    newNode.next = previousNode.next;
-    previousNode.next = newNode;
-    this.size++;
-  }
-
   getByIndex(index) {
     let position = 0;
     let currentNode = this.head;
@@ -53,25 +40,36 @@ class SinglyLinkedList {
     return currentNode;
   }
 
+  addByIndex(index, value) {
+    const newNode = new Node(value);
+
+    if (this.size === 0) {
+      this.head = newNode;
+      return;
+    }
+
+    const previousNode = this.getByIndex(index - 1);
+    newNode.next = previousNode.next;
+    previousNode.next = newNode;
+    this.size++;
+  }
+
   removeByIndex(index) {
     let currentNode = this.head;
-    if (index === 0) {
+    if (this.size === 0) {
       this.head = currentNode.next;
     } else {
       const previousNode = this.getByIndex(index - 1);
       previousNode.next = previousNode.next.next;
     }
-
-    this.size--;
   }
 }
 
-const singly = new SinglyLinkedList();
-singly.add("a");
-singly.add("b");
-singly.add("c");
-console.log(singly);
-console.log(singly.getByIndex(0));
-singly.removeByIndex(1);
-singly.addByIndex(1, "f");
-console.log(singly);
+const linkedList = new LinkedList();
+linkedList.add(1);
+linkedList.add(2);
+linkedList.add(3);
+linkedList.addByIndex(1, 5);
+linkedList.removeByIndex(1);
+console.log(linkedList.getByIndex(1));
+console.log(linkedList);
