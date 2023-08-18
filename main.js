@@ -29,24 +29,16 @@ class SinglyLinkedList {
   }
 
   addByIndex(index, value) {
+    const newNode = new Node(value);
     if (this.size === 0) {
-      this.add(value);
+      this.head = newNode;
       return;
     }
 
-    const newNode = new Node(value);
-    let currentNode = this.head;
-    let previousNode;
-    let position = 0;
-
-    while (position < index) {
-      previousNode = currentNode;
-      currentNode = currentNode.next;
-      position++;
-    }
-
-    newNode.next = currentNode;
+    const previousNode = this.getByIndex(index - 1);
+    newNode.next = previousNode.next;
     previousNode.next = newNode;
+    this.size++;
   }
 
   getByIndex(index) {
@@ -63,18 +55,11 @@ class SinglyLinkedList {
 
   removeByIndex(index) {
     let currentNode = this.head;
-    let previousNode;
-    let position = 0;
     if (index === 0) {
       this.head = currentNode.next;
     } else {
-      while (position < index) {
-        previousNode = currentNode;
-        currentNode = currentNode.next;
-        position++;
-      }
-
-      previousNode.next = currentNode.next;
+      const previousNode = this.getByIndex(index - 1);
+      previousNode.next = previousNode.next.next;
     }
 
     this.size--;
@@ -87,6 +72,6 @@ singly.add("b");
 singly.add("c");
 console.log(singly);
 console.log(singly.getByIndex(0));
-// singly.removeByIndex(1);
+singly.removeByIndex(1);
 singly.addByIndex(1, "f");
 console.log(singly);
