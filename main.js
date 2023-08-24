@@ -1,27 +1,23 @@
-class TodoList {
-  constructor() {
-    this.items = [];
-  }
-
-  addItem(text) {
-    this.items.push(text);
-  }
-
-  removeItem(index) {
-    this.items = items.splice(index, 1);
-  }
-
-  toString() {
-    return this.items.toString();
+class FileSystem {
+  save(data) {
+    // Implementation
   }
 }
 
-class DatabaseManager {
-  saveToFile(data, filename) {
-    fs.writeFileSync(filename, data.toString());
+class ExternalDB {
+  save(data) {
+    // Implementation
   }
+}
 
-  loadFromFile(filename) {
-    // Some implementation
+class LocalPersistance {
+  save(data) {
+    // Implementation
+  }
+}
+
+class PersistanceManager {
+  saveData(db, data) {
+    db.save(data);
   }
 }
