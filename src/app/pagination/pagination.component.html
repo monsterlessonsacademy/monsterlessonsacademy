@@ -1,0 +1,13 @@
+<ul class="pagination">
+  <li
+    *ngFor="let page of pages"
+    class="page-item"
+    data-testid="page-container"
+    [ngClass]="{ active: currentPage === page }"
+    (click)="selectPage(page)"
+  >
+    <span class="page-link">
+      {{ page }}
+    </span>
+  </li>
+</ul>
