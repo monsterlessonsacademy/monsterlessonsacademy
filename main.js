@@ -1,75 +1,27 @@
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
-  }
-}
-
-class LinkedList {
+class TodoList {
   constructor() {
-    this.size = 0;
-    this.head = null;
+    this.items = [];
   }
 
-  add(value) {
-    const newNode = new Node(value);
-
-    if (this.size === 0) {
-      this.head = newNode;
-    } else {
-      let currentNode = this.head;
-      while (currentNode.next) {
-        currentNode = currentNode.next;
-      }
-
-      currentNode.next = newNode;
-    }
-
-    this.size++;
+  addItem(text) {
+    this.items.push(text);
   }
 
-  getByIndex(index) {
-    let position = 0;
-    let currentNode = this.head;
-
-    while (position < index) {
-      currentNode = currentNode.next;
-      position++;
-    }
-
-    return currentNode;
+  removeItem(index) {
+    this.items = items.splice(index, 1);
   }
 
-  addByIndex(index, value) {
-    const newNode = new Node(value);
-
-    if (this.size === 0) {
-      this.head = newNode;
-      return;
-    }
-
-    const previousNode = this.getByIndex(index - 1);
-    newNode.next = previousNode.next;
-    previousNode.next = newNode;
-    this.size++;
-  }
-
-  removeByIndex(index) {
-    let currentNode = this.head;
-    if (this.size === 0) {
-      this.head = currentNode.next;
-    } else {
-      const previousNode = this.getByIndex(index - 1);
-      previousNode.next = previousNode.next.next;
-    }
+  toString() {
+    return this.items.toString();
   }
 }
 
-const linkedList = new LinkedList();
-linkedList.add(1);
-linkedList.add(2);
-linkedList.add(3);
-linkedList.addByIndex(1, 5);
-linkedList.removeByIndex(1);
-console.log(linkedList.getByIndex(1));
-console.log(linkedList);
+class DatabaseManager {
+  saveToFile(data, filename) {
+    fs.writeFileSync(filename, data.toString());
+  }
+
+  loadFromFile(filename) {
+    // Some implementation
+  }
+}
