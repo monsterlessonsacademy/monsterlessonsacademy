@@ -1,10 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ErrorMessageComponent } from './errorMessage.component';
 import { By } from '@angular/platform-browser';
+import { ErrorMessageComponent } from './errorMessage.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe('ErrorMessageComponent', () => {
   let component: ErrorMessageComponent;
   let fixture: ComponentFixture<ErrorMessageComponent>;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ErrorMessageComponent],
@@ -19,7 +20,7 @@ describe('ErrorMessageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('renders default error message', () => {
+  it('renders default error state', () => {
     const messageContainer = fixture.debugElement.query(
       By.css('[data-testid="message-container"]')
     );

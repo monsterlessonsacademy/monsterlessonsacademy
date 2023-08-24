@@ -1,6 +1,6 @@
+import { By } from '@angular/platform-browser';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaginationComponent } from './pagination.component';
-import { By } from '@angular/platform-browser';
 import { first } from 'rxjs';
 import { UtilsService } from '../utils.service';
 
@@ -10,6 +10,7 @@ describe('PaginationComponent', () => {
   const mockUtilsService = {
     range: () => [1, 2, 3, 4, 5],
   };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [PaginationComponent],
@@ -46,6 +47,7 @@ describe('PaginationComponent', () => {
     component.pageChangeEvent.pipe(first()).subscribe((page) => {
       clickedPage = page;
     });
+
     pageContainers.at(0)?.triggerEventHandler('click');
 
     expect(clickedPage).toEqual(1);
