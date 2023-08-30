@@ -1,38 +1,39 @@
 import axios from "axios";
-import { FormEvent, useEffect, useState } from "react";
-import { Artist } from "./types/Artist";
+import { FormEvent, useState } from "react";
+import { trpc } from "./trpc";
 
 axios.defaults.baseURL = "http://localhost:3012";
 
 const App = () => {
-  const [artists, setArtists] = useState<Artist[]>([]);
+  const artistsQuery = trpc.artists.all.useQuery();
+  const artistsCreateMutation = trpc.artists.create.useMutation();
+  const artistsDeleteMutation = trpc.artists.deleteById.useMutation();
+  const trpcContext = trpc.useContext();
   const [newArtistName, setNewArtistName] = useState<string>("");
   const addArtist = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    axios
-      .post<Artist>("/artists", { name: newArtistName })
-      .then((response) => {
-        const updatedArtists = [...artists, response.data];
-        setArtists(updatedArtists);
-      });
+    artistsCreateMutation.mutate(
+      { name: newArtistName },
+      {
+        onSuccess: () => {
+          trpcContext.artists.all.invalidate();
+        },
+      }
+    );
 
     setNewArtistName("");
   };
 
   const deleteArtist = (artistId: string) => {
-    axios.delete(`/artists/${artistId}`).then(() => {
-      const updatedArtists = artists.filter(
-        (artist) => artist._id !== artistId
-      );
-      setArtists(updatedArtists);
-    });
+    artistsDeleteMutation.mutate(
+      { _id: artistId },
+      {
+        onSuccess: () => {
+          trpcContext.artists.all.invalidate();
+        },
+      }
+    );
   };
-
-  useEffect(() => {
-    axios.get<Artist[]>("/artists").then((response) => {
-      setArtists(response.data);
-    });
-  }, []);
 
   return (
     <div>
@@ -47,7 +48,7 @@ const App = () => {
         </form>
       </div>
       <div>
-        {artists.map((artist) => (
+        {artistsQuery.data?.map((artist) => (
           <div key={artist._id}>
             {artist.name}{" "}
             <span onClick={() => deleteArtist(artist._id)}>X</span>
