@@ -1,8 +1,6 @@
 import { Db, MongoClient } from "mongodb";
 
-const state: { db: Db | null } = {
-  db: null,
-};
+const state: { db: Db | null } = { db: null };
 
 export const connect = async (url: string, dbname: string): Promise<void> => {
   try {
@@ -22,7 +20,8 @@ export const connect = async (url: string, dbname: string): Promise<void> => {
 
 export const get = (): Db => {
   if (!state.db) {
-    throw new Error("database is not initialized");
+    throw new Error("Connection is not initialized");
   }
+
   return state.db;
 };
