@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='stylesheet' href='/css/comments.css')
+  body
+    h1 Why HTMX is awesome?
+    p htmx gives you access to AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML, using attributes, so you can build modern user interfaces with the simplicity and power of hypertext
+    p htmx is small (~14k min.gz’d), dependency-free, extendable, IE11 compatible & has reduced code base sizes by 67% when compared with react
+
+    div.comments
+      h3.comments-title Comments
+      div.comment-form-title Write comment
+      form(
+        hx-post="/comments"
+      )
+        textarea.comment-form-textarea
+        button.comment-form-button Write
+      div.comments-container(
+        hx-get="/comments"
+        hx-swap="innerHTML"
+        hx-trigger="load"
+      )
+    script(src='https://unpkg.com/htmx.org@1.9.5')
