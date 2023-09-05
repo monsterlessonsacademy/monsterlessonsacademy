@@ -1,0 +1,10 @@
+li(
+  id="todo-" + todo.id
+  class={completed: todo.isCompleted === true}
+)
+  .view
+    label #{todo.name}
+    button.destroy(
+      hx-delete="/todos/" + todo.id
+      _="on htmx:afterOnLoad remove #todo-" + todo.id
+    )

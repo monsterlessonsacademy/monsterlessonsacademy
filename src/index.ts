@@ -1,11 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { connect } from "./db";
 import path from "path";
-import * as commentsController from "./controllers/comments";
-import * as db from "./db";
-import * as Comments from "./models/comments";
-import * as elements from "typed-html";
+import { Todo } from "./types/todo.interface";
+import { v4 as uuid } from "uuid";
+import pug from "pug";
 
 const app = express();
 
@@ -16,33 +14,53 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "assets")));
 
-app.get("/", async (_, res, next) => {
-  try {
-    const rootComments = await db
-      .get()
-      .collection("comments")
-      .find<Comment>({ parentId: null })
-      .toArray();
-    console.log("rootComments", rootComments);
-    res.render("index", { rootComments });
-  } catch (err) {
-    next(err);
+let todos: Todo[] = [];
+const getItemsLeft = () => todos.filter((todo) => !todo.isCompleted).length;
+const getFilteredTodos = (filter: unknown) => {
+  if (filter === "active") {
+    return todos.filter((todo) => !todo.isCompleted);
+  } else if (filter === "completed") {
+    return todos.filter((todo) => todo.isCompleted);
+  } else {
+    return todos;
   }
-});
-
-app.get("/comments", (_, res, next) => {
-
-});
-app.post("/comments", commentsController.create);
-app.put("/comments/:id", commentsController.create);
-app.delete("/comments/:id", commentsController.deleteById);
-
-const startServer = async () => {
-  await connect("mongodb://localhost:27017/comments", "comments");
-
-  app.listen(3012, () => {
-    console.log("API is started");
-  });
 };
 
-startServer();
+app.get("/", (req, res) => {
+  res.render("index", {
+    todos: getFilteredTodos(req.query.filter),
+    itemsLeft: getItemsLeft(),
+    filter: req.query.filter,
+  });
+});
+
+app.post("/todos", (req, res) => {
+  const newTodo: Todo = {
+    id: uuid(),
+    name: req.body.name,
+    isCompleted: false,
+  };
+  todos.push(newTodo);
+  const todoItemTemplate = pug.compileFile(
+    path.join(__dirname, "views/includes/todo-item.pug")
+  );
+  const todoItemMarkup = todoItemTemplate({ todo: newTodo });
+  const itemCountTemplate = pug.compileFile(
+    path.join(__dirname, "views/includes/item-count.pug")
+  );
+  const itemCountMarkup = itemCountTemplate({ itemsLeft: getItemsLeft() });
+  res.send(todoItemMarkup + itemCountMarkup);
+});
+
+app.delete("/todos/:id", (req, res) => {
+  todos = todos.filter((todo) => todo.id !== req.params.id);
+  const itemCountTemplate = pug.compileFile(
+    path.join(__dirname, "views/includes/item-count.pug")
+  );
+  const itemCountMarkup = itemCountTemplate({ itemsLeft: getItemsLeft() });
+  res.send(itemCountMarkup);
+});
+
+app.listen(3012, () => {
+  console.log("Project started");
+});
