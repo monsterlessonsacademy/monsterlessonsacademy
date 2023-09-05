@@ -3,6 +3,14 @@ li(
   class={completed: todo.isCompleted === true}
 )
   .view
+
+    input.toggle(
+      type="checkbox"
+      checked=todo.isCompleted
+      hx-patch="/todos/" + todo.id
+      hx-target='#todo-' + todo.id
+      hx-swap="outerHTML"
+    )
     label #{todo.name}
     button.destroy(
       hx-delete="/todos/" + todo.id

@@ -61,6 +61,25 @@ app.delete("/todos/:id", (req, res) => {
   res.send(itemCountMarkup);
 });
 
+app.patch("/todos/:id", (req, res) => {
+  const todo = todos.find((todo) => todo.id === req.params.id);
+
+  if (!todo) {
+    return res.sendStatus(404);
+  }
+  todo.isCompleted = !todo.isCompleted;
+
+  const todoItemTemplate = pug.compileFile(
+    path.join(__dirname, "views/includes/todo-item.pug")
+  );
+  const todoItemMarkup = todoItemTemplate({ todo });
+  const itemCountTemplate = pug.compileFile(
+    path.join(__dirname, "views/includes/item-count.pug")
+  );
+  const itemCountMarkup = itemCountTemplate({ itemsLeft: getItemsLeft() });
+  res.send(todoItemMarkup + itemCountMarkup);
+});
+
 app.listen(3012, () => {
   console.log("Project started");
 });
