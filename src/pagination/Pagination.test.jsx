@@ -1,6 +1,6 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Pagination from "./Pagination";
-import { describe, it, expect, vi, beforeEach } from "vitest";
 
 describe("Pagination", () => {
   beforeEach(() => {
@@ -10,9 +10,11 @@ describe("Pagination", () => {
       };
     });
   });
+
   afterEach(() => {
     vi.clearAllMocks();
   });
+
   it("renders correct pagination", () => {
     render(<Pagination total={50} limit={10} currentPage={1} />);
     expect(screen.getAllByTestId("page-container").length).toBe(5);
@@ -29,7 +31,8 @@ describe("Pagination", () => {
         selectPage={handleClick}
       />
     );
+
     fireEvent.click(screen.getAllByTestId("page-container")[0]);
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    expect(handleClick).toHaveBeenCalledOnce();
   });
 });
