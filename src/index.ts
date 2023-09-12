@@ -6,14 +6,6 @@ import { v4 as uuid } from "uuid";
 import pug from "pug";
 
 const app = express();
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(express.static(path.join(__dirname, "assets")));
-
 let todos: Todo[] = [];
 const getItemsLeft = () => todos.filter((todo) => !todo.isCompleted).length;
 const getFilteredTodos = (filter: unknown) => {
@@ -25,6 +17,13 @@ const getFilteredTodos = (filter: unknown) => {
     return todos;
   }
 };
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, "assets")));
 
 app.get("/", (req, res) => {
   res.render("index", {
@@ -41,6 +40,7 @@ app.post("/todos", (req, res) => {
     isCompleted: false,
   };
   todos.push(newTodo);
+
   const todoItemTemplate = pug.compileFile(
     path.join(__dirname, "views/includes/todo-item.pug")
   );
@@ -54,6 +54,7 @@ app.post("/todos", (req, res) => {
 
 app.delete("/todos/:id", (req, res) => {
   todos = todos.filter((todo) => todo.id !== req.params.id);
+
   const itemCountTemplate = pug.compileFile(
     path.join(__dirname, "views/includes/item-count.pug")
   );
@@ -67,6 +68,7 @@ app.patch("/todos/:id", (req, res) => {
   if (!todo) {
     return res.sendStatus(404);
   }
+
   todo.isCompleted = !todo.isCompleted;
 
   const todoItemTemplate = pug.compileFile(
