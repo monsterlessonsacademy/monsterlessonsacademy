@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { CurrentUserInterface } from './user.interface';
+import { AuthService } from './auth.service';
+import { UserInterface } from './user.interface';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +17,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.http
-      .get<{ user: CurrentUserInterface }>('https://api.realworld.io/api/user')
-      .subscribe((response) => {
-        this.authService.currentUserSig.set(response.user);
+      .get<{ user: UserInterface }>('https://api.realworld.io/api/user')
+      .subscribe({
+        next: (response) => {
+          console.log('response', response);
+          this.authService.currentUserSig.set(response.user);
+        },
+        error: () => {
+          this.authService.currentUserSig.set(null);
+        },
       });
   }
 
   logout(): void {
+    console.log('logout');
     localStorage.setItem('token', '');
     this.authService.currentUserSig.set(null);
   }

@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { CurrentUserInterface } from '../user.interface';
+import { UserInterface } from '../user.interface';
 
 @Component({
   selector: 'app-login',
@@ -24,15 +24,16 @@ export class LogicComponent {
 
   onSubmit(): void {
     this.http
-      .post<{ user: CurrentUserInterface }>(
+      .post<{ user: UserInterface }>(
         'https://api.realworld.io/api/users/login',
         {
           user: this.form.getRawValue(),
         }
       )
       .subscribe((response) => {
-        this.authService.currentUserSig.set(response.user);
+        console.log('response', response);
         localStorage.setItem('token', response.user.token);
+        this.authService.currentUserSig.set(response.user);
         this.router.navigateByUrl('/');
       });
   }

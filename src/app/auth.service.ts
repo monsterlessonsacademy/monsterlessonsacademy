@@ -1,9 +1,9 @@
 import { Injectable, signal } from '@angular/core';
-import { CurrentUserInterface } from './user.interface';
+import { UserInterface } from './user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  currentUserSig = signal<CurrentUserInterface | null | undefined>(undefined);
+  currentUserSig = signal<UserInterface | undefined | null>(undefined);
 }
