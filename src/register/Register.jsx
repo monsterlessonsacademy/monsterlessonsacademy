@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "./register.css";
 import * as yup from "yup";
@@ -21,19 +22,26 @@ const validationSchema = yup
   })
   .required();
 const Register = () => {
+  const roles = [
+    { id: 1, title: "developer" },
+    { id: 2, title: "qa" },
+  ];
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       username: "",
       email: "",
       password: "",
+      role: undefined,
     },
   });
+  const watchRole = watch("role");
   const onSubmit = (data) => {
     console.log("data", data);
     axios
@@ -64,6 +72,11 @@ const Register = () => {
       });
   };
   console.log("errors", errors);
+
+  useEffect(() => {
+    console.log("watchRole was changed", watchRole);
+  }, [watchRole]);
+
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="field">
@@ -85,6 +98,14 @@ const Register = () => {
           <span className="error">{errors.password.message}</span>
         )}
       </div>
+      <select {...register("role")}>
+        <option>Select role</option>
+        {roles.map((role) => (
+          <option key={role.id} value={role.id}>
+            {role.title}
+          </option>
+        ))}
+      </select>
 
       <div>
         <button type="submit" className="button">
