@@ -14,12 +14,18 @@ export class UserService {
 
   async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
     console.log('createUserDto', createUserDto)
+
+    const user = await this.userModel.findOne({email: createUserDto.email})
+
+    if (user) {
+      throw new HttpException('Email is already taken', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
     const createdCat = new this.userModel(createUserDto);
     return createdCat.save();
   }
 
   async loginUser(loginDto: LoginDto): Promise<UserEntity> {
-    console.log('loginDto', loginDto)
     const user = await this.userModel.findOne({email: loginDto.email}).select('+password');
 
     if (!user) {
