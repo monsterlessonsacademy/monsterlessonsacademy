@@ -1,9 +1,47 @@
-<div *ngIf="authService.currentUserSig() === null">
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
-</div>
-<div *ngIf="authService.currentUserSig()">
-  {{ authService.currentUserSig()?.username }}
-  <span (click)="logout()">Logout</span>
-</div>
+<h1>Hello Angular 17</h1>
+
+@for(user of users(); track $index) {
+  <div>{{user.name}}</div>
+}
+@empty {
+  <div>We don't have anything</div>
+}
+
+
+@if (user.role === 'developer') {
+  <div>Developer</div>
+}
+@else if (user.role === 'admin') {
+  <div>Admin</div>
+}
+@else {
+  <div>QA</div>
+}
+
+
+@switch (user.role) {
+  @case ('developer') {
+    <div>Developer</div>
+  }
+  @case ('admin') {
+    <div>Admin</div>
+  }
+  @default {
+    <div>QA</div>
+  }
+}
+
+@defer (on idle) {
+<div>Defer</div>
+}
+@loading (after 150ms; minimum 150ms) {
+  <div>Loading...</div>
+}
+@placeholder (minimum 150ms) {
+  <div>Placeholder</div>
+}
+@error {
+  <div>Error</div>
+}
+
 <router-outlet></router-outlet>

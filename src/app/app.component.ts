@@ -1,37 +1,29 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { UserInterface } from './user.interface';
+import {Component, signal} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterOutlet} from '@angular/router';
+import {delay, of, timeout} from 'rxjs';
+
+interface UserInterface {
+  id: string
+  name: string
+  role: string
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  authService = inject(AuthService);
-  http = inject(HttpClient);
+export class AppComponent {
+  users = signal<UserInterface[]>([
+    {id: '1', name: 'foo', role: 'developer'},
+    {id: '2', name: 'bar', role: 'admin'},
+    {id: '3', name: 'baz', role: 'qa'},
+  ])
 
-  ngOnInit(): void {
-    this.http
-      .get<{ user: UserInterface }>('https://api.realworld.io/api/user')
-      .subscribe({
-        next: (response) => {
-          console.log('response', response);
-          this.authService.currentUserSig.set(response.user);
-        },
-        error: () => {
-          this.authService.currentUserSig.set(null);
-        },
-      });
-  }
+  user = this.users()[2]
 
-  logout(): void {
-    console.log('logout');
-    localStorage.setItem('token', '');
-    this.authService.currentUserSig.set(null);
-  }
+  deferedData$ = of(1).pipe(delay(5000))
 }
