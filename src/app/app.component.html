@@ -1,12 +1,8 @@
-<h1>Hello Angular 17</h1>
-
 @for(user of users(); track $index) {
-  <div>{{user.name}}</div>
-}
-@empty {
+  <div>{{ user.name }}</div>
+} @empty {
   <div>We don't have anything</div>
 }
-
 
 @if (user.role === 'developer') {
   <div>Developer</div>
@@ -18,7 +14,6 @@
   <div>QA</div>
 }
 
-
 @switch (user.role) {
   @case ('developer') {
     <div>Developer</div>
@@ -26,16 +21,16 @@
   @case ('admin') {
     <div>Admin</div>
   }
-  @default {
+  @case ('qa') {
     <div>QA</div>
   }
 }
 
-@defer (on idle) {
-<div>Defer</div>
+@defer (on viewport) {
+  <div>Defer</div>
 }
 @loading (after 150ms; minimum 150ms) {
-  <div>Loading...</div>
+  <div>Loading..</div>
 }
 @placeholder (minimum 150ms) {
   <div>Placeholder</div>
@@ -43,5 +38,6 @@
 @error {
   <div>Error</div>
 }
+
 
 <router-outlet></router-outlet>
