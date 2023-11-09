@@ -1,8 +1,14 @@
 {
-  "name": "monsterlessonsacademy",
+  "name": "mla-comps",
+  "private": false,
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+   "dist"
+  ],
   "scripts": {
     "build": "vite build && tsc"
   },

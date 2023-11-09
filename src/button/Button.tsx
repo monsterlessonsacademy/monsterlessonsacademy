@@ -4,7 +4,7 @@ import "./button.css";
 export interface ButtonProps {
   disabled: boolean;
   text: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button = ({ disabled, text, onClick }: ButtonProps) => {
