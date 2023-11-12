@@ -10,7 +10,7 @@
    "dist"
   ],
   "scripts": {
-    "build": "vite build && tsc"
+    "build": "vite build & tsc"
   },
   "repository": {
     "type": "git",

@@ -5,8 +5,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.tsx"),
-      name: "mla-library",
-
+      name: "mla-comps",
       fileName: "index",
     },
     rollupOptions: {
