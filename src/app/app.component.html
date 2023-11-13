@@ -10,12 +10,18 @@
 <div>Content</div>
 <div>Content</div>
 <div>Content</div>
-<button (click)="isVisible = true">Make visible</button>
-<button (click)="prefetchCondition = true">Load chunk</button>
-@defer (when isVisible; prefetch on idle) {
-<div>Defer <app-child/></div>
-} @placeholder {
-<div>Placeholder</div>
+
+@defer (on viewport) {
+  <app-child></app-child>
+}
+@loading (after 150ms; minimum 150ms) {
+  <div>Loading</div>
+}
+@placeholder (minimum 150ms) {
+  <div>Placeholder</div>
+}
+@error {
+  <div>Error</div>
 }
 
 <router-outlet></router-outlet>
