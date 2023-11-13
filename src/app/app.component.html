@@ -1,43 +1,21 @@
-@for(user of users(); track $index) {
-  <div>{{ user.name }}</div>
-} @empty {
-  <div>We don't have anything</div>
+<h1>Monsterlessons Academy</h1>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<div>Content</div>
+<button (click)="isVisible = true">Make visible</button>
+<button (click)="prefetchCondition = true">Load chunk</button>
+@defer (when isVisible; prefetch on idle) {
+<div>Defer <app-child/></div>
+} @placeholder {
+<div>Placeholder</div>
 }
-
-@if (user.role === 'developer') {
-  <div>Developer</div>
-}
-@else if (user.role === 'admin') {
-  <div>Admin</div>
-}
-@else {
-  <div>QA</div>
-}
-
-@switch (user.role) {
-  @case ('developer') {
-    <div>Developer</div>
-  }
-  @case ('admin') {
-    <div>Admin</div>
-  }
-  @case ('qa') {
-    <div>QA</div>
-  }
-}
-
-@defer (on viewport) {
-  <div>Defer</div>
-}
-@loading (after 150ms; minimum 150ms) {
-  <div>Loading..</div>
-}
-@placeholder (minimum 150ms) {
-  <div>Placeholder</div>
-}
-@error {
-  <div>Error</div>
-}
-
 
 <router-outlet></router-outlet>
