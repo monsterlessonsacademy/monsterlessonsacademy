@@ -1,4 +1,8 @@
-import { CommonModule, isPlatformServer } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser,
+  isPlatformServer,
+} from '@angular/common';
 import {
   Component,
   Inject,
