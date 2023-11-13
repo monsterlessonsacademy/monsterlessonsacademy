@@ -1,0 +1,10 @@
+{
+  "articles": [
+    {
+      "id": "1",
+      "slug": "foo",
+      "isFavorited": false,
+      "favoritesCount": 10
+    }
+  ]
+}
