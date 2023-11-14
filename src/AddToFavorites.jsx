@@ -2,31 +2,34 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import axios from "axios";
 
-const AddToFavorites = ({ isFavorited, favoritesCount, articleId }) => {
-  const [isFavoritedInternal, setIsFavoritedInternal] = useState(isFavorited);
-  const [favoritesCountInternal, setFavoritesCountInternal] = useState(
-    favoritesCount
-  );
+const AddToFavorites = (props) => {
+  const [isFavorited, setIsFavorited] = useState(props.isFavorited);
+  const [favoritesCount, setFavoritesCount] = useState(props.favoritesCount);
   const buttonClasses = classNames({
     btn: true,
     "btn-sm": true,
-    "btn-primary": isFavoritedInternal,
-    "btn-outline-primary": !isFavoritedInternal,
+    "btn-primary": isFavorited,
+    "btn-outline-primary": !isFavorited,
   });
   const handleLike = (event) => {
     event.preventDefault();
+    const futureIsFavorited = isFavorited ? false : true;
+    const futurefavoritesCount = isFavorited
+      ? favoritesCount - 1
+      : favoritesCount + 1;
+
+    setFavoritesCount(futurefavoritesCount);
+    setIsFavorited(futureIsFavorited);
     axios
-      .patch(`http://localhost:3004/articles/${articleId}`, {
-        isFavorited: isFavoritedInternal ? false : true,
-        favoritesCount: isFavoritedInternal
-          ? favoritesCountInternal - 1
-          : favoritesCountInternal + 1,
+      .patch(`http://localhost:3004/articles/${props.articleId}`, {
+        isFavorited: isFavorited ? false : true,
+        favoritesCount: isFavorited ? favoritesCount - 1 : favoritesCount + 1,
       })
       .then((response) => {
         // Simulating slow backend
         setTimeout(() => {
-          setFavoritesCountInternal(response.data.favoritesCount);
-          setIsFavoritedInternal(response.data.isFavorited);
+          setFavoritesCount(response.data.favoritesCount);
+          setIsFavorited(response.data.isFavorited);
         }, 2000);
       });
   };
@@ -34,7 +37,7 @@ const AddToFavorites = ({ isFavorited, favoritesCount, articleId }) => {
   return (
     <button className={buttonClasses} onClick={handleLike}>
       <i className="ion-heart"></i>
-      <span>&nbsp; {favoritesCountInternal}</span>
+      <span>&nbsp; {favoritesCount}</span>
     </button>
   );
 };

@@ -3,8 +3,8 @@
     {
       "id": "1",
       "title": "foo",
-      "isFavorited": true,
-      "favoritesCount": 11
+      "isFavorited": false,
+      "favoritesCount": 10
     }
   ]
 }
