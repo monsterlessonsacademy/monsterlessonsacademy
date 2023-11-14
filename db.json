@@ -2,9 +2,9 @@
   "articles": [
     {
       "id": "1",
-      "slug": "foo",
-      "isFavorited": false,
-      "favoritesCount": 10
+      "title": "foo",
+      "isFavorited": true,
+      "favoritesCount": 11
     }
   ]
 }
