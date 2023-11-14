@@ -13,6 +13,8 @@ const AddToFavorites = (props) => {
   });
   const handleLike = (event) => {
     event.preventDefault();
+    const previousIsFavorited = isFavorited;
+    const previousFavoritesCount = favoritesCount;
     const futureIsFavorited = isFavorited ? false : true;
     const futurefavoritesCount = isFavorited
       ? favoritesCount - 1
@@ -20,18 +22,24 @@ const AddToFavorites = (props) => {
 
     setFavoritesCount(futurefavoritesCount);
     setIsFavorited(futureIsFavorited);
-    axios
-      .patch(`http://localhost:3004/articles/${props.articleId}`, {
-        isFavorited: isFavorited ? false : true,
-        favoritesCount: isFavorited ? favoritesCount - 1 : favoritesCount + 1,
-      })
-      .then((response) => {
-        // Simulating slow backend
-        setTimeout(() => {
+
+    setTimeout(() => {
+      axios
+        .patch(`http://localhost:3004/articles/${props.articleId}`, {
+          isFavorited: isFavorited ? false : true,
+          favoritesCount: isFavorited ? favoritesCount - 1 : favoritesCount + 1,
+        })
+        .then((response) => {
+          // Simulating slow backend
           setFavoritesCount(response.data.favoritesCount);
           setIsFavorited(response.data.isFavorited);
-        }, 2000);
-      });
+        })
+        .catch(() => {
+          console.log("catch err");
+          setFavoritesCount(previousFavoritesCount);
+          setIsFavorited(previousIsFavorited);
+        });
+    }, 2000);
   };
 
   return (
