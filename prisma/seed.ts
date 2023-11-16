@@ -9,8 +9,7 @@ async function run() {
       username: "foo",
     },
   });
-
-  console.log({ user });
+  console.log(user);
 }
 
 run()

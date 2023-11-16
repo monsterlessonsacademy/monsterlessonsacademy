@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "nodemon": "^3.0.1",
+    "prisma": "^5.6.0",
     "ts-node": "^10.9.1"
   },
   "prisma": {

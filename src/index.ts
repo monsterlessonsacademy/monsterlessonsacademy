@@ -1,11 +1,16 @@
-import { PrismaClient } from "@prisma/client";
 import express from "express";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
 const app = express();
+const prisma = new PrismaClient();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get("/users", async (req, res) => {
+  const result = await prisma.user.findMany();
+  res.json(result);
+});
 
 app.post("/users", async (req, res) => {
   try {
@@ -18,24 +23,20 @@ app.post("/users", async (req, res) => {
   }
 });
 
-app.get("/users", async (_, res) => {
-  const result = await prisma.user.findMany();
-  res.json(result);
-});
-
 app.get("/users/:id", async (req, res) => {
   const result = await prisma.user.findUnique({
     where: {
       id: Number(req.params.id),
     },
   });
-
   res.json(result);
 });
 
 app.put("/users/:id", async (req, res) => {
   const result = await prisma.user.update({
-    where: { id: Number(req.params.id) },
+    where: {
+      id: Number(req.params.id),
+    },
     data: req.body,
   });
   res.json(result);
@@ -50,4 +51,6 @@ app.delete("/users/:id", async (req, res) => {
   res.json(result);
 });
 
-app.listen(3000, () => console.log(`API started`));
+app.listen(3000, () => {
+  console.log("API started");
+});
