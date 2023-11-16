@@ -13,29 +13,28 @@ const AddToFavorites = (props) => {
   });
   const handleLike = (event) => {
     event.preventDefault();
+
     const previousIsFavorited = isFavorited;
     const previousFavoritesCount = favoritesCount;
     const futureIsFavorited = isFavorited ? false : true;
-    const futurefavoritesCount = isFavorited
+    const futureFavoritesCount = isFavorited
       ? favoritesCount - 1
       : favoritesCount + 1;
 
-    setFavoritesCount(futurefavoritesCount);
+    setFavoritesCount(futureFavoritesCount);
     setIsFavorited(futureIsFavorited);
-
+    // Simulating slow backend
     setTimeout(() => {
       axios
         .patch(`http://localhost:3004/articles/${props.articleId}`, {
-          isFavorited: isFavorited ? false : true,
-          favoritesCount: isFavorited ? favoritesCount - 1 : favoritesCount + 1,
+          isFavorited: futureIsFavorited,
+          favoritesCount: futureFavoritesCount,
         })
         .then((response) => {
-          // Simulating slow backend
           setFavoritesCount(response.data.favoritesCount);
           setIsFavorited(response.data.isFavorited);
         })
         .catch(() => {
-          console.log("catch err");
           setFavoritesCount(previousFavoritesCount);
           setIsFavorited(previousIsFavorited);
         });
