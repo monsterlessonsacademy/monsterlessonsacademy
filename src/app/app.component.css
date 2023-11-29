@@ -1,3 +1,13 @@
-.defer {
-  margin-top: 300px;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.image-container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.image-item {
+  margin-bottom: 20px;
 }

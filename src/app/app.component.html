@@ -1,27 +1,33 @@
 <h1>Monsterlessons Academy</h1>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-
-@defer (on viewport) {
-  <app-child></app-child>
-}
-@loading (after 150ms; minimum 150ms) {
-  <div>Loading</div>
-}
-@placeholder (minimum 150ms) {
-  <div>Placeholder</div>
-}
-@error {
-  <div>Error</div>
-}
-
-<router-outlet></router-outlet>
+<div class="image-container">
+  <div class="image-item">
+    <progressive-image
+      imageUrl="/assets/image-1.jpeg"
+      imageUrlSmall="/assets/image-1-small.jpeg"
+    ></progressive-image>
+  </div>
+  <div class="image-item">
+    <progressive-image
+      imageUrl="/assets/image-2.jpeg"
+      imageUrlSmall="/assets/image-2-small.jpeg"
+    ></progressive-image>
+  </div>
+  <div class="image-item">
+    <progressive-image
+      imageUrl="/assets/image-3.jpeg"
+      imageUrlSmall="/assets/image-3-small.jpeg"
+    ></progressive-image>
+  </div>
+  <div class="image-item">
+    <progressive-image
+      imageUrl="/assets/image-4.jpeg"
+      imageUrlSmall="/assets/image-4-small.jpeg"
+    ></progressive-image>
+  </div>
+  <div class="image-item">
+    <progressive-image
+      imageUrl="/assets/image-5.jpeg"
+      imageUrlSmall="/assets/image-5-small.jpeg"
+    ></progressive-image>
+  </div>
+</div>
