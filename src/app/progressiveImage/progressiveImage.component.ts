@@ -8,13 +8,13 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
 })
-export class ProgressiveImage {
+export class ProgressiveImageComponent {
   @Input({ required: true }) imageUrl!: string;
   @Input({ required: true }) imageUrlSmall!: string;
 
   isLoaded = false;
 
-  onImageLoad(): void {
+  onImageLoad() {
     this.isLoaded = true;
   }
 }
