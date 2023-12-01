@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -14,14 +15,11 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.static(process.cwd() + "/uploads"));
 
-app.post("/avatar", upload.single("avatar"), function (req, res, next) {
-  console.log("file", req.file);
-  console.log("body", req.body.profileName);
-  res.json({ path: "/" + req.file.filename });
-  // req.file is the `avatar` file
-  // req.body will hold the text fields, if there were any
+app.post("/files", upload.array("photos"), function (req, res, next) {
+  res.json({ files: req.files });
 });
 
 app.get("/", (req, res) => {
