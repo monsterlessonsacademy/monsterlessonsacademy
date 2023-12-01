@@ -7,7 +7,9 @@ const App = () => {
   const uploadFiles = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("photos", files);
+    for (const file of files) {
+      formData.append("photos", file);
+    }
     axios
       .post("http://localhost:3000/files", formData, {
         headers: {
@@ -16,7 +18,8 @@ const App = () => {
       })
       .then((response) => {
         console.log("response", response.data);
-        setImages([response.data.file.filename]);
+        const filenames = response.data.files.map((file) => file.filename);
+        setImages(filenames);
       });
   };
   const changeFiles = (e) => {
