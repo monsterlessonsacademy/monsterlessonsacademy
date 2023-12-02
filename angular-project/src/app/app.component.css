@@ -1,0 +1,6 @@
+.darkModeEnabled {
+  --darkmode: 1;
+
+  --clr-btn-bgr-secondary: teal;
+  --clr-btn-txt-secondary: white;
+}

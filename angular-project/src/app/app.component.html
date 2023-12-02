@@ -1,0 +1,37 @@
+<h1>Monsterlessons Academy</h1>
+
+<lr-config
+  ctx-name="my-uploader"
+  pubkey="7520c60761c0ddbe20de"
+  multiple="true"
+  removeCopyright="true"
+  sourceList="local, url, camera, dropbox, gdrive"
+  use-cloud-image-editor="true"
+></lr-config>
+<lr-file-uploader-regular
+  css-src="https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.30.0/web/lr-file-uploader-regular.min.css"
+  ctx-name="my-uploader"
+  class="darkModeEnabled"
+></lr-file-uploader-regular>
+
+<lr-upload-ctx-provider
+  ctx-name="my-uploader"
+  #ctxProvider
+></lr-upload-ctx-provider>
+
+<div *ngFor="let uploadedFile of uploadedFiles">
+  <img
+    src="{{ uploadedFile.cdnUrl + '/-/preview/-/resize/x200/' }}"
+    *ngIf="uploadedFile.cdnUrl"
+  />
+
+  <button
+    class="preview-remove-button"
+    type="button"
+    (click)="handleRemoveClick(uploadedFile.uuid)"
+  >
+    ×
+  </button>
+</div>
+
+<router-outlet></router-outlet>
