@@ -1,6 +1,4 @@
-.darkModeEnabled {
-  --darkmode: 1;
-
+.parentContainer {
   --clr-btn-bgr-secondary: teal;
   --clr-btn-txt-secondary: white;
 }
