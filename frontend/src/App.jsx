@@ -4,6 +4,9 @@ import axios from "axios";
 const App = () => {
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
+  const changeFiles = (e) => {
+    setFiles(e.target.files);
+  };
   const uploadFiles = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -22,14 +25,11 @@ const App = () => {
         setImages(filenames);
       });
   };
-  const changeFiles = (e) => {
-    setFiles(e.target.files);
-  };
   return (
     <div>
       <div>
         <form onSubmit={uploadFiles}>
-          <input type="file" onChange={changeFiles} multiple />
+          <input type="file" multiple onChange={changeFiles} />
           <button type="submit">Upload files</button>
         </form>
       </div>
