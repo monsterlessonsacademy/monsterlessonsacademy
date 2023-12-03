@@ -2,14 +2,12 @@
   <form [formGroup]="addForm" (ngSubmit)="onAdd()">
     <input type="text" placeholder="Add..." formControlName="title" />
   </form>
-</div>
 
-<div>Total: {{ store.postsCount() }}</div>
+  <div>Total: {{ store.postsCount() }}</div>
+  <div *ngIf="store.isLoading()">Loading...</div>
+  <div *ngIf="store.error()">{{ store.error() }}</div>
 
-<div *ngIf="store.isLoading()">Loading...</div>
-
-<div *ngIf="store.error()">{{ store.error() }}</div>
-
-<div *ngFor="let post of store.posts()">
-  {{ post.title }} <span (click)="store.removePost(post.id)">X</span>
+  <div *ngFor="let post of store.posts()">
+    {{ post.title }} <span (click)="store.removePost(post.id)">X</span>
+  </div>
 </div>
