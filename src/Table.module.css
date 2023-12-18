@@ -1,0 +1,64 @@
+.table {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table thead > tr {
+  border: solid 2px #eeeeee;
+}
+
+.table th {
+  padding: 1.5rem 0;
+}
+
+.table tr {
+  text-align: left;
+}
+
+.table td {
+  padding: 1.5rem 0;
+}
+
+.checkbox {
+  height: 1.25rem;
+  margin-left: 1rem;
+  width: 1.25rem;
+}
+
+.numChecked {
+  min-width: 8rem;
+}
+
+.openIssue {
+  cursor: pointer;
+}
+
+.openIssue:hover {
+  background-color: #eeeeee !important;
+}
+
+.resolvedIssue {
+  color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.greenCircle {
+  background-color: #82d032;
+  border-radius: 50%;
+  display: inline-block;
+  height: 15px;
+  margin: auto 0;
+  width: 15px;
+  margin-right: 8px;
+}
+
+.redCircle {
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  height: 15px;
+  margin: auto 0;
+  width: 15px;
+  margin-right: 8px;
+}
