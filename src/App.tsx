@@ -1,11 +1,10 @@
-import GoodTable from "./GoodTable";
-import issues from "./issues";
+import Button from "./Button";
 
 const App = () => {
   return (
     <div>
       <h1>Monsterlessons Academy</h1>
-      <GoodTable issues={issues} />
+      <Button text="foo" />
     </div>
   );
 };
