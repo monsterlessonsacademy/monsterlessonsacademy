@@ -41,9 +41,10 @@
 .resolvedIssue {
   color: #bdbdbd;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-.greenCircle {
+.openCircle {
   background-color: #82d032;
   border-radius: 50%;
   display: inline-block;
@@ -53,7 +54,7 @@
   margin-right: 8px;
 }
 
-.redCircle {
+.resolvedCircle {
   background-color: red;
   border-radius: 50%;
   display: inline-block;

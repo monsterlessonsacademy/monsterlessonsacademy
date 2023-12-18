@@ -1,11 +1,11 @@
-import BadTable from "./BadTable";
+import GoodTable from "./GoodTable";
 import issues from "./issues";
 
 const App = () => {
   return (
     <div>
       <h1>Monsterlessons Academy</h1>
-      <BadTable issues={issues} />
+      <GoodTable issues={issues} />
     </div>
   );
 };
