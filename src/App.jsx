@@ -1,9 +1,9 @@
 import { Link, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import Article from "./pages/Article";
 import Layout1 from "./pages/Layout1";
 import Layout2 from "./pages/Layout2";
-import Article from "./pages/Article";
 
 const App = () => {
   return (
