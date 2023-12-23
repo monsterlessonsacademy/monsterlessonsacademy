@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import classes from "./Table.module.css";
 
 const GoodTable = ({ issues }) => {
-  const selectAllRef = useRef();
   const convertIssuesToEntries = (isSelected) => {
     const entries = issues.map((issue) => [
       issue.id,
@@ -16,7 +15,7 @@ const GoodTable = ({ issues }) => {
   const totalSelected = Object.values(issueEntries).filter(
     (issueData) => issueData.isSelected
   ).length;
-
+  const selectAllRef = useRef();
   const selectRow = (issueId) => {
     const updatedIssueEntry = {
       ...issueEntries[issueId],
@@ -40,7 +39,7 @@ const GoodTable = ({ issues }) => {
     const indeterminate =
       totalSelected < totalOpenedIssues && totalSelected > 0;
     selectAllRef.current.indeterminate = indeterminate;
-  }, [totalSelected, issues]);
+  }, [issues, totalSelected]);
 
   return (
     <table className={classes.table}>
@@ -50,8 +49,8 @@ const GoodTable = ({ issues }) => {
             <input
               className={classes.checkbox}
               type="checkbox"
-              checked={totalSelected}
               ref={selectAllRef}
+              checked={totalSelected}
               onChange={selectAll}
             />
           </th>
@@ -70,15 +69,15 @@ const GoodTable = ({ issues }) => {
       <tbody>
         {issues.map((issue) => {
           const isOpenedIssue = issue.status === "open";
-          const backgroundColor = issueEntries[issue.id].isSelected
-            ? "#eeeeee"
-            : "#ffffff";
-          const statusClass = isOpenedIssue
-            ? classes.openCircle
-            : classes.resolvedCircle;
           const rowClass = isOpenedIssue
             ? classes.openIssue
             : classes.resolvedIssue;
+          const statusClass = isOpenedIssue
+            ? classes.greenCircle
+            : classes.redCircle;
+          const backgroundColor = issueEntries[issue.id].isSelected
+            ? "#eeeeee"
+            : "#ffffff";
 
           return (
             <tr
@@ -93,7 +92,7 @@ const GoodTable = ({ issues }) => {
                   type="checkbox"
                   readOnly
                   checked={issueEntries[issue.id].isSelected}
-                  disabled={!isOpenedIssue}
+                  disabled={isOpenedIssue}
                 />
               </td>
               <td>{issue.name}</td>
