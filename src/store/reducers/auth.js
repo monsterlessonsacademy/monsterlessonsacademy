@@ -1,9 +1,5 @@
-const {
-  createSlice,
-  createAsyncThunk,
-  createReducer,
-  createAction,
-} = require("@reduxjs/toolkit");
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   currentUser: undefined,
@@ -12,8 +8,15 @@ const initialState = {
 
 export const registerUser = createAsyncThunk(
   "auth/register",
-  async (userData) => {
-    return ["Jack", "John"];
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post("https://api.realworld.io/api/users", {
+        user: userData,
+      });
+      return response.data.user;
+    } catch (err) {
+      thunkAPI.rejectWithValue(err.response.data.errors);
+    }
   }
 );
 
@@ -28,8 +31,8 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.currentUser = action.payload;
       })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.error = action.payload;
+      .addCase(registerUser.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

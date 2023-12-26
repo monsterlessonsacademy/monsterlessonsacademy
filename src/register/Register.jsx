@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../store/reducers/auth";
 
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -10,7 +12,10 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("onSubmit", username, email, password);
-    dispatch(registerUser({ username, email, password }));
+    dispatch(registerUser({ username, email, password })).then((action) => {
+      localStorage.setItem("accessToken", action.payload.token);
+      navigate("/");
+    });
   };
   return (
     <div>
