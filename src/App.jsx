@@ -1,11 +1,19 @@
-import GoodTable from "./GoodTable";
-import issues from "./issues";
+import { Link, Route, Routes } from "react-router-dom";
+import Home from "./home/Home";
+import Login from "./login/Login";
+import Register from "./register/Register";
 
 const App = () => {
   return (
     <div>
-      <h1>Monsterlessons Academy</h1>
-      <GoodTable issues={issues} />
+      <Link to="/">Home</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   );
 };
