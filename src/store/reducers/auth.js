@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -47,9 +47,9 @@ export const getCurrentUser = createAsyncThunk(
           Authorization: `Token ${token}`,
         },
       });
-      return thunkAPI.fulfillWithValue(response.data.user);
+      return response.data.user;
     } catch (err) {
-      return thunkAPI.rejectWithValue(null);
+      return thunkAPI.rejectWithValue(err.response.data.errors);
     }
   }
 );
@@ -67,8 +67,8 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.currentUser = action.payload;
         state.isLoading = false;
+        state.currentUser = action.payload;
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
@@ -77,8 +77,8 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.currentUser = action.payload;
         state.isLoading = false;
+        state.currentUser = action.payload;
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
@@ -87,8 +87,8 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.currentUser = action.payload;
         state.isLoading = false;
+        state.currentUser = action.payload;
       })
       .addCase(getCurrentUser.rejected, (state) => {
         state.isLoading = false;

@@ -11,8 +11,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("onSubmit", username, email, password);
-    dispatch(register({ username, email, password })).then((action) => {
+    console.log("register", username, email, password);
+    dispatch(register({ email, username, password })).then((action) => {
       localStorage.setItem("accessToken", action.payload.token);
       navigate("/");
     });

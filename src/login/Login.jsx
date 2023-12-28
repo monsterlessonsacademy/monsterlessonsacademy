@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("onSubmit", email, password);
+    console.log("login", email, password);
     dispatch(login({ email, password })).then((action) => {
       localStorage.setItem("accessToken", action.payload.token);
       navigate("/");

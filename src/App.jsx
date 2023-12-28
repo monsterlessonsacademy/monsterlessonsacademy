@@ -1,9 +1,9 @@
+import { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./home/Home";
 import Login from "./login/Login";
 import Register from "./register/Register";
-import { useDispatch, useSelector } from "react-redux";
-import { Fragment, useEffect } from "react";
 import { getCurrentUser, logout } from "./store/reducers/auth";
 
 const App = () => {
