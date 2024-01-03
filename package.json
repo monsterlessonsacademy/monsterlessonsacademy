@@ -10,12 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.0.1",
+    "@tanstack/react-form": "0.11.0",
+    "@tanstack/zod-form-adapter": "0.11.0",
     "axios": "^1.6.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.0.4",
-    "react-router-dom": "^6.21.1"
+    "zod": "3.21.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
