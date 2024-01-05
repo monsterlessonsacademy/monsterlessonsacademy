@@ -1,0 +1,52 @@
+.weather-block {
+  height: 500px;
+  width: 300px;
+  background: #2b3d9f;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.location-search {
+  padding-top: 50px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.location-search-input {
+  border-radius: 30px;
+  padding: 8px 25px;
+  outline: none;
+  font-size: 18px;
+}
+
+.weather-info-image {
+  border-radius: 50%;
+  background: #cb2626;
+}
+
+.weather-info {
+  color: white;
+  text-align: center;
+}
+
+.weather-info-name {
+  font-size: 34px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.weather-info-temp {
+  font-size: 54px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weather-info-details {
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+.weather-info-detail {
+  display: flex;
+  justify-content: space-between;
+}
