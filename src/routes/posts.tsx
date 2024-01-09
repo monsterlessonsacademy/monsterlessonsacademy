@@ -2,7 +2,7 @@ import { Link, Route } from "@tanstack/react-router";
 import { rootRoute } from "./root";
 import axios from "axios";
 
-type Post = {
+export type Post = {
   slug: string;
   title: string;
   body: string;
