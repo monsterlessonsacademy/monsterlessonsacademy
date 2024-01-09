@@ -10,10 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@stylexjs/stylex": "^0.3.0",
+    "@tanstack/react-router": "^1.1.10",
+    "@tanstack/router-devtools": "^1.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vite-plugin-stylex": "^0.4.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
