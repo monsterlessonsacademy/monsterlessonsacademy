@@ -33,6 +33,9 @@ const addListeners = () => {
       render();
     });
   });
+  selectors.toggleAll.addEventListener("click", (e) => {
+    toggleAll(e.target.checked);
+  });
 };
 
 const addTodo = (text) => {
@@ -100,7 +103,35 @@ const createTodoNode = (todo) => {
     .querySelector(".toggle")
     .addEventListener("click", () => toggleTodo(todo.id));
 
+  node
+    .querySelector("label")
+    .addEventListener("dblclick", () => startEditing(node));
+
+  node.querySelector(".edit").addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      updateTodo(todo.id, e.target.value);
+    } else if (e.key === "Escape") {
+      e.target.value === todo.title;
+      render();
+    }
+  });
+
   return node;
+};
+
+const updateTodo = (todoId, newText) => {
+  todos = todos.map((todo) => {
+    if (todo.id === todoId) {
+      return { ...todo, text: newText };
+    }
+    return todo;
+  });
+  render();
+};
+
+const startEditing = (node) => {
+  node.classList.add("editing");
+  node.querySelector(".edit").focus();
 };
 
 const removeTodo = (todoId) => {
@@ -118,6 +149,11 @@ const toggleTodo = (todoId) => {
     return todo;
   });
   console.log("toggle", todos);
+  render();
+};
+
+const toggleAll = (checked) => {
+  todos = todos.map((todo) => ({ ...todo, isCompleted: checked }));
   render();
 };
 
