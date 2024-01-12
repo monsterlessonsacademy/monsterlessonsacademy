@@ -1,4 +1,3 @@
-- you have an array of users with id, name and age
-- create an array of strings for every user with text "Hello jack with age 30"
-
-
+- create an input and the button in html
+- add javascript which creates new post through API with the name from input when we click the button
+- don't send a request if the input is empty

@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title"
+    },
+    {
+      "id": "2",
+      "title": "another title"
+    },
+    {
+      "id": "hWr1O_Z"
+    },
+    {
+      "title": "hello js",
+      "id": "NV7xRP4"
+    },
+    {
+      "title": "hello js",
+      "id": "316PaeA"
+    },
+    {
+      "id": "1g9pTi0"
+    },
+    {
+      "title": "added post functionality",
+      "id": "3_CNlRT"
+    }
+  ]
+}
