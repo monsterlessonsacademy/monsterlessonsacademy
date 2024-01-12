@@ -4,12 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="weather.css" />
     <title>Vite App</title>
   </head>
   <body>
     <div id="app"></div>
-    <input type="text" class="postInput" />
-    <button class="postButton">Add post</button>
+    <div class="weather-block">
+      <form class="location-search">
+        <input
+          type="text"
+          placeholder="City, Country"
+          class="location-search-input"
+        />
+      </form>
+      <div class="weather-info-block hidden">
+        <img class="weather-info-image" />
+        <div class="weather-info-temp"></div>
+        <div class="weather-info-name"></div>
+        <div class="weather-info-details">
+          <div class="weather-info-detail">
+            <b>Feels like:</b> <span class="feels-like"></span>°C
+          </div>
+          <div class="weather-info-detail">
+            <b>Humidity:</b><span class="humidity"></span>%
+          </div>
+          <div class="weather-info-detail">
+            <b>Wind speed:</b><span class="wind-speed"></span> km/h
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
