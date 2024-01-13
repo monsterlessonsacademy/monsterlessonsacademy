@@ -1,3 +1,4 @@
+import * as helpers from "./helpers";
 let selectors = {};
 let todos = [];
 let filter = "all";
@@ -39,12 +40,7 @@ const addListeners = () => {
 };
 
 const addTodo = (text) => {
-  const newTodo = {
-    id: crypto.randomUUID(),
-    text,
-    isCompleted: false,
-  };
-  todos.push(newTodo);
+  todos = helpers.addTodo(todos, text);
   render();
 };
 
@@ -120,12 +116,7 @@ const createTodoNode = (todo) => {
 };
 
 const updateTodo = (todoId, newText) => {
-  todos = todos.map((todo) => {
-    if (todo.id === todoId) {
-      return { ...todo, text: newText };
-    }
-    return todo;
-  });
+  todos = helpers.updateTodo(todos, todoId, newText);
   render();
 };
 
@@ -135,25 +126,17 @@ const startEditing = (node) => {
 };
 
 const removeTodo = (todoId) => {
-  todos = todos.filter((todo) => todo.id !== todoId);
+  todos = helpers.removeTodo(todos, todoId);
   render();
 };
 
 const toggleTodo = (todoId) => {
-  console.log("toggle before", todos, todoId);
-  todos = todos.map((todo) => {
-    if (todo.id === todoId) {
-      console.log("found");
-      return { ...todo, isCompleted: !todo.isCompleted };
-    }
-    return todo;
-  });
-  console.log("toggle", todos);
+  todos = helpers.toggleTodo(todos, todoId);
   render();
 };
 
 const toggleAll = (checked) => {
-  todos = todos.map((todo) => ({ ...todo, isCompleted: checked }));
+  todos = helpers.toggleAll(todos, checked);
   render();
 };
 
