@@ -1,6 +1,6 @@
 import * as helpers from "./helpers";
-let selectors = {};
 let todos = [];
+let selectors = {};
 let filter = "all";
 
 const initialize = () => {
@@ -22,20 +22,23 @@ const findElements = () => {
 };
 
 const addListeners = () => {
-  selectors.newTodo.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-      addTodo(e.target.value);
+  selectors.newTodo.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      console.log("submit", event.target.value);
+      addTodo(event.target.value);
       selectors.newTodo.value = "";
     }
   });
+
   selectors.filters.querySelectorAll("li").forEach((li) => {
     li.addEventListener("click", () => {
       filter = li.getAttribute("filter");
       render();
     });
   });
-  selectors.toggleAll.addEventListener("click", (e) => {
-    toggleAll(e.target.checked);
+
+  selectors.toggleAll.addEventListener("click", (event) => {
+    toggleAll(event.target.checked);
   });
 };
 
@@ -60,20 +63,20 @@ const render = () => {
     const todoNode = createTodoNode(todo);
     selectors.todoList.appendChild(todoNode);
   });
+  selectors.filters.querySelectorAll("a").forEach((a) => {
+    a.classList.remove("selected");
+  });
+  selectors.filters
+    .querySelector(`[filter=${filter}] a`)
+    .classList.add("selected");
   selectors.footer.style.display = todos.length > 0 ? "block" : "none";
   selectors.main.style.display = todos.length > 0 ? "block" : "none";
-  selectors.toggleAll.checked = todos.every((todo) => todo.isCompleted);
   const activeTodosCount = todos.filter((todo) => !todo.isCompleted).length;
   selectors.count.innerHTML = `
-    <strong>${activeTodosCount}</strong>
-		${activeTodosCount === 1 ? "item" : "items"} left
+    <strong>${activeTodosCount}</strong> ${
+    activeTodosCount === 1 ? "item" : "items"
+  } left
   `;
-  selectors.filters
-    .querySelectorAll("a")
-    .forEach((a) => a.classList.remove("selected"));
-  selectors.filters
-    .querySelector(`[filter="${filter}"] a`)
-    .classList.add("selected");
 };
 
 const createTodoNode = (todo) => {
@@ -89,8 +92,9 @@ const createTodoNode = (todo) => {
       <label>${todo.text}</label>
       <button class="destroy"></button>
     </div>
-    <input class="edit" value="${todo.text}">
+    <input class="edit" value=${todo.text}>
   `;
+
   node
     .querySelector(".destroy")
     .addEventListener("click", () => removeTodo(todo.id));
@@ -103,26 +107,16 @@ const createTodoNode = (todo) => {
     .querySelector("label")
     .addEventListener("dblclick", () => startEditing(node));
 
-  node.querySelector(".edit").addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
-      updateTodo(todo.id, e.target.value);
-    } else if (e.key === "Escape") {
-      e.target.value === todo.title;
+  node.querySelector(".edit").addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      updateTodo(todo.id, event.target.value);
+    } else if (event.key === "Escape") {
+      event.target.value = todo.title;
       render();
     }
   });
 
   return node;
-};
-
-const updateTodo = (todoId, newText) => {
-  todos = helpers.updateTodo(todos, todoId, newText);
-  render();
-};
-
-const startEditing = (node) => {
-  node.classList.add("editing");
-  node.querySelector(".edit").focus();
 };
 
 const removeTodo = (todoId) => {
@@ -137,6 +131,16 @@ const toggleTodo = (todoId) => {
 
 const toggleAll = (checked) => {
   todos = helpers.toggleAll(todos, checked);
+  render();
+};
+
+const startEditing = (node) => {
+  node.classList.add("editing");
+  node.querySelector(".edit").focus();
+};
+
+const updateTodo = (todoId, text) => {
+  todos = helpers.updateTodo(todos, todoId, text);
   render();
 };
 

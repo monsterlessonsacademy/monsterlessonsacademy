@@ -1,3 +1,10 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .weather-block {
   height: 500px;
   width: 300px;
@@ -22,6 +29,7 @@
 .weather-info-image {
   border-radius: 50%;
   background: #cb2626;
+  margin-bottom: 20px;
 }
 
 .weather-info-block {
@@ -42,7 +50,7 @@
 .weather-info-temp {
   font-size: 54px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .weather-info-details {

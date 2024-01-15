@@ -1,5 +1,3 @@
-import weatherInfo from "./weather-data";
-
 class Weather {
   constructor() {
     this.locationSearch = document.querySelector(".location-search");
@@ -16,12 +14,11 @@ class Weather {
   }
 
   addListeners() {
-    this.locationSearch.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    this.locationSearch.addEventListener("submit", async (event) => {
+      event.preventDefault();
       if (this.locationSearchInput.value === "") {
         return;
       }
-
       this.weatherInfo = await this.getWeatherInfo(
         this.locationSearchInput.value
       );
@@ -54,11 +51,11 @@ class Weather {
       "src",
       `/public/${this.weatherInfo.weather[0].icon}.png`
     );
-    this.weatherInfoTemp.textContent = `${celsiusTemperature} °C`;
     this.weatherInfoName.textContent = this.weatherInfo.name;
-    this.feelsLike.textContent = celsiusFeelsLikeTemperature;
     this.humidity.textContent = this.weatherInfo.main.humidity;
     this.windSpeed.textContent = this.weatherInfo.wind.speed;
+    this.weatherInfoTemp.textContent = `${celsiusTemperature} °C`;
+    this.feelsLike.textContent = celsiusFeelsLikeTemperature;
     this.weatherInfoBlock.classList.remove("hidden");
   }
 }
