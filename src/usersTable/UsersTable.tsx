@@ -1,13 +1,12 @@
+import { FormEvent, useEffect, useState } from "react";
+import "./usersTable.css";
 import {
   SortingState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { FormEvent, useEffect, useState } from "react";
-import "./usersTable.css";
 
 export type User = {
   id: number;
@@ -34,34 +33,36 @@ const columns = [
 
 const UsersTable = () => {
   const [searchValue, setSearchValue] = useState("");
+  const [users, setUsers] = useState([]);
   const [inputSearchValue, setInputSearchValue] = useState("");
-  const [users, setUsers] = useState<User[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const table = useReactTable({
-    data: users,
-    columns,
-    state: {
-      sorting,
-    },
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    debugTable: true,
-  });
   const submitSearchForm = (e: FormEvent) => {
     e.preventDefault();
     setSearchValue(inputSearchValue);
   };
+  const table = useReactTable({
+    data: users,
+    columns,
+    debugTable: true,
+    getCoreRowModel: getCoreRowModel(),
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+  });
 
   useEffect(() => {
+    console.log("sorting", sorting);
     const order = sorting[0]?.desc ? "desc" : "asc";
     const sort = sorting[0]?.id ?? "id";
-    const url = `http://localhost:3004/users?_sort=${sort}&_order=${order}&name_like=${searchValue}`;
+    const url = `http://localhost:3004/users?name_like=${searchValue}&_sort=${sort}&_order=${order}`;
     fetch(url)
       .then((res) => res.json())
       .then((users) => {
         setUsers(users);
       });
-  }, [sorting, searchValue]);
+  }, [searchValue, sorting]);
+
   return (
     <div>
       <div className="search-bar">
