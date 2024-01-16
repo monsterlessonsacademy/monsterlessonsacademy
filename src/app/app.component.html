@@ -1,27 +1,5 @@
 <h1>Monsterlessons Academy</h1>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
-<div>Content</div>
 
-@defer (on viewport) {
-  <app-child></app-child>
-}
-@loading (after 150ms; minimum 150ms) {
-  <div>Loading</div>
-}
-@placeholder (minimum 150ms) {
-  <div>Placeholder</div>
-}
-@error {
-  <div>Error</div>
-}
+<bad-table [issues]="issues"></bad-table>
 
 <router-outlet></router-outlet>
