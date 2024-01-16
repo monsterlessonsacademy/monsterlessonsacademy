@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import data from "./data";
+import { useState } from "react";
 import "./weather.css";
+import { useEffect } from "react";
 import axios from "axios";
 
 const apiKey = "13b8c2b59f4710181773774cff02b763";
-const url = `https://api.openweathermap.org/data/2.5/weather?q=Hamburg&appid=${apiKey}`;
 
 const LocationSearch = ({ locationChange }) => {
   const [location, setLocation] = useState("");
@@ -14,12 +13,12 @@ const LocationSearch = ({ locationChange }) => {
     setLocation("");
   };
   return (
-    <form onSubmit={handleSubmit} className="location-search">
+    <form className="location-search" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="City, Country"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
+        placeholder="City, Country"
         className="location-search-input"
       />
     </form>
@@ -33,7 +32,10 @@ const WeatherInfo = ({ weatherInfo }) => {
   );
   return (
     <div className="weather-info">
-      <img className="weather-info-image" src={`/public/${weatherInfo.weather[0].icon}.png`} />
+      <img
+        className="weather-info-image"
+        src={`/public/${weatherInfo.weather[0].icon}.png`}
+      />
       <div className="weather-info-temp">{celsiusTemperature} °C</div>
       <div className="weather-info-name">{weatherInfo.name}</div>
       <div className="weather-info-details">
@@ -41,8 +43,9 @@ const WeatherInfo = ({ weatherInfo }) => {
           <b>Feels like:</b> {celsiusFeelsLikeTemperature}°C
         </div>
         <div className="weather-info-detail">
-          <b>Humidity:</b> {weatherInfo.main.humidity}%
+          <b>Humidity</b> {weatherInfo.main.humidity}%
         </div>
+
         <div className="weather-info-detail">
           <b>Wind speed:</b> {weatherInfo.wind.speed} km/h
         </div>
@@ -52,20 +55,19 @@ const WeatherInfo = ({ weatherInfo }) => {
 };
 
 const Weather = () => {
-  const [weatherInfo, setWeatherInfo] = useState(null);
   const [location, setLocation] = useState(null);
+  const [weatherInfo, setWeatherInfo] = useState(null);
 
   useEffect(() => {
     if (!location) {
       return;
     }
-    console.log("location", location);
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}`;
-    setWeatherInfo(null);
     axios.get(url).then((response) => {
       setWeatherInfo(response.data);
     });
   }, [location]);
+
   return (
     <div className="weather-block">
       <LocationSearch locationChange={(location) => setLocation(location)} />
