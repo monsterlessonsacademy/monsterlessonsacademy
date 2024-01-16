@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ChildComponent } from './child.component';
 import { BadTable } from './badTable/badTable.component';
+import { GoodTable } from './goodTable/goodTable.component';
+import { IssueInterface } from './goodTable/issue.interface';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ChildComponent, BadTable],
+  imports: [CommonModule, RouterOutlet, ChildComponent, BadTable, GoodTable],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   isVisible = false;
   prefetchCondition = false;
-  issues = [
+  issues: IssueInterface[] = [
     {
       id: 'c9613c41-32f0-435e-aef2-b17ce758431b',
       name: 'TypeError',
