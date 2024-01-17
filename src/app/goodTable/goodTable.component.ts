@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { Issue, IssueInterface } from './issue.interface';
+import { Component, Input, OnInit, computed, signal } from '@angular/core';
+import { IssueInterface } from './issue.interface';
+
+interface IssueEntriesInterface {
+  [key: string]: { isSelected: boolean };
+}
 
 @Component({
   selector: 'good-table',
@@ -12,120 +16,58 @@ import { Issue, IssueInterface } from './issue.interface';
 export class GoodTable implements OnInit {
   @Input({ required: true }) issues!: IssueInterface[];
 
-  selectDeselectAllIsChecked = false;
-  numCheckboxesSelected = 0;
-  checkedState: any;
-  issueEntries: {
-    [key: string]: { isSelected: boolean };
-  } = {};
+  issueEntriesSig = signal<IssueEntriesInterface>({});
+  issuesSig = signal<IssueInterface[]>([]);
+  totalSelectedSig = computed(
+    () =>
+      Object.values(this.issueEntriesSig()).filter(
+        (issueData) => issueData.isSelected
+      ).length
+  );
+  indeterminateSig = computed(() => {
+    const totalOpenedIssues = this.issuesSig().filter(
+      (issue) => issue.status === 'open'
+    ).length;
+    return (
+      this.totalSelectedSig() < totalOpenedIssues && this.totalSelectedSig() > 0
+    );
+  });
 
   ngOnInit() {
-    this.checkedState = new Array(this.issues.length).fill({
-      checked: false,
-      backgroundColor: '#ffffff',
-    });
-    this.issueEntries = this.convertIssuesToEntries(false);
+    this.issuesSig.set(this.issues);
+    this.issueEntriesSig.set(this.convertIssuesToEntries(this.issues, false));
   }
 
-  convertIssuesToEntries = (isSelected: boolean) => {
-    const entries = this.issues.map((issue) => [
+  convertIssuesToEntries = (
+    issues: IssueInterface[],
+    isSelected: boolean
+  ): IssueEntriesInterface => {
+    const entries = issues.map((issue) => [
       issue.id,
       { isSelected: issue.status === 'open' ? isSelected : false },
     ]);
     return Object.fromEntries(entries);
   };
 
-  onClick(index: any, issue: any) {
-    if (issue.status === 'open') {
-      this.handleOnChange(index);
-    }
+  selectRow(issueId: string): void {
+    console.log('selectRow', issueId);
+    const updatedIssueEntry = {
+      ...this.issueEntriesSig()[issueId],
+      isSelected: !this.issueEntriesSig()[issueId].isSelected,
+    };
+    const updatedIssueEntries = {
+      ...this.issueEntriesSig(),
+      [issueId]: updatedIssueEntry,
+    };
+    this.issueEntriesSig.set(updatedIssueEntries);
   }
 
-  handleOnChange(position: any) {
-    const updatedCheckedState = this.checkedState.map(
-      (element: any, index: any) => {
-        if (position === index) {
-          return {
-            ...element,
-            checked: !element.checked,
-            backgroundColor: element.checked ? '#ffffff' : '#eeeeee',
-          };
-        }
-        return element;
-      }
+  selectAll(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const updatedIssueEntries = this.convertIssuesToEntries(
+      this.issuesSig(),
+      target.checked
     );
-    this.checkedState = updatedCheckedState;
-    console.log('handleOnChange', this.checkedState, position);
-    const totalSelected = updatedCheckedState
-      .map((element: any) => element.checked)
-      .reduce((sum: any, currentState: any, index: any) => {
-        if (currentState) {
-          return sum + this.issues[index].value;
-        }
-        return sum;
-      }, 0);
-    this.numCheckboxesSelected = totalSelected;
-    console.log;
-    this.handleIndeterminateCheckbox(totalSelected);
-  }
-
-  handleIndeterminateCheckbox(total: any) {
-    const indeterminateCheckbox = document.getElementById(
-      'custom-checkbox-selectDeselectAll'
-    );
-    let count = 0;
-
-    this.issues.forEach((element: any) => {
-      if (element.status === 'open') {
-        count += 1;
-      }
-    });
-
-    if (total === 0) {
-      (indeterminateCheckbox as any).indeterminate = false;
-      this.selectDeselectAllIsChecked = false;
-    }
-    if (total > 0 && total < count) {
-      (indeterminateCheckbox as any).indeterminate = true;
-      this.selectDeselectAllIsChecked = false;
-    }
-    if (total === count) {
-      (indeterminateCheckbox as any).indeterminate = false;
-      this.selectDeselectAllIsChecked = true;
-    }
-  }
-
-  handleSelectDeselectAll(event: any) {
-    let { checked } = event.target;
-
-    const allTrueArray: any = [];
-    this.issues.forEach((element: any) => {
-      if (element.status === 'open') {
-        allTrueArray.push({ checked: true, backgroundColor: '#eeeeee' });
-      } else {
-        allTrueArray.push({ checked: false, backgroundColor: '#ffffff' });
-      }
-    });
-
-    const allFalseArray = new Array(this.issues.length).fill({
-      checked: false,
-      backgroundColor: '#ffffff',
-    });
-    if (checked) {
-      this.checkedState = allTrueArray;
-    } else {
-      this.checkedState = allFalseArray;
-    }
-
-    const totalSelected = (checked ? allTrueArray : allFalseArray)
-      .map((element: any) => element.checked)
-      .reduce((sum: any, currentState: any, index: any) => {
-        if (currentState && this.issues[index].status === 'open') {
-          return sum + this.issues[index].value;
-        }
-        return sum;
-      }, 0);
-    this.numCheckboxesSelected = totalSelected;
-    this.selectDeselectAllIsChecked = !this.selectDeselectAllIsChecked;
+    this.issueEntriesSig.set(updatedIssueEntries);
   }
 }

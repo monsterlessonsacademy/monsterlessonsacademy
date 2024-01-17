@@ -4,19 +4,17 @@
       <th>
         <input
           class="checkbox"
-          [type]="'checkbox'"
-          [id]="'custom-checkbox-selectDeselectAll'"
-          [name]="'custom-checkbox-selectDeselectAll'"
-          [value]="'custom-checkbox-selectDeselectAll'"
-          [checked]="selectDeselectAllIsChecked"
-          (change)="handleSelectDeselectAll($event)"
+          type="checkbox"
+          [indeterminate]="indeterminateSig()"
+          [checked]="totalSelectedSig()"
+          (change)="selectAll($event)"
         />
       </th>
       <th class="numChecked">
-        <span *ngIf="numCheckboxesSelected"
-          >Selected {{ numCheckboxesSelected }}</span
+        <span *ngIf="totalSelectedSig() > 0"
+          >Selected {{ totalSelectedSig() }}</span
         >
-        <span *ngIf="!numCheckboxesSelected">None</span>
+        <span *ngIf="totalSelectedSig() === 0">None</span>
       </th>
     </tr>
     <tr>
@@ -27,37 +25,35 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let issue of issues; index as index">
+    <ng-container *ngFor="let issue of issuesSig(); index as index">
       <tr
         [ngClass]="{
           openIssue: issue.status === 'open',
-          closedIssue: issue.status === 'resolved'
+          resolvedIssue: issue.status === 'resolved'
         }"
-        [ngStyle]="{backgroundColor: }"
+        [ngStyle]="{
+          backgroundColor: issueEntriesSig()[issue.id].isSelected
+            ? '#eeeeee'
+            : '#ffffff'
+        }"
+        (click)="selectRow(issue.id)"
       >
         <td>
           <input
-            *ngIf="$any(issue).status === 'open'"
             class="checkbox"
-            [type]="'checkbox'"
-            [id]="'custom-checkbox-' + index"
-            [name]="issue.name"
-            [value]="issue.name"
-            [checked]="checkedState[index].checked"
-            (change)="handleOnChange(index)"
-          />
-          <input
-            *ngIf="issue.status !== 'open'"
-            class="checkbox"
-            [type]="'checkbox'"
-            disabled
+            type="checkbox"
+            [checked]="issueEntriesSig()[issue.id].isSelected"
           />
         </td>
         <td>{{ issue.name }}</td>
         <td>{{ issue.message }}</td>
         <td>
-          <span class="openCircle" *ngIf="issue.status === 'open'"></span>
-          <span class="resolvedCircle" *ngIf="issue.status !== 'open'"></span>
+          <span
+            [ngClass]="{
+              openCircle: issue.status === 'open',
+              resolvedCircle: issue.status === 'resolved'
+            }"
+          ></span>
         </td>
       </tr>
     </ng-container>
