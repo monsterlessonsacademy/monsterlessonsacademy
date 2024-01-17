@@ -10,7 +10,7 @@ export type Post = {
 
 const fetchPosts = async () => {
   const response = await axios.get<{ articles: Post[]; articlesCount: number }>(
-    "https://api.realworld.io/api/articles?limit=10&offset=0"
+    "https://api.realworld.io/api/articles"
   );
   return response.data;
 };
@@ -36,10 +36,6 @@ export const postsRoute = new Route({
       </div>
     );
   },
-  pendingComponent: () => {
-    return <div>Posts Loading</div>;
-  },
-  errorComponent: () => {
-    return <div>Posts Error</div>;
-  },
+  pendingComponent: () => <div>Posts loading</div>,
+  errorComponent: () => <div>Posts error</div>,
 });

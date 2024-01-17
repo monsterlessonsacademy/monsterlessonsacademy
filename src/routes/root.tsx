@@ -4,7 +4,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 export const rootRoute = new RootRoute({
   component: () => (
     <div>
-      <div>Root route</div>
+      <div>RootRoute</div>
       <div>
         <Link to="/">Home</Link>
         <Link to="/posts">Posts</Link>

@@ -1,4 +1,4 @@
-import { Route, useParams } from "@tanstack/react-router";
+import { Route } from "@tanstack/react-router";
 import { rootRoute } from "./root";
 import axios from "axios";
 import { Post } from "./posts";
@@ -15,9 +15,7 @@ export const postRoute = new Route({
   path: "/posts/$postSlug",
   loader: ({ params }) => fetchPost(params.postSlug),
   component: () => {
-    // const { postSlug } = useParams({ strict: false });
     const post = postRoute.useLoaderData();
-
     return (
       <div>
         <h1>{post.title}</h1>
