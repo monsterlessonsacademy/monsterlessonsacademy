@@ -3,8 +3,8 @@ import { TodosService } from '../../services/todos.service';
 import { CommonModule } from '@angular/common';
 import { FilterEnum } from '../../types/filter.enum';
 import { TodoComponent } from '../todo/todo.component';
-import { TodosFirebaseService } from '../../services/todosFirebase.service';
 import { forkJoin } from 'rxjs';
+import { TodosFirebaseService } from '../../services/todosFirebase.service';
 
 @Component({
   selector: 'app-todos-main',

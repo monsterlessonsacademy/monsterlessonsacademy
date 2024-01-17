@@ -54,6 +54,7 @@ export class TodoComponent implements OnInit, OnChanges {
       text: this.editingText,
       isCompleted: this.todo.isCompleted,
     };
+
     this.todosFirebaseService
       .updateTodo(this.todo.id, dataToUpdate)
       .subscribe(() => {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
@@ -11,7 +11,7 @@ import { TodosFirebaseService } from './services/todosFirebase.service';
   standalone: true,
   imports: [HeaderComponent, FooterComponent, MainComponent],
 })
-export class TodosComponent {
+export class TodosComponent implements OnInit {
   todosService = inject(TodosService);
   todosFirebaseService = inject(TodosFirebaseService);
 

@@ -1,6 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { TodoInterface } from '../types/todo.interface';
 import {
   Firestore,
   addDoc,
@@ -10,6 +8,8 @@ import {
   doc,
   setDoc,
 } from '@angular/fire/firestore';
+import { Observable, from } from 'rxjs';
+import { TodoInterface } from '../types/todo.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TodosFirebaseService {

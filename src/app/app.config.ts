@@ -1,17 +1,17 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 import { routes } from './app.routes';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD1j_JFh4hdZ4sgXZKaoCQvJQXGvsWUZ6E',
-  authDomain: 'angular-app-bd2cc.firebaseapp.com',
-  projectId: 'angular-app-bd2cc',
-  storageBucket: 'angular-app-bd2cc.appspot.com',
-  messagingSenderId: '454339564675',
-  appId: '1:454339564675:web:a0f9b25b4b3ed8c84d77b6',
+  apiKey: 'AIzaSyCutXiHV_k6wM8DKzQjNNiVkqzixKJ2ruQ',
+  authDomain: 'angular-todo-26dfc.firebaseapp.com',
+  projectId: 'angular-todo-26dfc',
+  storageBucket: 'angular-todo-26dfc.appspot.com',
+  messagingSenderId: '520833002805',
+  appId: '1:520833002805:web:86c50ebdfa0cb84c35f07c',
 };
 
 export const appConfig: ApplicationConfig = {
