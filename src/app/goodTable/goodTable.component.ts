@@ -16,8 +16,8 @@ interface IssueEntriesInterface {
 export class GoodTable implements OnInit {
   @Input({ required: true }) issues!: IssueInterface[];
 
-  issueEntriesSig = signal<IssueEntriesInterface>({});
   issuesSig = signal<IssueInterface[]>([]);
+  issueEntriesSig = signal<IssueEntriesInterface>({});
   totalSelectedSig = computed(
     () =>
       Object.values(this.issueEntriesSig()).filter(
@@ -38,19 +38,18 @@ export class GoodTable implements OnInit {
     this.issueEntriesSig.set(this.convertIssuesToEntries(this.issues, false));
   }
 
-  convertIssuesToEntries = (
+  convertIssuesToEntries(
     issues: IssueInterface[],
     isSelected: boolean
-  ): IssueEntriesInterface => {
+  ): IssueEntriesInterface {
     const entries = issues.map((issue) => [
       issue.id,
       { isSelected: issue.status === 'open' ? isSelected : false },
     ]);
     return Object.fromEntries(entries);
-  };
+  }
 
   selectRow(issueId: string): void {
-    console.log('selectRow', issueId);
     const updatedIssueEntry = {
       ...this.issueEntriesSig()[issueId],
       isSelected: !this.issueEntriesSig()[issueId].isSelected,

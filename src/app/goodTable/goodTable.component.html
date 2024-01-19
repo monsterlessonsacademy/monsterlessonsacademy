@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let issue of issuesSig(); index as index">
+    <ng-container *ngFor="let issue of issuesSig()">
       <tr
         [ngClass]="{
           openIssue: issue.status === 'open',
