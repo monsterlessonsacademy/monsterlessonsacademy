@@ -13,14 +13,11 @@
 
 @defer (on viewport) {
   <app-child></app-child>
-}
-@loading (after 150ms; minimum 150ms) {
+} @loading (after 150ms; minimum 150ms) {
   <div>Loading</div>
-}
-@placeholder (minimum 150ms) {
+} @placeholder (minimum 150ms) {
   <div>Placeholder</div>
-}
-@error {
+} @error {
   <div>Error</div>
 }
 

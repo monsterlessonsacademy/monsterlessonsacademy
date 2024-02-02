@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ChildComponent } from './child.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +13,8 @@ import { ChildComponent } from './child.component';
 export class AppComponent {
   isVisible = false;
   prefetchCondition = false;
+
+  constructor () {
+    this.isVisible = 'foo'
+  }
 }
