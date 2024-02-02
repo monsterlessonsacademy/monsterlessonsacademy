@@ -11,10 +11,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  isVisible = false;
   prefetchCondition = false;
-
-  constructor () {
-    this.isVisible = 'foo'
-  }
 }
