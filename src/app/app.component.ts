@@ -12,4 +12,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   isCompleted = false;
+  isFooVisible = false;
+  prefetchCondition = false;
+
+  constructor() {
+    this.i = 'foo';
+  }
 }
