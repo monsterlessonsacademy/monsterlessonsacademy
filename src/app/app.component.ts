@@ -11,5 +11,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  isCompleted = true;
+  isCompleted = false;
 }
