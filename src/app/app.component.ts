@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ChildComponent } from './child.component';
+import { ChildComponent } from './foo/child.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,6 +15,10 @@ export class AppComponent {
   prefetchCondition = false;
 
   constructor() {
-    this.i = 'foo';
+    this.isFooVisible = true;
+  }
+
+  someFn() {
+    console.log('someFn');
   }
 }
