@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { UserInterface } from '../user.interface';
 
 @Component({
   selector: 'app-login',
@@ -21,11 +20,17 @@ export class LogicComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
+  errorMessage: string | null = null;
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
-    this.authService.login(rawForm.email, rawForm.password).subscribe(() => {
-      this.router.navigateByUrl('/');
+    this.authService.login(rawForm.email, rawForm.password).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => {
+        this.errorMessage = err.code;
+      },
     });
   }
 }

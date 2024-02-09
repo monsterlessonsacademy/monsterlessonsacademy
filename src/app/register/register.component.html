@@ -1,4 +1,9 @@
 <h1>Register</h1>
+
+@if (errorMessage) {
+  <div>{{ errorMessage }}</div>
+}
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div>
     <input type="text" placeholder="Username" formControlName="username" />
