@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+
+export interface User {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -10,7 +15,9 @@ import { AuthService } from '../auth.service';
   standalone: true,
   imports: [ReactiveFormsModule],
 })
-export class LogicComponent {
+export class LogicComponent implements OnInit {
+  @Input({ transform: (users: User[]) => users.map((user) => user.name) })
+  users: string[] = [];
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   router = inject(Router);
@@ -22,6 +29,10 @@ export class LogicComponent {
   });
 
   errorMessage: string | null = null;
+
+  ngOnInit(): void {
+    console.log('users', this.users);
+  }
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
