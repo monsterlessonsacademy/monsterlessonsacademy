@@ -1,9 +1,0 @@
-<div *ngIf="authService.currentUserSig() === null">
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
-</div>
-<div *ngIf="authService.currentUserSig()">
-  {{ authService.currentUserSig()?.username }}
-  <span (click)="logout()">Logout</span>
-</div>
-<router-outlet></router-outlet>
