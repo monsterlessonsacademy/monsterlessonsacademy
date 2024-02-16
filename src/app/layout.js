@@ -1,17 +1,16 @@
-import Link from "next/link";
-import { useEffect } from "react";
+"use client";
+
+import { AuthProvider } from "./context/auth";
+import Header from "./header";
 
 export default function RootLayout({ children }) {
-  useEffect(() => {}, []);
   return (
     <html lang="en">
       <body>
-        <div>
-          <Link href="/">Home</Link>
-          <Link href="/login">Login</Link>
-          <Link href="/register">Register</Link>
-        </div>
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
