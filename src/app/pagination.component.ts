@@ -3,7 +3,9 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
+  SimpleChanges,
   computed,
   input,
 } from '@angular/core';
@@ -26,9 +28,6 @@ import { RouterOutlet } from '@angular/router';
   `,
 })
 export class PaginationComponent {
-  // @Input() currentPage: number = 1;
-  // @Input() total: number = 0;
-  // @Input() limit: number = 20;
   @Output() changePage = new EventEmitter<number>();
 
   currentPage = input.required<number>();
