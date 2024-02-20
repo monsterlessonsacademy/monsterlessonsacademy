@@ -5,6 +5,7 @@ import { logout } from "./firebase";
 
 const Header = () => {
   const { currentUser } = useAuth();
+  console.log(currentUser);
   return (
     <div>
       <div>
@@ -16,11 +17,13 @@ const Header = () => {
           </Fragment>
         )}
       </div>
-      {currentUser && (
-        <div>
-          {currentUser.username} <span onClick={() => logout()}>Logout</span>
-        </div>
-      )}
+      <div>
+        {currentUser && (
+          <div>
+            {currentUser.username} <span onClick={() => logout()}>Logout</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

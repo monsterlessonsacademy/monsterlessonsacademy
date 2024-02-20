@@ -2,8 +2,8 @@ import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  updateProfile,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-export const register = (email, password, username) => {
+export const register = (email, username, password) => {
   return createUserWithEmailAndPassword(auth, email, password).then(
     (response) => updateProfile(response.user, { displayName: username })
   );
@@ -31,8 +31,4 @@ export const login = (email, password) => {
 
 export const logout = () => {
   return auth.signOut();
-};
-
-export const getCurrentUser = () => {
-  return auth.currentUser;
 };

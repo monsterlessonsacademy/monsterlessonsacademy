@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { register } from "../firebase";
 import { useRouter } from "next/navigation";
+import { register } from "../firebase";
 
 const Register = () => {
   const router = useRouter();
@@ -13,10 +13,9 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(email, password, username);
+      await register(email, username, password);
       router.push("/");
     } catch (err) {
-      console.log("errr", err.code);
       setErrorMessage(err.code);
     }
   };

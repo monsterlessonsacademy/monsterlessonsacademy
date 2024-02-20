@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { login } from "../firebase";
 import { useRouter } from "next/navigation";
+import { login } from "../firebase";
 
 const Login = () => {
   const router = useRouter();
@@ -15,7 +15,6 @@ const Login = () => {
       await login(email, password);
       router.push("/");
     } catch (err) {
-      console.log("errr", err.code);
       setErrorMessage(err.code);
     }
   };
