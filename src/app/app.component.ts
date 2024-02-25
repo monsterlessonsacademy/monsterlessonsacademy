@@ -5,11 +5,12 @@ import { ChildComponent } from './child.component';
 import { BadTable } from './badTable/badTable.component';
 import { GoodTable } from './goodTable/goodTable.component';
 import { IssueInterface } from './goodTable/issue.interface';
+import { AnotherGoodTableComponent } from './another-good-table/another-good-table.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ChildComponent, BadTable, GoodTable],
+  imports: [CommonModule, RouterOutlet, ChildComponent, BadTable, GoodTable, AnotherGoodTableComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
