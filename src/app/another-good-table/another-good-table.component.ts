@@ -17,12 +17,12 @@ import { NgClass, NgStyle } from '@angular/common';
 export class AnotherGoodTableComponent {
   @Input({ required: true }) source: IssueInterface[] = [];
   readonly selectedIssues = signal<string[]>([]);
-  readonly issues = computed<IssueInterfaceWithSelected[]>(() => {
-    return this.source.map((issue) => ({
+  readonly issues = computed<IssueInterfaceWithSelected[]>(() =>
+    this.source.map((issue) => ({
       ...issue,
-      selected: this.selectedIssues().indexOf(issue.id) >= 0,
-    }));
-  });
+      selected: this.selectedIssues().includes(issue.id),
+    })),
+  );
   readonly indeterminate = computed(
     () => !this.allSelected() && this.selectedIssues().length >= 1,
   );
