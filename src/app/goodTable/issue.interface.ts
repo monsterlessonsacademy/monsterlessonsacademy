@@ -7,3 +7,7 @@ export interface IssueInterface {
   numUsers: number;
   value: number;
 }
+
+export interface IssueInterfaceWithSelected extends IssueInterface {
+  selected: boolean;
+}

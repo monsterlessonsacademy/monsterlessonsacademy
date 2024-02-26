@@ -1,0 +1,44 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        <input
+          class="checkbox"
+          type="checkbox"
+          [ngModel]="selectedIssues().length"
+          (ngModelChange)="selectAllChange()"
+          [indeterminate]="indeterminate()"
+        />
+      </th>
+      <th class="numChecked">
+        @if (selectedIssues().length > 0) {
+          <span>Selected {{ selectedIssues().length }}</span>
+        } @else {
+          <span>None</span>
+        }
+      </th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Message</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (issue of issues(); track issue.id) {
+      <tr
+        app-another-good-table-row
+        [issue]="issue"
+        (click)="selectIssueChange(issue.id)"
+        [ngClass]="{
+          openIssue: issue.status === 'open',
+          resolvedIssue: issue.status === 'resolved'
+        }"
+        [ngStyle]="{
+          backgroundColor: issue.selected ? '#eeeeee' : '#ffffff'
+        }"
+      ></tr>
+    }
+  </tbody>
+</table>

@@ -1,0 +1,20 @@
+@if (issue) {
+  <td>
+    <input
+      class="checkbox"
+      type="checkbox"
+      [disabled]="issue.status === 'resolved'"
+      [checked]="issue.selected"
+    />
+  </td>
+  <td>{{ issue.name }}</td>
+  <td>{{ issue.message }}</td>
+  <td>
+    <span
+      [ngClass]="{
+        openCircle: issue.status === 'open',
+        resolvedCircle: issue.status === 'resolved'
+      }"
+    ></span>
+  </td>
+}
