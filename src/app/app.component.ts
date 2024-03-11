@@ -17,6 +17,6 @@ export class AppComponent {
   }
 
   itemsChange(items: string[]): void {
-    console.log('itemsChange', items);
+    console.log('parent itemsChange', items);
   }
 }

@@ -37,7 +37,6 @@ import {
 export class PaginationComponent implements OnInit {
   // @Output() changePage = new EventEmitter<number>();
   changePage = output<number>();
-
   currentPage = input.required<number>();
   total = input.required<number>();
   limit = input.required<number>();
@@ -47,14 +46,15 @@ export class PaginationComponent implements OnInit {
   });
   items$ = new BehaviorSubject<string[]>([]);
   itemsChange = outputFromObservable(this.items$);
+  changePage$ = outputToObservable(this.changePage);
 
   ngOnInit(): void {
     this.items$.subscribe((items) => {
       console.log('items', items);
     });
 
-    outputToObservable(this.changePage).subscribe((res) => {
-      console.log('change page stream', res);
+    this.changePage$.subscribe((page) => {
+      console.log('change page was triggered', page);
     });
   }
 
