@@ -3,10 +3,12 @@ import classes from "./Table.module.css";
 
 const GoodTable = ({ issues }) => {
   const convertIssuesToEntries = (isSelected) => {
-    const entries = issues.map((issue) => [
-      issue.id,
-      { isSelected: issue.status === "open" ? isSelected : false },
-    ]);
+    const entries = issues.map((issue) => {
+      return [
+        issue.id,
+        { isSelected: issue.status === "open" ? isSelected : false },
+      ];
+    });
     return Object.fromEntries(entries);
   };
   const [issueEntries, setIssueEntries] = useState(() =>
@@ -34,8 +36,9 @@ const GoodTable = ({ issues }) => {
   };
 
   useEffect(() => {
-    const totalOpenedIssues = issues.filter((issue) => issue.status === "open")
-      .length;
+    const totalOpenedIssues = issues.filter(
+      (issue) => issue.status === "open"
+    ).length;
     const indeterminate =
       totalSelected < totalOpenedIssues && totalSelected > 0;
     selectAllRef.current.indeterminate = indeterminate;
