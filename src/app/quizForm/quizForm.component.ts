@@ -23,6 +23,7 @@ type Form = FormGroup<{
   selector: 'quiz-form',
   standalone: true,
   templateUrl: './quizForm.component.html',
+  styleUrl: './quizForm.component.css',
   imports: [ReactiveFormsModule],
 })
 export class QuizFormComponent {
@@ -44,6 +45,16 @@ export class QuizFormComponent {
 
   addQuestion(): void {
     this.quizForm.controls.questions.push(this.generateQuestion());
+  }
+
+  removeQuestion(questionIndex: number) {
+    this.quizForm.controls.questions.removeAt(questionIndex);
+  }
+
+  removeAnswer(questionIndex: number, answerIndex: number) {
+    this.quizForm.controls.questions
+      .at(questionIndex)
+      .controls.answers.removeAt(answerIndex);
   }
 
   addAnswer(questionIndex: number): void {

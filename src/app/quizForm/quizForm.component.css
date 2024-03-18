@@ -1,0 +1,31 @@
+.quiz-form {
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.question {
+  border: 1px solid black;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.answers {
+  margin-top: 10px;
+}
+
+.answer {
+  margin-top: 10px;
+}
+
+.add-answer {
+  margin-top: 10px;
+}
+
+.add-question {
+  margin-bottom: 10px;
+}
+
+.remove {
+  margin-left: 10px;
+}
