@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PaginationComponent } from './pagination.component';
+import { QuizFormComponent } from './quizForm/quizForm.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PaginationComponent],
+  imports: [RouterOutlet, QuizFormComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

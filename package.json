@@ -15,10 +15,10 @@
     "@angular/compiler": "^17.3.0-next.0",
     "@angular/core": "^17.3.0-next.0",
     "@angular/forms": "^17.3.0-next.0",
-    "@angular/language-server": "^17.2.2",
     "@angular/platform-browser": "^17.3.0-next.0",
     "@angular/platform-browser-dynamic": "^17.3.0-next.0",
     "@angular/router": "^17.3.0-next.0",
+    "prettier": "^3.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
