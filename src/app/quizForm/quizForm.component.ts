@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {
   FormArray,
-  FormBuilder,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
@@ -32,10 +31,6 @@ export class QuizFormComponent {
     questions: this.fb.array<FormQuestion>([this.generateQuestion()]),
   });
 
-  onSubmit() {
-    console.log(this.quizForm.getRawValue());
-  }
-
   generateQuestion(): FormQuestion {
     return this.fb.group({
       questionName: '',
@@ -47,22 +42,26 @@ export class QuizFormComponent {
     this.quizForm.controls.questions.push(this.generateQuestion());
   }
 
-  removeQuestion(questionIndex: number) {
+  removeQuestion(questionIndex: number): void {
     this.quizForm.controls.questions.removeAt(questionIndex);
   }
 
-  removeAnswer(questionIndex: number, answerIndex: number) {
-    this.quizForm.controls.questions
-      .at(questionIndex)
-      .controls.answers.removeAt(answerIndex);
-  }
-
   addAnswer(questionIndex: number): void {
-    const newAnswer: any = this.fb.group({
+    const newAnswer: FormAnswer = this.fb.group({
       text: '',
     });
-    this.quizForm.controls.questions.controls
+    this.quizForm.controls.questions
       .at(questionIndex)
       ?.controls?.answers?.push(newAnswer);
+  }
+
+  removeAnswer(questionIndex: number, answerIndex: number): void {
+    this.quizForm.controls.questions
+      .at(questionIndex)
+      ?.controls?.answers?.removeAt(answerIndex);
+  }
+
+  onSubmit() {
+    console.log(this.quizForm.getRawValue());
   }
 }

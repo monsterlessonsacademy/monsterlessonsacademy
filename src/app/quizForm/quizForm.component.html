@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="quizForm" class="quiz-form">
+<form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
   <h1>Quiz form</h1>
   <div formArrayName="questions">
     @for (
@@ -6,7 +6,7 @@
       track questionIndex;
       let questionIndex = $index
     ) {
-      <div [formGroupName]="questionIndex" class="question">
+      <div class="question" [formGroupName]="questionIndex">
         <input
           type="text"
           formControlName="questionName"
@@ -31,9 +31,9 @@
             </div>
           }
           <button
-            (click)="addAnswer(questionIndex)"
             type="button"
             class="add-answer"
+            (click)="addAnswer(questionIndex)"
           >
             Add Answer
           </button>
@@ -44,7 +44,5 @@
   <div class="add-question">
     <button (click)="addQuestion()" type="button">Add Question</button>
   </div>
-  <div>
-    <button type="submit">Submit</button>
-  </div>
+  <div><button type="submit">Submit</button></div>
 </form>
