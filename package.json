@@ -1,39 +1,30 @@
 {
-  "name": "app",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
+  "name": "monsterlessonsacademy",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "@angular/animations": "^17.3.0-next.0",
-    "@angular/common": "^17.3.0-next.0",
-    "@angular/compiler": "^17.3.0-next.0",
-    "@angular/core": "^17.3.0-next.0",
-    "@angular/forms": "^17.3.0-next.0",
-    "@angular/language-server": "^17.2.2",
-    "@angular/platform-browser": "^17.3.0-next.0",
-    "@angular/platform-browser-dynamic": "^17.3.0-next.0",
-    "@angular/router": "^17.3.0-next.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "@faker-js/faker": "^8.4.1",
+    "@tanstack/react-virtual": "^3.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.0-rc.0",
-    "@angular/cli": "^17.3.0-rc.0",
-    "@angular/compiler-cli": "^17.3.0-next.0",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.3.2"
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
   }
 }
