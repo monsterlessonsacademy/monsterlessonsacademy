@@ -1,7 +1,7 @@
-import SimpleList from "./SimpleList";
+import AsyncList from "./AsyncList";
 
 const App = () => {
-  return <SimpleList />;
+  return <AsyncList />;
 };
 
 export default App;
