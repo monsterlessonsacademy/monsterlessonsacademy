@@ -1,12 +1,12 @@
 import { DateTime, Info, Interval } from "luxon";
 import "./calendar.css";
 import { useState } from "react";
+import classnames from "classnames";
 
 const Calendar = ({ meetings }) => {
   const today = DateTime.local();
   const [activeDay, setActiveDay] = useState(null);
   const activeDayMeetings = meetings[activeDay?.toISODate()] ?? [];
-  console.log("activeDayMeetings", activeDayMeetings);
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
     today.startOf("month")
   );
@@ -26,7 +26,6 @@ const Calendar = ({ meetings }) => {
   const goToToday = () => {
     setFirstDayOfActiveMonth(today.startOf("month"));
   };
-  console.log("!!!", activeDay?.toLocaleString(DateTime.DATETIME_FULL));
   return (
     <div className="calendar-container">
       <div className="calendar">
@@ -40,12 +39,27 @@ const Calendar = ({ meetings }) => {
             <div onClick={() => goToNextMonth()}>»</div>
           </div>
         </div>
-        <div className="calendar-grid">
+        <div className="calendar-weeks-grid">
           {weekDays.map((weekDay, weekDayIndex) => (
-            <div key={weekDayIndex}>{weekDay}</div>
+            <div key={weekDayIndex} className="calendar-weeks-grid-cell">
+              {weekDay}
+            </div>
           ))}
+        </div>
+
+        <div className="calendar-grid">
           {daysOfMonth.map((dayOfMonth, dayOfMonthIndex) => (
-            <div key={dayOfMonthIndex} onClick={() => setActiveDay(dayOfMonth)}>
+            <div
+              key={dayOfMonthIndex}
+              onClick={() => setActiveDay(dayOfMonth)}
+              className={classnames({
+                "calendar-grid-cell": true,
+                "calendar-grid-cell-inactive":
+                  dayOfMonth.month !== firstDayOfActiveMonth.month,
+                "calendar-grid-cell-active":
+                  activeDay?.toISODate() === dayOfMonth.toISODate(),
+              })}
+            >
               {dayOfMonth.day}
             </div>
           ))}
