@@ -19,6 +19,8 @@
     "@angular/platform-browser": "^17.3.0-next.0",
     "@angular/platform-browser-dynamic": "^17.3.0-next.0",
     "@angular/router": "^17.3.0-next.0",
+    "luxon": "^3.4.4",
+    "prettier": "^3.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -28,6 +30,7 @@
     "@angular/cli": "^17.3.0-rc.0",
     "@angular/compiler-cli": "^17.3.0-next.0",
     "@types/jasmine": "~5.1.0",
+    "@types/luxon": "^3.4.2",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
