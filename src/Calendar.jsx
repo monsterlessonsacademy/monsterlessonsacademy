@@ -10,7 +10,7 @@ const Calendar = ({ meetings }) => {
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
     today.startOf("month")
   );
-  const weekDays = Info.weekdays("narrow");
+  const weekDays = Info.weekdays("short");
   const daysOfMonth = Interval.fromDateTimes(
     firstDayOfActiveMonth.startOf("week"),
     firstDayOfActiveMonth.endOf("month").endOf("week")
@@ -34,9 +34,24 @@ const Calendar = ({ meetings }) => {
             {firstDayOfActiveMonth.monthShort}, {firstDayOfActiveMonth.year}
           </div>
           <div className="calendar-headline-controls">
-            <div onClick={() => goToPreviousMonth()}>«</div>
-            <div onClick={() => goToToday()}>Today</div>
-            <div onClick={() => goToNextMonth()}>»</div>
+            <div
+              onClick={() => goToPreviousMonth()}
+              className="calendar-headline-control"
+            >
+              «
+            </div>
+            <div
+              onClick={() => goToToday()}
+              className="calendar-headliner-controls-today calendar-headline-control"
+            >
+              Today
+            </div>
+            <div
+              onClick={() => goToNextMonth()}
+              className="calendar-headline-control"
+            >
+              »
+            </div>
           </div>
         </div>
         <div className="calendar-weeks-grid">

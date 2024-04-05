@@ -3,7 +3,6 @@
 }
 
 .calendar {
-  border-right: 1px solid rgb(190, 190, 190);
   padding-right: 10px;
   min-width: 384px;
 }
@@ -13,11 +12,26 @@
   margin-bottom: 10px;
   justify-content: space-between;
   padding: 0 20px;
+}
+
+.calendar-headline-month {
   font-weight: 600;
 }
 
 .calendar-headline-controls {
   display: flex;
+}
+
+.calendar-headline-control {
+  cursor: pointer;
+}
+
+.calendar-headline-control:hover {
+  text-decoration: underline;
+}
+
+.calendar-headliner-controls-today {
+  margin: 0 10px;
 }
 
 .calendar-weeks-grid {
@@ -63,4 +77,9 @@
 
 .schedule {
   margin-left: 10px;
+}
+
+.schedule-headline {
+  font-weight: 600;
+  margin-bottom: 30px;
 }
