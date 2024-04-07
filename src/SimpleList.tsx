@@ -1,8 +1,7 @@
-import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef } from "react";
-import { faker } from "@faker-js/faker";
-
 import "./simpleList.css";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { faker } from "@faker-js/faker";
 
 const SimpleList = () => {
   const parentRef = useRef(null);
@@ -13,14 +12,12 @@ const SimpleList = () => {
     overscan: 5,
   });
   const users = new Array(10000).fill(true).map(() => faker.person.fullName());
-
+  console.log(users);
   return (
-    <div ref={parentRef} className="container">
+    <div className="container" ref={parentRef}>
       <div
         className="list"
-        style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
-        }}
+        style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => (
           <div

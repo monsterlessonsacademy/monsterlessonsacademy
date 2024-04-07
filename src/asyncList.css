@@ -1,5 +1,6 @@
 .container {
   overflow: auto;
+  height: 500px;
 }
 
 .list {
