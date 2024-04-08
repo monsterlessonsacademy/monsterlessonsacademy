@@ -1,22 +1,22 @@
-import { DateTime, Info, Interval } from "luxon";
-import "./calendar.css";
 import { useState } from "react";
+import "./calendar.css";
+import { Info, DateTime, Interval } from "luxon";
 import classnames from "classnames";
 
 const Calendar = ({ meetings }) => {
   const today = DateTime.local();
   const [activeDay, setActiveDay] = useState(null);
-  const activeDayMeetings = meetings[activeDay?.toISODate()] ?? [];
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
     today.startOf("month")
   );
+  const activeDayMeetings = meetings[activeDay?.toISODate()] ?? [];
   const weekDays = Info.weekdays("short");
   const daysOfMonth = Interval.fromDateTimes(
     firstDayOfActiveMonth.startOf("week"),
     firstDayOfActiveMonth.endOf("month").endOf("week")
   )
     .splitBy({ day: 1 })
-    .map((d) => d.start);
+    .map((day) => day.start);
   const goToPreviousMonth = () => {
     setFirstDayOfActiveMonth(firstDayOfActiveMonth.minus({ month: 1 }));
   };
@@ -35,20 +35,20 @@ const Calendar = ({ meetings }) => {
           </div>
           <div className="calendar-headline-controls">
             <div
-              onClick={() => goToPreviousMonth()}
               className="calendar-headline-control"
+              onClick={() => goToPreviousMonth()}
             >
               «
             </div>
             <div
+              className="calendar-headline-control calendar-headline-controls-today"
               onClick={() => goToToday()}
-              className="calendar-headliner-controls-today calendar-headline-control"
             >
               Today
             </div>
             <div
-              onClick={() => goToNextMonth()}
               className="calendar-headline-control"
+              onClick={() => goToNextMonth()}
             >
               »
             </div>
@@ -61,12 +61,10 @@ const Calendar = ({ meetings }) => {
             </div>
           ))}
         </div>
-
         <div className="calendar-grid">
           {daysOfMonth.map((dayOfMonth, dayOfMonthIndex) => (
             <div
               key={dayOfMonthIndex}
-              onClick={() => setActiveDay(dayOfMonth)}
               className={classnames({
                 "calendar-grid-cell": true,
                 "calendar-grid-cell-inactive":
@@ -74,6 +72,7 @@ const Calendar = ({ meetings }) => {
                 "calendar-grid-cell-active":
                   activeDay?.toISODate() === dayOfMonth.toISODate(),
               })}
+              onClick={() => setActiveDay(dayOfMonth)}
             >
               {dayOfMonth.day}
             </div>
