@@ -1,7 +1,36 @@
-<pagination
-  [currentPage]="currentPage"
-  [limit]="20"
-  [total]="500"
-  (changePage)="changePage($event)"
-  (itemsChange)="itemsChange($event)"
-></pagination>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  =={{ form.controls.firstname.errors | json }}==
+  <div>
+    <input type="text" formControlName="firstname" placeholder="First name" />
+    @if (
+      form.controls.firstname.invalid &&
+      (form.controls.firstname.touched || form.controls.firstname.dirty)
+    ) {
+      @if (form.controls.firstname.errors?.["required"]) {
+        <small> *First Name is a required field. </small>
+      }
+      @if (form.controls.firstname.errors?.["minlength"]) {
+        <small> *First Name must be at least 5 characters long. </small>
+      }
+      @if (form.controls.firstname.errors?.["forbiddenName"]) {
+        <small>
+          *{{ form.controls.firstname.errors?.["forbiddenName"] }}
+        </small>
+      }
+    }
+  </div>
+
+  =={{ form.controls.role.errors | json }}==
+  <div>
+    <input type="text" formControlName="role" placeholder="Role" />
+    @if (
+      form.controls.role.invalid &&
+      (form.controls.role.touched || form.controls.role.dirty)
+    ) {
+      @if (form.controls.role.errors?.["forbiddenRole"]) {
+        <small> *{{ form.controls.role.errors?.["forbiddenRole"] }} </small>
+      }
+    }
+  </div>
+  <div><button type="submit">Submit</button></div>
+</form>
