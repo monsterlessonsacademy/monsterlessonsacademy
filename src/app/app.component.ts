@@ -11,7 +11,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 })
 export class AppComponent {
   meetings = {
-    '2024-04-05': ['Drink Coffee', 'Learn React', 'Sleep'],
-    '2024-04-06': ['Drink Coffee', 'Learn Angular', 'Sleep'],
+    '2024-04-05': ['Dring Coffee', 'Learn React', 'Sleep'],
+    '2024-04-06': ['Dring Coffee', 'Learn Angular', 'Sleep'],
   };
 }
