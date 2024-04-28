@@ -11,19 +11,12 @@ import {
 import { RouterOutlet } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 
-// export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-//   return (control: AbstractControl): ValidationErrors | null => {
-//     const forbidden = nameRe.test(control.value);
-//     return forbidden ? { forbiddenName: { value: control.value } } : null;
-//   };
-// }
-
-export const forbiddenNameValidator = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  return ['foo'].includes(control.value)
-    ? { forbiddenName: 'Name is not allowed' }
-    : null;
+export const forbiddenNameValidator = (names: string[]): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    return names.includes(control.value)
+      ? { forbiddenName: 'Name is not allowed' }
+      : null;
+  };
 };
 
 export const asyncRoleValidator = (
@@ -53,21 +46,13 @@ export class AppComponent {
       validators: [
         Validators.required,
         Validators.minLength(5),
-        // forbiddenNameValidator(['foo']),
-        forbiddenNameValidator,
+        forbiddenNameValidator(['foo']),
       ],
     }),
-    role: this.fb.control('', {
-      asyncValidators: [asyncRoleValidator],
-      updateOn: 'blur',
-    }),
+    role: this.fb.control('', { asyncValidators: [asyncRoleValidator] }),
   });
 
-  get firstname() {
-    return this.form.controls.firstname;
-  }
-
   onSubmit() {
-    console.log(this.form.getRawValue(), this.form.controls.role.errors);
+    console.log(this.form.getRawValue());
   }
 }
