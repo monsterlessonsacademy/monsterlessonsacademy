@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 
@@ -10,8 +10,5 @@ import { CalendarComponent } from './calendar/calendar.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  meetings = {
-    '2024-04-05': ['Dring Coffee', 'Learn React', 'Sleep'],
-    '2024-04-06': ['Dring Coffee', 'Learn Angular', 'Sleep'],
-  };
+  currentPage = input.required<number>();
 }
