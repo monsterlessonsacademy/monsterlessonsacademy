@@ -1,4 +1,9 @@
-import { hello, world } from "./api";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
 
-console.log(hello());
-console.log(world());
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

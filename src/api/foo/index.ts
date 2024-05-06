@@ -1,1 +1,0 @@
-export { world } from "./foo";
