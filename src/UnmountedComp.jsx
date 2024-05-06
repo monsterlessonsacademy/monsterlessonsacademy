@@ -14,15 +14,14 @@ const UnmountedComp = () => {
 
   useEffect(() => {
     fetchAsyncData().then((data) => {
-      console.log(data, isMounted.current);
-      // if (isMounted.current) {
-      setData(data);
-      // }
+      if (isMounted) {
+        setData(data);
+      }
     });
 
-    // return () => {
-    //   isMounted.current = false;
-    // };
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   return <div>Umount comp {data}</div>;

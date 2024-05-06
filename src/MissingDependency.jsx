@@ -5,7 +5,7 @@ const Component = ({ value, onChange }) => {
     if (value) {
       onChange(value);
     }
-  }, []);
+  }, [value, onChange]);
 
   return <div>Component</div>;
 };

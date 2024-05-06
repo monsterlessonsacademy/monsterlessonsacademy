@@ -7,8 +7,8 @@ const data = [
 export default function App() {
   return (
     <div className="container">
-      {data.map((item, index) => (
-        <div key={index}>{item.text}</div>
+      {data.map((item) => (
+        <div key={item.id}>{item.text}</div>
       ))}
     </div>
   );
