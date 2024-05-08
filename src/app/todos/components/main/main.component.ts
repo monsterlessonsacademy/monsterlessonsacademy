@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FilterEnum } from '../../types/filter.enum';
 import { TodoComponent } from '../todo/todo.component';
 import { forkJoin } from 'rxjs';
+import { TodosSupabaseService } from '../../services/todosSupabase.service';
 // import { TodosFirebaseService } from '../../services/todosSupabase.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { forkJoin } from 'rxjs';
 })
 export class MainComponent {
   todosService = inject(TodosService);
-  // todosFirebaseService = inject(TodosFirebaseService);
+  todosSupabaseService = inject(TodosSupabaseService);
   editingId: number | null = null;
 
   visibleTodos = computed(() => {
@@ -39,14 +40,14 @@ export class MainComponent {
 
   toggleAllTodos(event: Event): void {
     const target = event.target as HTMLInputElement;
-    // const requests$ = this.todosService.todosSig().map((todo) => {
-    //   return this.todosFirebaseService.updateTodo(todo.id, {
-    //     text: todo.text,
-    //     isCompleted: target.checked,
-    //   });
-    // });
-    // forkJoin(requests$).subscribe(() => {
-    //   this.todosService.toggleAll(target.checked);
-    // });
+    const requests$ = this.todosService.todosSig().map((todo) => {
+      return this.todosSupabaseService.updateTodo(todo.id, {
+        text: todo.text,
+        is_completed: target.checked,
+      });
+    });
+    forkJoin(requests$).subscribe(() => {
+      this.todosService.toggleAll(target.checked);
+    });
   }
 }
