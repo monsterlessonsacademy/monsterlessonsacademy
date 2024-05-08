@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { TodosService } from '../../services/todos.service';
-import { TodosFirebaseService } from '../../services/todosFirebase.service';
+import { TodosSupabaseService } from '../../services/todosSupabase.service';
 
 @Component({
   selector: 'app-todos-header',
@@ -9,7 +9,7 @@ import { TodosFirebaseService } from '../../services/todosFirebase.service';
 })
 export class HeaderComponent {
   todosService = inject(TodosService);
-  todosFirebaseService = inject(TodosFirebaseService);
+  todosSupabaseService = inject(TodosSupabaseService);
   text: string = '';
 
   changeText(event: Event): void {
@@ -18,8 +18,8 @@ export class HeaderComponent {
   }
 
   addTodo(): void {
-    this.todosFirebaseService.addTodo(this.text).subscribe((addedTodoId) => {
-      this.todosService.addTodo(this.text, addedTodoId);
+    this.todosSupabaseService.addTodo(this.text).subscribe((createdTodo) => {
+      this.todosService.addTodo(createdTodo);
       this.text = '';
     });
   }

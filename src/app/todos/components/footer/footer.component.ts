@@ -14,7 +14,7 @@ export class FooterComponent {
   filterSig = this.todosService.filterSig;
   filterEnum = FilterEnum;
   activeCount = computed(() => {
-    return this.todosService.todosSig().filter((todo) => !todo.isCompleted)
+    return this.todosService.todosSig().filter((todo) => !todo.is_completed)
       .length;
   });
   noTodosClass = computed(() => this.todosService.todosSig().length === 0);

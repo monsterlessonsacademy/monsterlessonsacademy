@@ -1,5 +1,6 @@
 export interface TodoInterface {
-  id: string;
+  id: number;
   text: string;
-  isCompleted: boolean;
+  is_completed: boolean;
+  created_at?: string;
 }

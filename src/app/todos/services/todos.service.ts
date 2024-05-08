@@ -13,36 +13,31 @@ export class TodosService {
     this.filterSig.set(filterName);
   }
 
-  addTodo(text: string, id: string): void {
-    const newTodo: TodoInterface = {
-      text,
-      isCompleted: false,
-      id,
-    };
-    this.todosSig.update((todos) => [...todos, newTodo]);
+  addTodo(todo: TodoInterface): void {
+    this.todosSig.update((todos) => [...todos, todo]);
   }
 
-  changeTodo(id: string, text: string): void {
+  changeTodo(id: number, text: string): void {
     this.todosSig.update((todos) =>
       todos.map((todo) => (todo.id === id ? { ...todo, text } : todo))
     );
   }
 
-  removeTodo(id: string): void {
+  removeTodo(id: number): void {
     this.todosSig.update((todos) => todos.filter((todo) => todo.id !== id));
   }
 
-  toggleTodo(id: string): void {
+  toggleTodo(id: number): void {
     this.todosSig.update((todos) =>
       todos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
+        todo.id === id ? { ...todo, is_completed: !todo.is_completed } : todo
       )
     );
   }
 
-  toggleAll(isCompleted: boolean): void {
+  toggleAll(is_completed: boolean): void {
     this.todosSig.update((todos) =>
-      todos.map((todo) => ({ ...todo, isCompleted }))
+      todos.map((todo) => ({ ...todo, is_completed }))
     );
   }
 }

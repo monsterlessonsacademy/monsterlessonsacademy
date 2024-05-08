@@ -3,7 +3,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
 import { TodosService } from './services/todos.service';
-import { TodosFirebaseService } from './services/todosFirebase.service';
+import { TodosSupabaseService } from './services/todosSupabase.service';
 
 @Component({
   selector: 'app-todos',
@@ -13,10 +13,10 @@ import { TodosFirebaseService } from './services/todosFirebase.service';
 })
 export class TodosComponent implements OnInit {
   todosService = inject(TodosService);
-  todosFirebaseService = inject(TodosFirebaseService);
+  todosSupabaseService = inject(TodosSupabaseService);
 
   ngOnInit(): void {
-    this.todosFirebaseService.getTodos().subscribe((todos) => {
+    this.todosSupabaseService.getTodos().subscribe((todos) => {
       this.todosService.todosSig.set(todos);
     });
   }
