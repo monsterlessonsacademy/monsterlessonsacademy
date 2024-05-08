@@ -1,0 +1,20 @@
+<h1>Register</h1>
+
+@if (errorMessage) {
+<div>{{ errorMessage }}</div>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <input type="text" placeholder="Username" formControlName="username" />
+  </div>
+  <div>
+    <input type="text" placeholder="Email" formControlName="email" />
+  </div>
+  <div>
+    <input type="password" placeholder="Password" formControlName="password" />
+  </div>
+  <div>
+    <button type="submit" [disabled]="form.invalid">Sign Up</button>
+  </div>
+</form>
