@@ -1,14 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { AuthResponse, createClient } from '@supabase/supabase-js';
 import { environment } from '../environments/environment';
-import { Observable, from, map } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  currentUserSig = signal<any>(null);
   supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+  currentUser = signal<{ email: string; username: string } | null>(null);
 
   register(
     email: string,
@@ -35,7 +35,7 @@ export class AuthService {
     return from(promise);
   }
 
-  logout() {
+  logout(): void {
     this.supabase.auth.signOut();
   }
 }

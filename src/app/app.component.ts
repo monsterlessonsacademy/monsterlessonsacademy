@@ -12,17 +12,16 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
   authService = inject(AuthService);
-
   ngOnInit(): void {
     this.authService.supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
-        this.authService.currentUserSig.set({
-          email: session?.user.email,
+        this.authService.currentUser.set({
+          email: session?.user.email!,
           username:
             session?.user.identities?.at(0)?.identity_data?.['username'],
         });
       } else if (event === 'SIGNED_OUT') {
-        this.authService.currentUserSig.set(null);
+        this.authService.currentUser.set(null);
       }
     });
   }
