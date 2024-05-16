@@ -3,28 +3,28 @@ import "./analogClock.css";
 
 const AnalogClock = () => {
   const [time, setTime] = useState(new Date());
+
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    setInterval(() => {
       setTime(new Date());
     }, 1000);
-
-    return () => clearInterval(intervalId);
   }, []);
+
   return (
     <div className="clock">
       <div className="dot"></div>
-      <span className="twelve hour">12</span>
-      <span className="one hour">1</span>
-      <span className="two hour">2</span>
-      <span className="three hour">3</span>
-      <span className="four hour">4</span>
-      <span className="five hour">5</span>
-      <span className="six hour">6</span>
-      <span className="seven hour">7</span>
-      <span className="eight hour">8</span>
-      <span className="nine hour">9</span>
-      <span className="ten hour">10</span>
-      <span className="eleven hour">11</span>
+      <div className="hour twelve">12</div>
+      <div className="hour one">1</div>
+      <div className="hour two">2</div>
+      <div className="hour three">3</div>
+      <div className="hour four">4</div>
+      <div className="hour five">5</div>
+      <div className="hour six">6</div>
+      <div className="hour seven">7</div>
+      <div className="hour eight">8</div>
+      <div className="hour nine">9</div>
+      <div className="hour ten">10</div>
+      <div className="hour eleven">11</div>
       <div
         className="hour-hand"
         style={{
