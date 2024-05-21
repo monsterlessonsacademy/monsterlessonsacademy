@@ -26,7 +26,7 @@ export class PortalExampleTestComponent {}
   standalone: true,
   imports: [PortalModule],
   template: `
-    <div class="example-portal-outlet">
+    <div>
       <ng-template [cdkPortalOutlet]="selectedPortal"></ng-template>
     </div>
     <ng-template #templatePortalContent
