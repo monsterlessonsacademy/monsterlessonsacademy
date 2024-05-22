@@ -30,11 +30,11 @@ import {
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent implements OnInit {
-  @ViewChild(CdkPortal) public readonly portal: CdkPortal | undefined;
-  @Output() public readonly closeModal = new EventEmitter<void>();
+  @ViewChild(CdkPortal) portal: CdkPortal | undefined;
+  @Output() closeModal = new EventEmitter<void>();
 
   overlay = inject(Overlay);
-  private readonly overlayConfig = new OverlayConfig({
+  overlayConfig = new OverlayConfig({
     hasBackdrop: true,
     positionStrategy: this.overlay
       .position()
@@ -44,7 +44,7 @@ export class ModalComponent implements OnInit {
     scrollStrategy: this.overlay.scrollStrategies.block(),
     minWidth: 500,
   });
-  private overlayRef = this.overlay.create(this.overlayConfig);
+  overlayRef = this.overlay.create(this.overlayConfig);
 
   ngOnInit(): void {
     this.overlayRef.backdropClick().subscribe(() => {

@@ -21,8 +21,8 @@ export class ContentComponent {
       <h2>Child</h2>
       <button (click)="openModal()">Open modal</button>
       <app-modal *ngIf="isModalOpened" (closeModal)="closeModal()">
-        <ng-container modal-header> This is our header </ng-container>
-        <ng-container modal-body> <app-content /> </ng-container>
+        <ng-container modal-header>This is our header</ng-container>
+        <ng-container modal-body><app-content /></ng-container>
       </app-modal>
     </div>
   `,
