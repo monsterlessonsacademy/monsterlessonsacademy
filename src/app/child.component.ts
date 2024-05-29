@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -8,12 +8,13 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div>
-      <h2>Child {{ testRender() }}</h2>
+      <h2>Child {{ date }} {{ testRender() }}</h2>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChildComponent {
+  @Input() date: any;
   testRender() {
     console.log('testRender');
     return true;
