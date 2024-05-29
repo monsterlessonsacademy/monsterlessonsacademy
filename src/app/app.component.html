@@ -1,1 +1,5 @@
-<app-child />
+<div *ngFor="let item of arr | async; trackBy: identify">
+  {{ testRenderParent() }}
+</div>
+
+<button (click)="changeArr()">Change</button>
