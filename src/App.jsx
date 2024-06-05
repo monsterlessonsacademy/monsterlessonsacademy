@@ -1,9 +1,9 @@
-import RemovingDialog from "./removingDialog/RemovingDialog";
+import FruitSelect from "./fruitSelect/fruitSelect";
 
 const App = () => {
   return (
     <div>
-      <RemovingDialog />
+      <FruitSelect />
     </div>
   );
 };
