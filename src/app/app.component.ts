@@ -21,25 +21,25 @@ export class MonitorDirective {
   imports: [CommonModule, ChildComponent, MonitorDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  arr = new BehaviorSubject([
-    { id: '1', period: '01-05', date: '01-05' },
-    { id: '2', period: '02-05', date: '02-05' },
-    { id: '3', period: '03-05', date: '03-05' },
+  users = new BehaviorSubject([
+    { id: '1', name: 'foo' },
+    { id: '2', name: 'bar' },
+    { id: '3', name: 'baz' },
   ]);
 
   changeArr(): void {
-    this.arr.next([
-      { id: '1', period: '09-05', date: '09-05' },
-      { id: '2', period: '02-05', date: '02-05' },
-      { id: '3', period: '03-05', date: '03-05' },
-    ]);
+    this.users.next([
+      { id: '1', name: 'foo' },
+      { id: '2', name: 'bar' },
+      { id: '4', name: 'bazzzzz' },
+    ])
   }
 
   identify(index: any, item: any) {
-    return item.period;
+    return item.id;
   }
 
   testRenderParent() {

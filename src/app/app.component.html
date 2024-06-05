@@ -1,5 +1,5 @@
-<div *ngFor="let item of arr | async; trackBy: identify" appMonitor>
-  <app-child [date]="item.date" />
+<div *ngFor="let user of users | async; trackBy: identify" appMonitor>
+  <app-child [name]="user.name" />
 </div>
 
 <button (click)="changeArr()">Change</button>
