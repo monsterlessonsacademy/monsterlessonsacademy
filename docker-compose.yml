@@ -1,10 +1,10 @@
 version: "3.8"
+
 services:
   client:
     build: ./client
     ports:
       - "8080:80"
-    # command: serve -s dist -l 3000
   server:
     build: ./server
     ports:
