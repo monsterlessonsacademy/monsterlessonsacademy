@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+import { UserWithToken } from "../drizzle/schema";
 import { verify } from "jsonwebtoken";
 import { findByEmail } from "../drizzle/db";
-import { UserWithToken } from "../drizzle/schema";
 
 export interface ExpressRequest extends Request {
   user?: UserWithToken;
@@ -9,9 +9,9 @@ export interface ExpressRequest extends Request {
 
 export const authenticate = async (
   req: ExpressRequest,
-  _: Response,
+  res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   if (!req.headers.authorization) {
     throw new Error("Unauthorized");
   }

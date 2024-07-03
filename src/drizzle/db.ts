@@ -1,5 +1,5 @@
-import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
+import { drizzle } from "drizzle-orm/node-postgres";
 import * as schema from "./schema";
 import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
@@ -18,7 +18,19 @@ const generateJwt = (user: schema.UserWithoutPassword): string => {
   return sign({ email: user.email }, "JWT_SECRET");
 };
 
-export const getUsers = async () => await db.select().from(schema.users);
+export const findByEmail = async (
+  email: string
+): Promise<schema.UserWithToken> => {
+  const [user] = await db
+    .select()
+    .from(schema.users)
+    .where(eq(schema.users.email, email))
+    .limit(1);
+
+  const { password: _password, ...userWithoutPassword } = user;
+
+  return { ...userWithoutPassword, token: generateJwt(userWithoutPassword) };
+};
 
 export const createUser = async (
   newUser: schema.NewUser
@@ -38,20 +50,6 @@ export const createUser = async (
   }
 
   return { ...createdUser, token: generateJwt(createdUser) };
-};
-
-export const findByEmail = async (
-  email: string
-): Promise<schema.UserWithToken> => {
-  const [user] = await db
-    .select()
-    .from(schema.users)
-    .where(eq(schema.users.email, email))
-    .limit(1);
-
-  const { password: _password, ...userWithoutPassword } = user;
-
-  return { ...userWithoutPassword, token: generateJwt(user) };
 };
 
 export const loginUser = async (
@@ -76,5 +74,5 @@ export const loginUser = async (
 
   const { password: _password, ...userWithoutPassword } = user;
 
-  return { ...userWithoutPassword, token: generateJwt(user) };
+  return { ...userWithoutPassword, token: generateJwt(userWithoutPassword) };
 };
