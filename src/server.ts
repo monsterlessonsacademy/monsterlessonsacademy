@@ -1,7 +1,8 @@
 import express from "express";
 import consola from "consola";
 import "dotenv/config";
-import { client, getUsers, createUser } from "./drizzle/db";
+import { client, getUsers, createUser, loginUser } from "./drizzle/db";
+import { ExpressRequest, authenticate } from "./middlewares/auth";
 
 const app = express();
 
@@ -12,12 +13,30 @@ app.get("/users", async (_, res) => {
   res.json(result);
 });
 
-app.post("/users", async (req, res) => {
+app.post("/users", async (req, res, next) => {
   try {
     const result = await createUser(req.body);
     res.json(result);
   } catch (err) {
-    res.json({ error: "Email or username are not unique" });
+    next(err);
+  }
+});
+
+app.post("/users/login", async (req, res, next) => {
+  try {
+    const result = await loginUser(req.body.email, req.body.password);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post("/user", authenticate, async (req: ExpressRequest, res, next) => {
+  try {
+    console.log("got user", req.user);
+    res.json(req.user);
+  } catch (err) {
+    next(err);
   }
 });
 
