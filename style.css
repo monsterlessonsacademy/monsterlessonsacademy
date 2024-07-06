@@ -1,7 +1,11 @@
-div p:last-child {
+/* Selects an h1 heading with a
+paragraph element that immediately follows
+the h1 and applies the style to h1 */
+h1:has(+ p) {
   color: red;
 }
 
-div h1:last-of-type {
+/* Here, the first :is() pseudo-class is used to select any of the heading elements in the list. The second :is() pseudo-class is used to pass a list of next-sibling selectors as an argument to :has(). */
+:is(h1, p):has(+ :is(h1, p)) {
   color: blue;
 }
