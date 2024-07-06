@@ -1,0 +1,7 @@
+div p:last-child {
+  color: red;
+}
+
+div h1:last-of-type {
+  color: blue;
+}
