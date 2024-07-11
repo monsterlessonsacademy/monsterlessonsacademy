@@ -4,10 +4,27 @@ import useSWR from "swr";
 
 const Header = () => {
   const [text, setText] = useState("");
-  const { mutate } = useSWR(cacheKey, getTodos);
+  const { mutate, data: todos } = useSWR(cacheKey, getTodos);
 
   const changeText = (event) => {
     setText(event.target.value);
+  };
+  const addTodoOptimistic = async (newText) => {
+    const newTodo = {
+      id: crypto.randomUUID(),
+      text: newText,
+      isCompleted: false,
+    };
+    const options = {
+      optimisticData: [...todos, newTodo],
+      rollbackOnError: true,
+      populateCache: true,
+      revalidate: false,
+    };
+    await mutate(
+      addTodo({ text: newText, isCompleted: false }, todos),
+      options
+    );
   };
 
   const keydownText = async (event) => {
@@ -16,25 +33,10 @@ const Header = () => {
     const isTextPresent = newText.length > 0;
 
     if (isEnter && isTextPresent) {
-      const options = {
-        optimisticData: (todos) => {
-          console.log("optimistic", todos);
-          const newTodo = {
-            id: 99999,
-            text: newText,
-            isCompleted: false,
-          };
-          const data = [...todos, newTodo];
-          console.log("data", data);
-          return data;
-        },
-        rollbackOnError: true,
-        revalidate: false,
-      };
-      await mutate(addTodo({ text: newText, isCompleted: false }), options);
-      // await addTodo({ text: newText, isCompleted: false });
-      // await mutate();
       setText("");
+      // await addTodoOptimistic(newText);
+      await addTodo({ text: newText, isCompleted: false }, todos);
+      await mutate();
     }
   };
 

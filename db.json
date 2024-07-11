@@ -11,59 +11,9 @@
       "id": 2
     },
     {
-      "text": "third",
-      "isCompleted": false,
-      "id": 3
-    },
-    {
-      "text": "qqqwwwwwee!!",
-      "isCompleted": true,
-      "id": 4
-    },
-    {
-      "text": "qq",
-      "isCompleted": false,
-      "id": 5
-    },
-    {
-      "text": "qq",
-      "isCompleted": false,
-      "id": 6
-    },
-    {
       "text": "qqq",
       "isCompleted": false,
-      "id": 7
-    },
-    {
-      "text": "rrrr",
-      "isCompleted": false,
-      "id": 8
-    },
-    {
-      "text": "ee",
-      "isCompleted": false,
-      "id": 9
-    },
-    {
-      "text": "rr",
-      "isCompleted": false,
-      "id": 10
-    },
-    {
-      "text": "rr",
-      "isCompleted": false,
-      "id": 11
-    },
-    {
-      "text": "rerr",
-      "isCompleted": false,
-      "id": 12
-    },
-    {
-      "text": "eee",
-      "isCompleted": false,
-      "id": 13
+      "id": 3
     }
   ],
   "posts": [

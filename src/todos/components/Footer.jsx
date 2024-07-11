@@ -1,4 +1,4 @@
-const Footer = ({ todos, filter }) => {
+const Footer = ({ todos, filter, changeFilter }) => {
   const noTodosClass = todos.length === 0 ? "hidden" : "";
   const activeCount = todos.filter((todo) => !todo.isCompleted).length;
   const itemsLeftText = ` item${activeCount !== 1 ? "s" : ""} left`;

@@ -7,12 +7,14 @@ export const getTodos = async () => {
   return response.data;
 };
 
-export const addTodo = async (todoToCreate) => {
+export const addTodo = async (todoToCreate, todos) => {
+  const delay = () => new Promise((res) => setTimeout(() => res(), 2000));
+  await delay();
   const response = await axios.post(
     "http://localhost:3004/todos",
     todoToCreate
   );
-  return response.data;
+  return [...todos, response.data];
 };
 
 export const updateTodo = async (todoId, fieldsToUpdate) => {
