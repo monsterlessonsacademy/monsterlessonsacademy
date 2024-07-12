@@ -1,7 +1,7 @@
-import SomeForm from "./SomeForm";
+import UsersGrid from "./usersGrid/UsersGrid";
 
 const App = () => {
-  return <SomeForm />;
+  return <UsersGrid />;
 };
 
 export default App;
