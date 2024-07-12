@@ -1,8 +1,8 @@
 import express from "express";
-import { User, PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
-import { ExpressRequest, authenticate } from "./middlewares/auth";
+import { authenticate, ExpressRequest } from "./middlewares/auth";
 
 const app = express();
 const prisma = new PrismaClient();
@@ -21,7 +21,7 @@ app.post("/users", async (req, res) => {
     const { password: _password, ...userWithoutPassword } = user;
     res.json({ ...userWithoutPassword, token: generateJwt(user) });
   } catch (err) {
-    res.json({ error: "Email or username are not unique" });
+    res.json({ error: "Email or username is not unique" });
   }
 });
 
@@ -35,13 +35,11 @@ app.post("/users/login", async (req, res) => {
     if (!user) {
       throw new Error("User not found");
     }
-
     const isPasswordCorrect = await compare(req.body.password, user.password);
 
     if (!isPasswordCorrect) {
       throw new Error("Incorrect password");
     }
-
     const { password: _password, ...userWithoutPassword } = user;
     res.json({ ...userWithoutPassword, token: generateJwt(user) });
   } catch (err) {
