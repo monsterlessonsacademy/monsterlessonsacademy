@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-left-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './left-sidebar.component.html',
   styleUrl: './left-sidebar.component.css',
 })
@@ -40,6 +40,6 @@ export class LeftSidebarComponent {
   }
 
   closeSidenav(): void {
-    this.changeIsLeftSidebarCollapsed.emit(false);
+    this.changeIsLeftSidebarCollapsed.emit(true);
   }
 }

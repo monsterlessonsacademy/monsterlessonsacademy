@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostListener, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -17,7 +17,6 @@ export class MainComponent {
     if (isLeftSidebarCollapsed) {
       return '';
     }
-
     return this.screenWidth() > 768 ? 'body-trimmed' : 'body-md-screen';
   });
 }
