@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "ag-grid-react": "^32.0.1",
+    "flag-icons": "^7.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
