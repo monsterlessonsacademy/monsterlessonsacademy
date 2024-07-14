@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { addTodo, cacheKey, getTodos } from "../api";
 import useSWR from "swr";
+import { addTodo, cacheKey, getTodos } from "../api";
 
 const Header = () => {
   const [text, setText] = useState("");
-  const { mutate, data: todos } = useSWR(cacheKey, getTodos);
+  const { data: todos, mutate } = useSWR(cacheKey, getTodos);
+  console.log("todos", todos);
 
   const changeText = (event) => {
     setText(event.target.value);
   };
+
   const addTodoOptimistic = async (newText) => {
     const newTodo = {
       id: crypto.randomUUID(),
@@ -34,9 +36,9 @@ const Header = () => {
 
     if (isEnter && isTextPresent) {
       setText("");
-      // await addTodoOptimistic(newText);
-      await addTodo({ text: newText, isCompleted: false }, todos);
-      await mutate();
+      await addTodoOptimistic(newText);
+      // await addTodo({ text: newText, isCompleted: false });
+      // await mutate();
     }
   };
 

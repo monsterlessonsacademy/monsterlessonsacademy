@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { cacheKey, getTodos, removeTodo, updateTodo } from "../api";
 import useSWR from "swr";
+import { cacheKey, getTodos, removeTodo, updateTodo } from "../api";
 
 const Todo = ({ todo, isEditing, setEditingId }) => {
   const { mutate } = useSWR(cacheKey, getTodos);

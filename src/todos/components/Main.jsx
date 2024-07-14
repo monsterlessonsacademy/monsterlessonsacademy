@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Todo from "../components/Todo";
-import { toggleAll } from "../api";
 
 const Main = ({ todos, filter }) => {
   const [editingId, setEditingId] = useState(null);
@@ -26,7 +25,7 @@ const Main = ({ todos, filter }) => {
         data-testid="toggleAll"
         data-cy="toggleAll"
         checked={isAllTodosSelected}
-        onChange={(e) => toggleAll(e.target.checked, todos)}
+        onChange={(e) => {}}
       />
       <label htmlFor="toggle-all">Mark all as complete</label>
       <ul className="todo-list">

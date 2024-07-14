@@ -1,16 +1,15 @@
-import { cacheKey, getTodos } from "../api";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
 import "../css/todo-mvc-base.css";
 import "../css/todo-mvc-app.css";
-import useSWR from "swr";
 import { useState } from "react";
+import useSWR from "swr";
+import { cacheKey, getTodos } from "../api";
 
 const Todos = () => {
   const [filter, setFilter] = useState("all");
   const { isLoading, error, data: todos } = useSWR(cacheKey, getTodos);
-  console.log("todos", todos);
 
   if (isLoading) {
     return <div>Loading...</div>;
