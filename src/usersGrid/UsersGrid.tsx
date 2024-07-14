@@ -1,6 +1,6 @@
-import { AgGridReact, CustomCellRendererProps } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import { AgGridReact, CustomCellRendererProps } from "ag-grid-react";
 import { useEffect, useState } from "react";
 import { UserInterface } from "./user.interface";
 import { ColDef } from "ag-grid-community";
@@ -15,7 +15,6 @@ const CountryFormatter = (props: CustomCellRendererProps) => {
 
 const UsersGrid = () => {
   const [rowData, setRowData] = useState<UserInterface[]>([]);
-
   const [colDefs] = useState<ColDef<UserInterface>[]>([
     { field: "id" },
     { field: "name", filter: true },
@@ -36,7 +35,7 @@ const UsersGrid = () => {
         trimInput: true,
       },
     },
-    { field: "mobile", filter: true },
+    { field: "mobile" },
   ]);
 
   useEffect(() => {
