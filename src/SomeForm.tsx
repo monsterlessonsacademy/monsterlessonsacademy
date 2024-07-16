@@ -2,17 +2,15 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
+import { FormInputText } from "./form-components/form-input-text";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormInputText } from "./form-components/form-input-text";
 import { FormInputDropdown } from "./form-components/form-input-dropdown";
 
-const validationSchema = yup
-  .object({
-    textValue: yup.string().required("Missing text value"),
-    dropdownValue: yup.string().required("Missing dropdown value"),
-  })
-  .required();
+const validationSchema = yup.object({
+  textValue: yup.string().required("Missing text value"),
+  dropdownValue: yup.string().required("Missing dropdown value"),
+});
 
 interface FormValues {
   textValue: string;
@@ -52,14 +50,8 @@ const SomeForm = () => {
           control={control}
           label="Dropdown Input"
           options={[
-            {
-              label: "Dropdown Option 1",
-              value: "1",
-            },
-            {
-              label: "Dropdown Option 2",
-              value: "2",
-            },
+            { label: "Dropdown Option 1", value: "1" },
+            { label: "Dropdown Option 2", value: "2" },
           ]}
         />
         <Button

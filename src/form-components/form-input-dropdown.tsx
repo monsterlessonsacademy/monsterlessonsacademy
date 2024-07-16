@@ -1,4 +1,5 @@
-import React from "react";
+import { Controller } from "react-hook-form";
+import { FormInputProps } from "./form-input-props";
 import {
   FormControl,
   FormHelperText,
@@ -6,21 +7,8 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { Controller } from "react-hook-form";
-import { FormInputProps } from "./form-input-props";
 
-// const options = [
-//   {
-//     label: "Dropdown Option 1",
-//     value: "1",
-//   },
-//   {
-//     label: "Dropdown Option 2",
-//     value: "2",
-//   },
-// ];
-
-export interface FormInputDropdownProps extends FormInputProps {
+interface FormInputDropdownProps extends FormInputProps {
   options: { label: string; value: string }[];
 }
 
@@ -28,11 +16,13 @@ export const FormInputDropdown = ({
   name,
   control,
   label,
-  options,
   sx,
+  options,
 }: FormInputDropdownProps) => {
   return (
     <Controller
+      name={name}
+      control={control}
       render={(renderProps) => (
         <FormControl
           error={!!renderProps.fieldState.error}
@@ -58,8 +48,6 @@ export const FormInputDropdown = ({
           )}
         </FormControl>
       )}
-      control={control}
-      name={name}
     />
   );
 };

@@ -1,5 +1,5 @@
+import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
-import TextField from "@mui/material/TextField";
 import { FormInputProps } from "./form-input-props";
 
 export const FormInputText = ({ name, control, label, sx }: FormInputProps) => {
@@ -9,11 +9,11 @@ export const FormInputText = ({ name, control, label, sx }: FormInputProps) => {
       control={control}
       render={(renderProps) => (
         <TextField
-          helperText={renderProps.fieldState.error?.message ?? null}
           size="small"
-          error={!!renderProps.fieldState.error}
           onChange={renderProps.field.onChange}
           value={renderProps.field.value}
+          error={!!renderProps.fieldState.error}
+          helperText={renderProps.fieldState.error?.message ?? null}
           fullWidth
           label={label}
           variant="outlined"
