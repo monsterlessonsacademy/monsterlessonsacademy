@@ -1,9 +1,14 @@
-<app-left-sidebar
-  [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
-  (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)"
-/>
+<div class="container">
+  <div class="headline">Layout</div>
 
-<app-main
-  [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
-  [screenWidth]="screenWidth()"
-/>
+  <div class="links">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/settings" routerLinkActive="active">Settings</a>
+    <a routerLink="/pages" routerLinkActive="active">Pages</a>
+  </div>
+
+  <div class="main">
+    <router-outlet />
+  </div>
+</div>

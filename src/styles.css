@@ -7,5 +7,6 @@
 body {
   position: relative;
   font-family: "Roboto", sans-serif;
-  background: #f4f7fa;
+  background: #f5f5f5;
+  color: #111;
 }
