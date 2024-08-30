@@ -2,10 +2,17 @@
   <div class="headline">Layout</div>
 
   <div class="links">
-    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/products" routerLinkActive="active">Products</a>
-    <a routerLink="/settings" routerLinkActive="active">Settings</a>
-    <a routerLink="/pages" routerLinkActive="active">Pages</a>
+    <a routerLink="/dashboard" routerLinkActive="active">dashboard</a>
+    <a routerLink="/products" routerLinkActive="active">products</a>
+    <a
+      routerLink="/settings"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      settings
+    </a>
+    <a routerLink="/settings/profile" routerLinkActive="active">profile</a>
+    <a routerLink="/pages/1" routerLinkActive="active">pages/1</a>
   </div>
 
   <div class="main">

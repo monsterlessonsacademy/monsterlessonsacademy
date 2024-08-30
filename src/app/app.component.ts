@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CurrentUserService } from './currentUser.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  currentUserService = inject(CurrentUserService);
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.currentUserService.setCurrentUser();
+    }, 2000);
+  }
+}
