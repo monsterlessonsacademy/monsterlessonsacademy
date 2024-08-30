@@ -3,7 +3,6 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { CurrentUserService } from './currentUser.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [

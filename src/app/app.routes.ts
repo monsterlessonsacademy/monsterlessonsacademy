@@ -9,8 +9,15 @@ import { authGuard } from './auth.guard';
 import { pageResolver } from './data.resolver';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
   {
     path: 'products',
     loadComponent: () =>
@@ -19,7 +26,12 @@ export const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
-    children: [{ path: 'profile', component: SettingsProfileComponent }],
+    children: [
+      {
+        path: 'profile',
+        component: SettingsProfileComponent,
+      },
+    ],
     canActivate: [authGuard],
   },
   {
@@ -35,5 +47,8 @@ export const routes: Routes = [
       return `/pages/${route.params['pageId']}`;
     },
   },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: '**',
+    component: NotFoundComponent,
+  },
 ];

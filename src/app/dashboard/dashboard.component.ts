@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
   router = inject(Router);
-
   goToProductsPage(): void {
     this.router.navigateByUrl('/products');
   }

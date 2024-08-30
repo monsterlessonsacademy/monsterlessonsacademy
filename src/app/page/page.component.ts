@@ -1,5 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-pages',
@@ -9,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './page.component.css',
 })
 export class PageComponent {
-  route = inject(ActivatedRoute);
   pageId = input.required<string>();
   limit = input.required<string>();
   page = input.required<{ pageId: string; name: string }>();
