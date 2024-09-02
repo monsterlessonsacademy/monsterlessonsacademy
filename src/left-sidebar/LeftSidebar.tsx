@@ -1,34 +1,35 @@
-import classNames from "classnames";
-import { Fragment } from "react";
-import "./left-sidebar.css";
 import { Link } from "react-router-dom";
+import "./left-sidebar.css";
+import classNames from "classnames";
+import { Fragment } from "react/jsx-runtime";
 
 type LeftSidebarProps = {
   isLeftSidebarCollapsed: boolean;
-  changeIsLeftSidebarCollapsed: (isSidebarCollapsed: boolean) => void;
+  changeIsLeftSidebarCollapsed: (isLeftSidebarCollapsed: boolean) => void;
 };
+
 const LeftSidebar = ({
   isLeftSidebarCollapsed,
   changeIsLeftSidebarCollapsed,
 }: LeftSidebarProps) => {
   const items = [
     {
-      routeLink: "",
+      routerLink: "",
       icon: "fal fa-home",
       label: "Dashboard",
     },
     {
-      routeLink: "products",
+      routerLink: "products",
       icon: "fal fa-box-open",
       label: "Products",
     },
     {
-      routeLink: "pages",
+      routerLink: "pages",
       icon: "fal fa-file",
       label: "Pages",
     },
     {
-      routeLink: "settings",
+      routerLink: "settings",
       icon: "fal fa-cog",
       label: "Settings",
     },
@@ -37,13 +38,15 @@ const LeftSidebar = ({
     sidenav: true,
     "sidenav-collapsed": isLeftSidebarCollapsed,
   });
+
+  const closeSidenav = () => {
+    changeIsLeftSidebarCollapsed(true);
+  };
+
   const toggleCollapse = (): void => {
     changeIsLeftSidebarCollapsed(!isLeftSidebarCollapsed);
   };
 
-  const closeSidenav = (): void => {
-    changeIsLeftSidebarCollapsed(true);
-  };
   return (
     <div className={sidebarClasses}>
       <div className="logo-container">
@@ -62,7 +65,7 @@ const LeftSidebar = ({
       <div className="sidenav-nav">
         {items.map((item) => (
           <li key={item.label} className="sidenav-nav-item">
-            <Link className="sidenav-nav-link" to={item.routeLink}>
+            <Link className="sidenav-nav-link" to={item.routerLink}>
               <i
                 className={classNames({
                   "sidenav-link-icon": true,

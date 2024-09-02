@@ -1,6 +1,6 @@
-import classNames from "classnames";
 import { Outlet } from "react-router-dom";
 import "./main.css";
+import classNames from "classnames";
 
 type MainProps = {
   isLeftSidebarCollapsed: boolean;
@@ -8,17 +8,10 @@ type MainProps = {
 };
 
 const Main = ({ isLeftSidebarCollapsed, screenWidth }: MainProps) => {
-  const getSizeClass = () => {
-    if (isLeftSidebarCollapsed) {
-      return "";
-    }
-    return screenWidth > 768 ? "body-trimmed" : "body-md-screen";
-  };
   const classes = classNames({
     body: true,
-    [getSizeClass()]: true,
+    "body-trimmed": !isLeftSidebarCollapsed && screenWidth > 768,
   });
-
   return (
     <div className={classes}>
       <Outlet />

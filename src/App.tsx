@@ -23,6 +23,7 @@ const App = () => {
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
   }, []);
+
   return (
     <Fragment>
       <LeftSidebar
@@ -35,8 +36,8 @@ const App = () => {
         <Route
           element={
             <Main
-              isLeftSidebarCollapsed={isLeftSidebarCollapsed}
               screenWidth={screenWidth}
+              isLeftSidebarCollapsed={isLeftSidebarCollapsed}
             />
           }
         >
