@@ -9,3 +9,19 @@ body {
   font-family: "Roboto", sans-serif;
   background: #f4f7fa;
 }
+
+.container {
+  width: 700px;
+  margin: 0 auto;
+  margin-top: 50px;
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.custom-tooltip {
+  background: white;
+  padding: 20px;
+  border: 1px solid black;
+}
