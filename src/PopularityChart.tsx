@@ -30,7 +30,7 @@ const PopularityChart = () => {
         strokeWidth={3}
       />
       <Line type="monotone" dataKey="vue" stroke="#FFCA29" strokeWidth={3} />
-      <CartesianGrid stroke="#ccc" />
+      <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />

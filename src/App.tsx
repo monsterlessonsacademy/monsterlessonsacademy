@@ -1,9 +1,9 @@
-import ExpensesChart from "./ExpensesChart";
+import ViewsChart from "./ViewsChart";
 
 const App = () => {
   return (
     <div className="container">
-      <ExpensesChart />
+      <ViewsChart />
     </div>
   );
 };
