@@ -2,13 +2,10 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  Rectangle,
-  Tooltip,
   XAxis,
   YAxis,
+  Tooltip,
+  Rectangle,
 } from "recharts";
 
 const data = [
@@ -27,7 +24,7 @@ const ViewsChart = () => {
     <BarChart width={600} height={300} data={data}>
       <Bar
         dataKey="views"
-        fill="#2196F3"
+        fill="#2196f3"
         activeBar={<Rectangle fill="gold" stroke="purple" />}
       />
       <Bar
@@ -39,7 +36,6 @@ const ViewsChart = () => {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip cursor={{ fill: "transparent" }} />
-      <Legend />
     </BarChart>
   );
 };

@@ -1,15 +1,4 @@
-import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  PieChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-  Pie,
-  Cell,
-} from "recharts";
+import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
 const data = [
   { name: "Flat", value: 1000 },
@@ -65,7 +54,6 @@ const CustomTooltip = ({ active, payload }: any) => {
       </div>
     );
   }
-
   return null;
 };
 
@@ -75,16 +63,14 @@ const ExpensesChart = () => {
       <Pie
         data={data}
         dataKey="value"
-        outerRadius={100}
         label={renderCustomizedLabel}
         labelLine={false}
       >
         {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          <Cell key={`cell-${index}`} fill={COLORS[index]} />
         ))}
       </Pie>
       <Tooltip content={<CustomTooltip />} />
-      <Legend />
     </PieChart>
   );
 };
