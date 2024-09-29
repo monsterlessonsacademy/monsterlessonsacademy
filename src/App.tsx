@@ -19,10 +19,7 @@ const isNumber = (item: string) => {
 
 const operate = (state: State): string => {
   const one = Big(state.total || "0");
-  const two = Big(
-    state.next ||
-      (state.operation === "÷" || state.operation === "x" ? "1" : "0")
-  );
+  const two = Big(state.next || "0");
   console.log("operate", state, one.toString(), two.toString());
   if (state.operation === "+") {
     return one.plus(two).toString();
