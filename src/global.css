@@ -11,11 +11,59 @@ body {
 }
 
 .container {
-  width: 700px;
+  width: 440px;
   margin: 0 auto;
   margin-top: 50px;
   border: 1px solid #ccc;
   background: #fff;
   padding: 20px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.calculator {
+  background: #1f1f1f;
+  height: 520px;
+  width: 400px;
+}
+
+.button {
+  height: 70px;
+  width: 70px;
+  background: #4d4d4d;
+  border-radius: 50%;
+  margin: 5px;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: bold;
+  border: 0;
+  cursor: pointer;
+}
+
+.operation {
+  background: #ff9f1b;
+}
+
+.last-row {
+  padding-left: 80px;
+}
+
+.display {
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+}
+
+.screen {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: #333333;
+  color: #ffffff;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.button-panel {
+  text-align: center;
 }
