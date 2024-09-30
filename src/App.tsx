@@ -13,23 +13,26 @@ const initialState: State = {
   operation: null,
 };
 
-const isNumber = (item: string) => {
+const isNumber = (item: string): boolean => {
   return /[0-9]+/.test(item);
 };
 
 const operate = (state: State): string => {
-  const one = Big(state.total || "0");
-  const two = Big(state.next || "0");
-  console.log("operate", state, one.toString(), two.toString());
+  const one = Big(state.total ?? "0");
+  const two = Big(state.next ?? "0");
+
   if (state.operation === "+") {
     return one.plus(two).toString();
   }
+
   if (state.operation === "-") {
     return one.minus(two).toString();
   }
+
   if (state.operation === "x") {
     return one.times(two).toString();
   }
+
   if (state.operation === "÷") {
     if (state.next === "0") {
       alert("Divide by 0 error");
@@ -38,7 +41,8 @@ const operate = (state: State): string => {
       return one.div(two).toString();
     }
   }
-  throw Error(`Unknown operation '${state.operation}'`);
+
+  throw new Error(`Unknown operator ${state.operation}`);
 };
 
 const calculate = (state: State, name: string): State => {
@@ -47,44 +51,11 @@ const calculate = (state: State, name: string): State => {
   }
 
   if (isNumber(name)) {
-    if (state.operation) {
-      if (state.next) {
-        return { ...state, next: state.next + name };
-      }
-      return { ...state, next: name };
-    }
     if (state.next) {
       const next = state.next === "0" ? name : state.next + name;
-      return {
-        ...state,
-        next,
-      };
+      return { ...state, next };
     }
-    return {
-      ...state,
-      next: name,
-    };
-  }
-
-  if (name === "%") {
-    if (!state.next) {
-      return state;
-    }
-    return {
-      ...state,
-      next: Big(state.next).div(Big("100")).toString(),
-    };
-  }
-
-  if (name === ".") {
-    if (!state.next) {
-      return { ...state, next: "0." };
-    }
-
-    if (state.next.includes(".")) {
-      return state;
-    }
-    return { ...state, next: state.next + "." };
+    return { ...state, next: name };
   }
 
   if (name === "=") {
@@ -99,6 +70,29 @@ const calculate = (state: State, name: string): State => {
     }
   }
 
+  if (name === "%") {
+    if (!state.next) {
+      return state;
+    }
+
+    return {
+      ...state,
+      next: Big(state.next).div(Big("100")).toString(),
+    };
+  }
+
+  if (name === ".") {
+    if (!state.next) {
+      return { ...state, next: "0." };
+    }
+
+    if (state.next.includes(".")) {
+      return state;
+    }
+
+    return { ...state, next: state.next + "." };
+  }
+
   if (name === "+/-") {
     if (state.next) {
       return { ...state, next: (-1 * parseFloat(state.next)).toString() };
@@ -106,10 +100,9 @@ const calculate = (state: State, name: string): State => {
     if (state.total) {
       return { ...state, total: (-1 * parseFloat(state.total)).toString() };
     }
-    return state;
   }
 
-  // User pressed an operation button and there is an existing operation
+  // User pressed an operation button and there is already an existing operation
   if (state.operation) {
     return {
       total: operate(state),
@@ -118,7 +111,6 @@ const calculate = (state: State, name: string): State => {
     };
   }
 
-  // save the operation and shift 'next' into 'total'
   return {
     total: state.next,
     next: null,
@@ -127,12 +119,11 @@ const calculate = (state: State, name: string): State => {
 };
 
 const App = () => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<State>(initialState);
   const textRef = useRef<HTMLDivElement>(null);
   const display = state.next || state.total || "0";
   console.log("state", state);
-
-  const handleClick = (name: string) => {
+  const handleClick = (name: string): void => {
     const newState = calculate(state, name);
     setState(newState);
   };
@@ -152,6 +143,7 @@ const App = () => {
 
     adjustFontSize();
   }, [display]);
+
   return (
     <div className="container">
       <div className="calculator">
