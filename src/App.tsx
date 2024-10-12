@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, memo, useMemo, Fragment } from "react";
 
 type UserType = {
   id: string;
@@ -21,7 +21,7 @@ const initialUsers: UserType[] = [
   },
 ];
 
-const List = ({ users, onRemove }: ListProps) => {
+const List = memo(({ users, onRemove }: ListProps) => {
   console.log("rendering list");
   return (
     <ul>
@@ -32,7 +32,7 @@ const List = ({ users, onRemove }: ListProps) => {
       ))}
     </ul>
   );
-};
+});
 
 const App = () => {
   const [users, setUsers] = useState<UserType[]>(initialUsers);
@@ -45,14 +45,16 @@ const App = () => {
     },
     [users]
   );
+  const usernames = users.map((user) => user.name);
+  console.log("usernames", usernames);
   const handleText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
   return (
-    <div>
+    <Fragment>
       <input type="text" value={text} onChange={handleText} />
       <List users={users} onRemove={handleRemove} />
-    </div>
+    </Fragment>
   );
 };
 
