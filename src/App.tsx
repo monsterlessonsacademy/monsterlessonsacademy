@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Fragment } from "react/jsx-runtime";
+import { Fragment, useState } from "react";
 
 const App = () => {
   const [isMenuShown, setIsMenuShown] = useState<boolean>(false);
@@ -10,7 +9,7 @@ const App = () => {
           <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
             <a href="#" className="flex items-center">
               <img src="/logo.svg" className="h-6 mr-3 sm:h-9" />
-              <span className="text-xl font-semibold ">Landwind</span>
+              <span className="text-xl font-semibold">Landwind</span>
             </a>
             <button
               className="lg:hidden"
@@ -30,7 +29,7 @@ const App = () => {
               </svg>
             </button>
             <div
-              className={`items-center justify-between w-full lg:flex lg:w-auto lg:order-1 lg:order-1 ${
+              className={`lg:flex items-center justify-between w-full lg:w-auto lg:order-1 ${
                 isMenuShown ? "" : "hidden"
               }`}
             >
@@ -46,7 +45,7 @@ const App = () => {
                 <li>
                   <a
                     href="#"
-                    className="hover:text-purple-700 rounded block px-3 py-2 text-gray-700"
+                    className="hover:text-purple-700 text-gray-700 rounded block px-3 py-2"
                   >
                     Company
                   </a>
@@ -54,7 +53,7 @@ const App = () => {
                 <li>
                   <a
                     href="#"
-                    className="hover:text-purple-700 rounded block px-3 py-2 text-gray-700"
+                    className="hover:text-purple-700 text-gray-700 rounded block px-3 py-2"
                   >
                     Marketplace
                   </a>
@@ -62,7 +61,7 @@ const App = () => {
                 <li>
                   <a
                     href="#"
-                    className="hover:text-purple-700 rounded block px-3 py-2 text-gray-700"
+                    className="hover:text-purple-700 text-gray-700 rounded block px-3 py-2"
                   >
                     Features
                   </a>
@@ -70,7 +69,7 @@ const App = () => {
                 <li>
                   <a
                     href="#"
-                    className="hover:text-purple-700 rounded block px-3 py-2 text-gray-700"
+                    className="hover:text-purple-700 text-gray-700 rounded block px-3 py-2"
                   >
                     Team
                   </a>
@@ -78,7 +77,7 @@ const App = () => {
                 <li>
                   <a
                     href="#"
-                    className="hover:text-purple-700 rounded block px-3 py-2 text-gray-700"
+                    className="hover:text-purple-700 text-gray-700 rounded block px-3 py-2"
                   >
                     Contact
                   </a>
@@ -101,12 +100,12 @@ const App = () => {
             </p>
           </div>
           <div>
-            <img src="/hero.png" />
+            <img src="./hero.png" />
           </div>
         </div>
       </section>
       <section>
-        <div className="max-w-screen-xl px-4 pb-8 lg:pb-16 max-auto grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6  mx-auto text-gray-500">
+        <div className="max-w-screen-xl px-4 pb-8 lg:pb-16 mx-auto grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6 text-gray-500">
           <a href="#">
             <svg
               className="h-9 hover:text-gray-900"
@@ -388,14 +387,14 @@ const App = () => {
                 </p>
               </div>
             </div>
-            <img src="/feature-1.png" className="w-full" />
+            <img src="./feature-1.png" className="w-full" />
           </div>
         </div>
       </section>
       <section className="bg-white">
         <div className="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 lg:py-24">
           <div className="lg:grid lg:grid-cols-3 xl:gap-10">
-            <div className="p-6 text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow xl:p-8 mx-auto max-w-lg">
+            <div className="p-6 text-center text-gray-900 bg-white border border-gray-100 ronded-lg shadow xl:p-8 mx-auto max-w-lg">
               <h3 className="mb-4 text-2xl font-semibold">Starter</h3>
               <p className="text-gray-500 font-light">
                 Best option for personal use & for your next project.
@@ -488,7 +487,7 @@ const App = () => {
                 Get started
               </a>
             </div>
-            <div className="p-6 text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow xl:p-8 mx-auto max-w-lg">
+            <div className="p-6 text-center text-gray-900 bg-white border border-gray-100 ronded-lg shadow xl:p-8 mx-auto max-w-lg">
               <h3 className="mb-4 text-2xl font-semibold">Starter</h3>
               <p className="text-gray-500 font-light">
                 Best option for personal use & for your next project.
@@ -581,7 +580,7 @@ const App = () => {
                 Get started
               </a>
             </div>
-            <div className="p-6 text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow xl:p-8 mx-auto max-w-lg">
+            <div className="p-6 text-center text-gray-900 bg-white border border-gray-100 ronded-lg shadow xl:p-8 mx-auto max-w-lg">
               <h3 className="mb-4 text-2xl font-semibold">Starter</h3>
               <p className="text-gray-500 font-light">
                 Best option for personal use & for your next project.
