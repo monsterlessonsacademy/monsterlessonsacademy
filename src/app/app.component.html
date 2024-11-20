@@ -1,2 +1,25 @@
 <h1>Angular 19</h1>
+
+<!-- <app-child /> -->
+
+@defer (hydrate on hover) {
+  <app-child />
+} @placeholder {
+  <p>Child placeholder</p>
+}
+
+<hr />
+
+@for (userName of userNames(); track $index) {
+  <div>{{ userName }}</div>
+}
+<hr />
+
+@for (userName of linkedUserNames(); track $index) {
+  <div>{{ userName }}</div>
+}
+
+<button (click)="changeLinkedUserNames()">Change linked user names</button>
+<button (click)="changeUsers()">Change users</button>
+
 <router-outlet />
