@@ -1,28 +1,51 @@
-import { Component, computed, linkedSignal, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ChildComponent } from './child.component';
+import {
+  Component,
+  inject,
+  resource,
+  ResourceStatus,
+  signal,
+} from '@angular/core';
+import {
+  FormBuilder,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+
+type Post = {
+  id: number;
+  title: string;
+};
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ChildComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  initialUsers = [
-    { id: '1', name: 'Jack' },
-    { id: '2', name: 'John' },
-    { id: '3', name: 'Mike' },
-  ];
-  users = signal(this.initialUsers);
-  userNames = computed(() => this.users().map((user) => user.name));
-  linkedUserNames = linkedSignal(() => this.users().map((user) => user.name));
-
-  changeLinkedUserNames(): void {
-    this.linkedUserNames.set([...this.linkedUserNames(), 'fooo']);
+  fb = inject(NonNullableFormBuilder);
+  searchForm = this.fb.group({
+    searchValue: '',
+  });
+  searchValue = signal<string>('');
+  postsResource = resource<Post[], { searchValue: string }>({
+    request: () => ({
+      searchValue: this.searchValue(),
+    }),
+    loader: ({ request, abortSignal }) =>
+      fetch(`http://localhost:3004/posts?title_like=${request.searchValue}`, {
+        signal: abortSignal,
+      }).then((res) => res.json()),
+  });
+  onSearchSubmit(): void {
+    this.searchValue.set(this.searchForm.getRawValue().searchValue);
+  }
+  addPost(): void {
+    this.postsResource.set([
+      ...(this.postsResource.value() ?? []),
+      { id: 4, title: 'node js' },
+    ]);
   }
 
-  changeUsers(): void {
-    this.users.set([...this.initialUsers, { id: '4', name: 'Baz' }]);
-  }
+  resourceStatus = ResourceStatus;
 }

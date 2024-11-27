@@ -1,25 +1,34 @@
-<h1>Angular 19</h1>
+<div class="container">
+  <div class="main">
+    <form
+      [formGroup]="searchForm"
+      class="searchBar"
+      (ngSubmit)="onSearchSubmit()"
+    >
+      <input
+        type="text"
+        placeholder="Search..."
+        formControlName="searchValue"
+        class="searchBarInput"
+      />
+    </form>
+    @if (postsResource.error()) {
+      <div class="error">{{ postsResource.error() }}</div>
+    }
 
-<!-- <app-child /> -->
+    @if (postsResource.isLoading()) {
+      <div class="status">Loading...</div>
+    }
 
-@defer (on viewport; hydrate never) {
-  <app-child />
-} @placeholder {
-  <p>Child placeholder</p>
-}
+    @if (postsResource.status() === resourceStatus.Resolved) {
+      <div class="status">It's resolved</div>
+    }
 
-<hr />
+    @for (post of postsResource.value(); track $index) {
+      <div>{{ post.title }}</div>
+    }
 
-@for (userName of userNames(); track $index) {
-  <div>{{ userName }}</div>
-}
-<hr />
-
-@for (userName of linkedUserNames(); track $index) {
-  <div>{{ userName }}</div>
-}
-
-<button (click)="changeLinkedUserNames()">Change linked user names</button>
-<button (click)="changeUsers()">Change users</button>
-
-<router-outlet />
+    <button class="btn" (click)="addPost()">Add post</button>
+    <button class="btn" (click)="postsResource.reload()">Reload</button>
+  </div>
+</div>

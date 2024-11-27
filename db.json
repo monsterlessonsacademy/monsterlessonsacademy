@@ -2,23 +2,15 @@
   "posts": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "title": "angular"
     },
     {
       "id": 2,
-      "title": "json-server 2",
-      "author": "typicode 2"
-    }
-  ],
-  "comments": [
+      "title": "react"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 3,
+      "title": "vue"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
