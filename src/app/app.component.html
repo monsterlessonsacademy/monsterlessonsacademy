@@ -1,20 +1,13 @@
 <div class="container">
-  <div class="headline">Layout</div>
-
-  <div class="links">
-    <a routerLink="/dashboard" routerLinkActive="active">dashboard</a>
-    <a routerLink="/products" routerLinkActive="active">products</a>
-    <a
-      routerLink="/settings"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >settings</a
-    >
-    <a routerLink="/settings/profile" routerLinkActive="active">profile</a>
-    <a routerLink="/pages/1" routerLinkActive="active">pages/1</a>
-  </div>
+  <div class="headline">Web workers</div>
 
   <div class="main">
-    <router-outlet />
+    <button (click)="startHeavyCalculation()" class="btn">
+      Start heavy calculation
+    </button>
+    <button (click)="checkIfFrozen()" class="btn">
+      Check that browser is frozen
+    </button>
+    <div class="result">{{ result }}</div>
   </div>
 </div>
