@@ -12,20 +12,14 @@ export class AppComponent implements OnInit {
   worker = new Worker(new URL('./app.worker', import.meta.url));
   result: number = 0;
   startHeavyCalculation(): void {
-    console.log('start heavy calculations');
     this.worker.postMessage({
       type: 'LOG',
-      payload: { message: 'started heavy calculations' },
+      payload: { message: 'started heavy calculation' },
     });
-
-    this.worker.postMessage({ type: 'SUM', payload: { start: 0 } });
-    // worker.postMessage({ type: 'SUM', payload: { a: 5, b: 3 } });
-    // let result = 0;
-    // for (let i = 0; i < 10000000000; i++) {
-    //   result += i;
-    // }
-    // this.result = result;
-    console.log('finish heavy calculations');
+    this.worker.postMessage({
+      type: 'SUM',
+      payload: { start: 0 },
+    });
   }
 
   checkIfFrozen(): void {
