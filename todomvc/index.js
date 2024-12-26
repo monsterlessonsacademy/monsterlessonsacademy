@@ -4,6 +4,22 @@ let todos = [];
 let filter = "all";
 
 const initialize = () => {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+          console.log(
+            "Service Worker registered with scope:",
+            registration.scope
+          );
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
+    });
+  }
+
   findElements();
   addListeners();
   render();
@@ -20,7 +36,6 @@ const addListeners = () => {
   selectors.filters.querySelectorAll("li").forEach((li) => {
     li.addEventListener("click", () => {
       filter = li.getAttribute("filter");
-      console.log(filter);
       render();
     });
   });
@@ -45,7 +60,6 @@ const findElements = () => {
     count: document.querySelector(".todo-count"),
     filters: document.querySelector(".filters"),
   };
-  console.log(selectors);
 };
 
 const createTodoNode = (todo) => {
