@@ -6,7 +6,6 @@ let filter = "all";
 const initialize = () => {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-      console.log("init");
       navigator.serviceWorker
         .register("/service-worker.js")
         .then((registration) => {
