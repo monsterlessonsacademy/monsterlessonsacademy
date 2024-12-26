@@ -1,4 +1,4 @@
-import * as helpers from "./helpers";
+import * as helpers from "./helpers.js";
 let selectors = {};
 let todos = [];
 let filter = "all";
@@ -6,6 +6,7 @@ let filter = "all";
 const initialize = () => {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
+      console.log("init");
       navigator.serviceWorker
         .register("/service-worker.js")
         .then((registration) => {
@@ -23,6 +24,14 @@ const initialize = () => {
   findElements();
   addListeners();
   render();
+
+  fetch("http://localhost:3004/todos")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("todos", data);
+      todos = data;
+      render();
+    });
 };
 
 const addListeners = () => {
