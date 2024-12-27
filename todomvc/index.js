@@ -9,17 +9,13 @@ const initialize = () => {
       navigator.serviceWorker
         .register("/service-worker.js")
         .then((registration) => {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
+          console.log("Service worker registered with", registration.scope);
         })
         .catch((error) => {
-          console.error("Service Worker registration failed:", error);
+          console.error("Service worker registration failed", error);
         });
     });
   }
-
   findElements();
   addListeners();
   render();
@@ -27,7 +23,6 @@ const initialize = () => {
   fetch("http://localhost:3004/todos")
     .then((response) => response.json())
     .then((data) => {
-      console.log("todos", data);
       todos = data;
       render();
     });

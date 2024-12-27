@@ -1,31 +1,28 @@
-const CACHE_NAME = "todo-app-cache-v2";
+const cacheName = "todo-app-cache-v2";
 const urlsToCache = [
   "/",
   "/index.html",
-  "/css/base.css",
-  "/css/index.css",
-  "/main.js",
+  "css/base.css",
+  "css/index.css",
+  "main.js",
 ];
-
 self.addEventListener("install", (event) => {
   console.log("SW install");
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opened cache");
+    caches.open(cacheName).then((cache) => {
       return cache.addAll(urlsToCache);
     })
   );
 });
 
-// Fetch Requests
 self.addEventListener("fetch", (event) => {
-  console.log("SW fetch", event.request.url);
+  console.log("SW fetch");
 
   if (event.request.url.includes("/todos")) {
     event.respondWith(
       fetch(event.request)
         .then((networkResponse) => {
-          return caches.open(CACHE_NAME).then((cache) => {
+          return caches.open(cacheName).then((cache) => {
             cache.put(event.request, networkResponse.clone());
             return networkResponse;
           });
@@ -42,27 +39,27 @@ self.addEventListener("fetch", (event) => {
           });
         })
     );
-  } else {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
-      })
-    );
   }
+
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
 });
 
 self.addEventListener("activate", (event) => {
   console.log("SW activate");
-  const cacheWhitelist = [CACHE_NAME];
+  const cacheWhiteList = [cacheName];
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
         cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
+          if (!cacheWhiteList.includes(cacheName)) {
             return caches.delete(cacheName);
           }
         })
-      )
-    )
+      );
+    })
   );
 });
