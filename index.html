@@ -4,40 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Vite App</title>
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/index.css" />
   </head>
-  <body>
-    <section class="todoapp">
-      <header class="header">
-        <h1>todos</h1>
-        <input
-          class="new-todo"
-          placeholder="What needs to be done?"
-          autofocus
-        />
-      </header>
-      <section class="main">
-        <input id="toggle-all" class="toggle-all" type="checkbox" />
-        <label for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list"></ul>
-      </section>
-      <footer class="footer">
-        <span class="todo-count"><strong>0</strong> items left</span>
-        <ul class="filters">
-          <li filter="all">
-            <a class="selected">All</a>
-          </li>
-          <li filter="active">
-            <a>Active</a>
-          </li>
-          <li filter="completed">
-            <a>Completed</a>
-          </li>
-        </ul>
-      </footer>
-    </section>
-    <script type="module" src="/main.js"></script>
+  <body class="bg-gray-100 min-h-screen">
+    <header class="bg-blue-500 text-white text-center py-4 shadow-md">
+      <h1 class="text-2xl font-bold">Lazy Loaded Product Grid</h1>
+    </header>
+
+    <main class="container mx-auto py-8">
+      <div id="grid" class="grid grid-cols-1 gap-6">
+        <!-- Rows will be dynamically created here -->
+      </div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
