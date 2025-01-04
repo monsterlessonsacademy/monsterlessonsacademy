@@ -7,7 +7,7 @@ const generateProduct = (id) => ({
   price: `$${(Math.random() * 100).toFixed(2)}`,
 });
 
-const ROWS = 10;
+const ROWS = 20;
 const PRODUCTS_PER_ROW = 5;
 
 const createRow = (rowIndex) => {
@@ -47,28 +47,19 @@ for (let i = 0; i < ROWS; i++) {
 
 const observer = new IntersectionObserver(
   (entries) => {
-    console.log("entries", entries);
     entries.forEach((entry) => {
       const row = entry.target;
       const rowIndex = parseInt(row.dataset.index, 10);
-
       if (entry.isIntersecting) {
-        if (!row.dataset.loaded) {
-          renderProducts(row, rowIndex);
-          row.dataset.loaded = "true";
-        }
+        renderProducts(row, rowIndex);
       } else {
-        if (row.dataset.loaded) {
-          removeProducts(row);
-          delete row.dataset.loaded;
-        }
+        removeProducts(row);
       }
     });
   },
-  { threshold: 0.1, rootMargin: "-100px", root: ".scrolling-container" }
+  { threshold: 0.25, rootMargin: "100px", root: ".scrolled-container" }
 );
 
-// Observe each row
 document.querySelectorAll(".row").forEach((row) => observer.observe(row));
 
 observer.unobserve();
