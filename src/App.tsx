@@ -28,7 +28,7 @@ const App: React.FC = () => {
   };
 
   const handleToggleComplete = async (id: number) => {
-    const todo = todos.find((t) => t.id === id);
+    const todo = todos.find((todo) => todo.id === id);
     if (todo) {
       await updateTodo({ ...todo, completed: !todo.completed });
       const updatedTodos = await getTodos();

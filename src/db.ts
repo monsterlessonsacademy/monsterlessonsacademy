@@ -27,6 +27,18 @@ export const initDB = async (): Promise<IDBDatabase> => {
   });
 };
 
+export const getTodos = async (): Promise<Todo[]> => {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, "readonly");
+    const store = transaction.objectStore(STORE_NAME);
+    const request = store.getAll();
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
 export const addTodo = async (todo: Todo): Promise<void> => {
   const db = await initDB();
   return new Promise((resolve, reject) => {
@@ -35,18 +47,6 @@ export const addTodo = async (todo: Todo): Promise<void> => {
     const request = store.add(todo);
 
     request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-  });
-};
-
-export const getTodos = async (): Promise<Todo[]> => {
-  const db = await initDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, "readonly");
-    const store = transaction.objectStore(STORE_NAME);
-    const request = store.getAll();
-
-    request.onsuccess = () => resolve(request.result as Todo[]);
     request.onerror = () => reject(request.error);
   });
 };
@@ -66,9 +66,10 @@ export const deleteTodo = async (id: number): Promise<void> => {
 export const updateTodo = async (updatedTodo: Todo): Promise<void> => {
   const db = await initDB();
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction("todos", "readwrite");
-    const store = transaction.objectStore("todos");
+    const transaction = db.transaction(STORE_NAME, "readwrite");
+    const store = transaction.objectStore(STORE_NAME);
     const request = store.put(updatedTodo);
+
     request.onsuccess = () => resolve();
     request.onerror = () => reject(request.error);
   });
