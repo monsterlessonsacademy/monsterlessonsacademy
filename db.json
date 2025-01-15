@@ -2,13 +2,23 @@
   "todos": [
     {
       "id": "1",
-      "isCompleted": false,
+      "isCompleted": true,
       "text": "todo 1"
     },
     {
       "id": "1",
       "isCompleted": true,
       "text": "todo 2"
+    },
+    {
+      "id": 1736935044153,
+      "text": "aa",
+      "isCompleted": false
+    },
+    {
+      "id": 1736935045674,
+      "text": "cc",
+      "isCompleted": true
     }
   ]
 }

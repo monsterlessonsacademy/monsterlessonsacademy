@@ -16,34 +16,36 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log("SW fetch");
+  const { url } = event.request;
 
-  if (event.request.url.includes("/todos")) {
-    event.respondWith(
-      fetch(event.request)
-        .then((networkResponse) => {
-          return caches.open(cacheName).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        })
-        .catch(() => {
-          return caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) {
-              return cachedResponse;
-            } else {
-              return new Response(JSON.stringify([]), {
-                headers: { "Content-Type": "application/json" },
-              });
-            }
-          });
-        })
-    );
+  // Skip caching for any API requests
+  if (url.includes("/todos") || url.startsWith("http://localhost:3004")) {
+    console.log(`Skipping caching for API call: ${url}`);
+    return; // Allow the request to pass through to the network
   }
 
+  // Handle static asset caching
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        // Serve cached response, but check for updates
+        return fetch(event.request).then((response) => {
+          if (response.status === 200) {
+            // Update the cache with the new response
+            caches.open(cacheName).then((cache) => {
+              cache.put(event.request, response.clone());
+            });
+          }
+          return response;
+        });
+      }
+      // If not cached, fetch and cache the response
+      return fetch(event.request).then((response) => {
+        caches.open(cacheName).then((cache) => {
+          cache.put(event.request, response.clone());
+        });
+        return response;
+      });
     })
   );
 });

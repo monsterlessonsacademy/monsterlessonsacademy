@@ -16,16 +16,23 @@ const initialize = () => {
         });
     });
   }
+
+  if (navigator.onLine) {
+    helpers.processTaskQueue();
+  }
+
+  window.addEventListener("online", () => {
+    helpers.processTaskQueue();
+  });
+
   findElements();
   addListeners();
   render();
 
-  fetch("http://localhost:3004/todos")
-    .then((response) => response.json())
-    .then((data) => {
-      todos = data;
-      render();
-    });
+  helpers.fetchTodos().then((fetchedTodos) => {
+    todos = fetchedTodos;
+    render();
+  });
 };
 
 const addListeners = () => {
@@ -49,8 +56,11 @@ const addListeners = () => {
 };
 
 const addTodo = (text) => {
-  todos = helpers.addTodo(todos, text);
-  render();
+  helpers.addTodo(text).then((createdTodo) => {
+    console.log("createdTodo", createdTodo);
+    todos = [...todos, createdTodo];
+    render();
+  });
 };
 
 const findElements = () => {
@@ -111,13 +121,22 @@ const startEditing = (node) => {
 };
 
 const removeTodo = (todoId) => {
-  todos = helpers.removeTodo(todos, todoId);
-  render();
+  helpers.removeTodo(todoId).then(() => {
+    todos = todos.filter((todo) => todo.id !== todoId);
+    render();
+  });
 };
 
 const toggleTodo = (todoId) => {
-  todos = helpers.toggleTodo(todos, todoId);
-  render();
+  helpers.toggleTodo(todos, todoId).then(() => {
+    todos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+      return todo;
+    });
+    render();
+  });
 };
 
 const toggleAll = (checked) => {
@@ -131,6 +150,7 @@ const updateTodo = (todoId, text) => {
 };
 
 const getFilteredTodos = () => {
+  console.log("getFilteredTodos", todos);
   if (filter === "active") {
     return todos.filter((todo) => !todo.isCompleted);
   } else if (filter === "completed") {
@@ -142,7 +162,9 @@ const getFilteredTodos = () => {
 
 const render = () => {
   selectors.todoList.innerHTML = "";
+  console.log("render", todos);
   getFilteredTodos().forEach((todo) => {
+    console.log("1", todo);
     const todoNode = createTodoNode(todo);
     selectors.todoList.appendChild(todoNode);
   });
