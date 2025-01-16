@@ -1,11 +1,8 @@
 export const fetchTodos = () => {
-  console.log("online?", navigator.onLine);
   if (!navigator.onLine) {
-    console.log("Offline, returning cached todos");
     const todos = JSON.parse(localStorage.getItem("cached-todos")) || [];
     return Promise.resolve(todos);
   }
-
   return fetch("http://localhost:3004/todos")
     .then((response) => response.json())
     .then((data) => {
@@ -38,7 +35,6 @@ export const addTodo = (text) => {
         action: "addTodo",
         body: newTodo,
       });
-
       return newTodo;
     });
 };
@@ -56,8 +52,8 @@ export const removeTodo = (todoId) => {
       enqueueTask({
         url: `http://localhost:3004/todos/${todoId}`,
         method: "DELETE",
-        body: null,
         action: "removeTodo",
+        body: null,
       });
       return { todoId };
     });
@@ -66,10 +62,9 @@ export const removeTodo = (todoId) => {
 export const toggleTodo = (todos, todoId) => {
   const todo = todos.find((todoToFind) => todoToFind.id === todoId);
   const updatedTodo = { ...todo, isCompleted: !todo.isCompleted };
-
   const cachedTodos = JSON.parse(localStorage.getItem("cached-todos")) || [];
-  const updatedTodos = cachedTodos.map((t) =>
-    t.id === todoId ? updatedTodo : t
+  const updatedTodos = cachedTodos.map((todo) =>
+    todo.id === todoId ? updatedTodo : todo
   );
   localStorage.setItem("cached-todos", JSON.stringify(updatedTodos));
 
@@ -83,10 +78,9 @@ export const toggleTodo = (todos, todoId) => {
       enqueueTask({
         url: `http://localhost:3004/todos/${todoId}`,
         method: "PUT",
-        body: updatedTodo,
         action: "toggleTodo",
+        body: updatedTodo,
       });
-
       return updatedTodo;
     });
 };
@@ -110,27 +104,23 @@ export const enqueueTask = (task) => {
   const queue = JSON.parse(localStorage.getItem("task-queue")) || [];
   queue.push(task);
   localStorage.setItem("task-queue", JSON.stringify(queue));
-  console.log("Task enqueued:", task);
 };
 
 export const processTaskQueue = async () => {
   const queue = JSON.parse(localStorage.getItem("task-queue")) || [];
 
   while (queue.length > 0) {
-    const task = queue[0]; // Get the first task
+    const task = queue[0];
     try {
       await fetch(task.url, {
         method: task.method,
         headers: { "Content-Type": "application/json" },
         body: task.body ? JSON.stringify(task.body) : null,
       });
-
-      console.log("Task processed successfully:", task);
-      queue.shift(); // Remove the task from the queue
+      queue.shift();
       localStorage.setItem("task-queue", JSON.stringify(queue));
     } catch (error) {
-      console.error("Error processing task:", task, error);
-      break; // Stop processing if there's an error
+      break;
     }
   }
 };

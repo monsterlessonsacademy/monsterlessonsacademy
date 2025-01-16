@@ -30,6 +30,7 @@ const initialize = () => {
   render();
 
   helpers.fetchTodos().then((fetchedTodos) => {
+    console.log("fe", fetchedTodos);
     todos = fetchedTodos;
     render();
   });
@@ -57,7 +58,6 @@ const addListeners = () => {
 
 const addTodo = (text) => {
   helpers.addTodo(text).then((createdTodo) => {
-    console.log("createdTodo", createdTodo);
     todos = [...todos, createdTodo];
     render();
   });
@@ -150,7 +150,6 @@ const updateTodo = (todoId, text) => {
 };
 
 const getFilteredTodos = () => {
-  console.log("getFilteredTodos", todos);
   if (filter === "active") {
     return todos.filter((todo) => !todo.isCompleted);
   } else if (filter === "completed") {
@@ -162,9 +161,7 @@ const getFilteredTodos = () => {
 
 const render = () => {
   selectors.todoList.innerHTML = "";
-  console.log("render", todos);
   getFilteredTodos().forEach((todo) => {
-    console.log("1", todo);
     const todoNode = createTodoNode(todo);
     selectors.todoList.appendChild(todoNode);
   });
