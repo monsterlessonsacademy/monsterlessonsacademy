@@ -14,7 +14,11 @@
     "vitest": "^1.5.0"
   },
   "dependencies": {
-    "encore.dev": "^1.46.4"
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.1",
+    "encore.dev": "^1.46.4",
+    "knex": "^2.5.1",
+    "pg": "^8.13.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.13.0"
