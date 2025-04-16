@@ -1,0 +1,18 @@
+---
+await new Promise((resolve) => setTimeout(resolve, 2000));
+
+const posts = [
+  { title: "Astro is Awesome", slug: "/posts/astro-awesome" },
+  { title: "Streaming with server:defer", slug: "/posts/server-defer" },
+];
+---
+
+<ul>
+  {
+    posts.map((post) => (
+      <li>
+        <a href={post.slug}>{post.title}</a>
+      </li>
+    ))
+  }
+</ul>
