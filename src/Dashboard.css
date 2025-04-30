@@ -1,0 +1,37 @@
+.row {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.row:nth-child(n + 1) {
+  margin-top: 5px;
+}
+.row.normal-row {
+  background: #bebebe;
+}
+.row.placeholder-row {
+  background: #bebefe;
+}
+.row.normal-row:hover {
+  background: #b0b0b0;
+}
+.row.placeholder-row:hover {
+  background: #b0b0f0;
+}
+
+.row.dragged-row {
+  opacity: 0.3;
+  background: #b0b0b0;
+}
+.row.dragged-row:hover {
+  background: #b0b0b0;
+}
+
+.state-display {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 200px;
+}
