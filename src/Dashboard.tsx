@@ -9,11 +9,11 @@ type Row = {
 };
 
 const indexFromEvent = (evt: React.DragEvent<HTMLElement>): number => {
-  try {
-    return parseInt((evt.target as HTMLElement).dataset.dragIndex || "", 10);
-  } catch {
-    return -1;
+  const dragIndex = (evt.target as HTMLElement).dataset.dragIndex;
+  if (dragIndex === undefined) {
+    throw new Error("data attribute is not set");
   }
+  return Number(dragIndex);
 };
 
 const Dashboard = () => {
@@ -27,8 +27,9 @@ const Dashboard = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(-1);
   const [overIndex, setOverIndex] = useState<number>(-1);
 
-  const handleDragStart = (rowIndex: number) => {
-    setDraggedIndex(rowIndex);
+  const handleDragStart = (evt: React.DragEvent<HTMLElement>) => {
+    const draggedIndex = indexFromEvent(evt);
+    setDraggedIndex(draggedIndex);
   };
 
   const handleDragOver = (evt: React.DragEvent<HTMLElement>) => {
@@ -56,18 +57,25 @@ const Dashboard = () => {
   };
 
   const handleDragEnd = (evt: React.DragEvent<HTMLElement>) => {
-    const index = indexFromEvent(evt);
-    const updatedRows = [...rows];
-    if (placeholderIndex !== -1) {
-      if (placeholderIndex > index) {
-        updatedRows.splice(index, 1);
-        updatedRows.splice(placeholderIndex - 1, 0, rows[index]);
-      } else {
-        updatedRows.splice(index, 1);
-        updatedRows.splice(placeholderIndex, 0, rows[index]);
-      }
+    const draggedIndex = indexFromEvent(evt);
+
+    if (placeholderIndex === -1) {
+      resetDragState();
+      return;
     }
+
+    const toIndex =
+      placeholderIndex > draggedIndex ? placeholderIndex - 1 : placeholderIndex;
+
+    const updatedRows = [...rows];
+    const [movedRow] = updatedRows.splice(draggedIndex, 1);
+    updatedRows.splice(toIndex, 0, movedRow);
+
     setRows(updatedRows);
+    resetDragState();
+  };
+
+  const resetDragState = () => {
     setDraggedIndex(-1);
     setPlaceholderIndex(-1);
     setOverIndex(-1);
@@ -81,7 +89,7 @@ const Dashboard = () => {
         rowIndex === draggedIndex ? "dragged-row" : "normal-row"
       }`}
       draggable
-      onDragStart={() => handleDragStart(rowIndex)}
+      onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
