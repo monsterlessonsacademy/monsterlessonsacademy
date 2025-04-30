@@ -27,9 +27,8 @@ const Dashboard = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(-1);
   const [overIndex, setOverIndex] = useState<number>(-1);
 
-  const handleDragStart = (evt: React.DragEvent<HTMLElement>) => {
-    const index = indexFromEvent(evt);
-    setDraggedIndex(index);
+  const handleDragStart = (rowIndex: number) => {
+    setDraggedIndex(rowIndex);
   };
 
   const handleDragOver = (evt: React.DragEvent<HTMLElement>) => {
@@ -38,27 +37,22 @@ const Dashboard = () => {
 
     const newOverIndex = indexFromEvent(evt);
     const newOverZone: OverZone = y <= rect.height / 2 ? "top" : "bottom";
-    let newPlaceholderIndex =
-      newOverZone === null
-        ? -1
-        : newOverZone === "top"
-        ? overIndex
-        : overIndex + 1;
+    if (overIndex === newOverIndex) {
+      return;
+    }
+    const targetIndex = newOverZone === "top" ? newOverIndex : newOverIndex + 1;
 
-    if (
-      newPlaceholderIndex === draggedIndex ||
-      newPlaceholderIndex === draggedIndex + 1
-    ) {
-      newPlaceholderIndex = -1;
+    const isAdjacent =
+      targetIndex === draggedIndex || targetIndex === draggedIndex + 1;
+
+    const newPlaceholderIndex = isAdjacent ? -1 : targetIndex;
+
+    if (placeholderIndex === newPlaceholderIndex) {
+      return;
     }
 
-    if (
-      placeholderIndex !== newPlaceholderIndex ||
-      overIndex !== newOverIndex
-    ) {
-      setPlaceholderIndex(newPlaceholderIndex);
-      setOverIndex(newOverIndex);
-    }
+    setPlaceholderIndex(newPlaceholderIndex);
+    setOverIndex(newOverIndex);
   };
 
   const handleDragEnd = (evt: React.DragEvent<HTMLElement>) => {
@@ -87,7 +81,7 @@ const Dashboard = () => {
         rowIndex === draggedIndex ? "dragged-row" : "normal-row"
       }`}
       draggable
-      onDragStart={handleDragStart}
+      onDragStart={() => handleDragStart(rowIndex)}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
@@ -102,7 +96,6 @@ const Dashboard = () => {
       <div key="placeholder" className="row placeholder-row"></div>
     );
   }
-  console.log(renderedRows, placeholderIndex);
 
   return (
     <div>
