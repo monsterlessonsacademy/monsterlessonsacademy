@@ -25,7 +25,6 @@ const Dashboard = () => {
   ]);
   const [draggedIndex, setDraggedIndex] = useState<number>(-1);
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(-1);
-  const [overIndex, setOverIndex] = useState<number>(-1);
 
   const handleDragStart = (evt: React.DragEvent<HTMLElement>) => {
     const draggedIndex = indexFromEvent(evt);
@@ -36,24 +35,16 @@ const Dashboard = () => {
     const rect = (evt.target as HTMLElement).getBoundingClientRect();
     const y = evt.clientY - rect.top;
 
-    const newOverIndex = indexFromEvent(evt);
-    const newOverZone: OverZone = y <= rect.height / 2 ? "top" : "bottom";
-    if (overIndex === newOverIndex) {
-      return;
-    }
-    const targetIndex = newOverZone === "top" ? newOverIndex : newOverIndex + 1;
-
+    const overIndex = indexFromEvent(evt);
+    const overZone: OverZone = y <= rect.height / 2 ? "top" : "bottom";
+    const targetIndex = overZone === "top" ? overIndex : overIndex + 1;
     const isAdjacent =
       targetIndex === draggedIndex || targetIndex === draggedIndex + 1;
-
     const newPlaceholderIndex = isAdjacent ? -1 : targetIndex;
 
-    if (placeholderIndex === newPlaceholderIndex) {
-      return;
+    if (newPlaceholderIndex !== placeholderIndex) {
+      setPlaceholderIndex(newPlaceholderIndex);
     }
-
-    setPlaceholderIndex(newPlaceholderIndex);
-    setOverIndex(newOverIndex);
   };
 
   const handleDragEnd = (evt: React.DragEvent<HTMLElement>) => {
@@ -78,7 +69,6 @@ const Dashboard = () => {
   const resetDragState = () => {
     setDraggedIndex(-1);
     setPlaceholderIndex(-1);
-    setOverIndex(-1);
   };
 
   const renderedRows = rows.map((row, rowIndex) => (
@@ -109,13 +99,9 @@ const Dashboard = () => {
     <div>
       {renderedRows}
       <div className="state-display">
-        {rows.map((row) => row.name).join()}
-        <br />
-        draggedIndex: {draggedIndex}
-        <br />
-        overIndex: {overIndex}
-        <br />
-        placeholderIndex: {placeholderIndex}
+        <div>{rows.map((row) => row.name).join()}</div>
+        <div>draggedIndex: {draggedIndex}</div>
+        <div>placeholderIndex: {placeholderIndex}</div>
         <br />
       </div>
     </div>
