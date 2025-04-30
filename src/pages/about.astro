@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
-import Counter from "../components/Counter.jsx";
+import Counter from "../components/Counter";
 import PostList from "../components/PostList.astro";
 ---
 
@@ -72,9 +72,7 @@ import PostList from "../components/PostList.astro";
     magna.
   </p>
 
-  <h2 class="text-red-500 underline decoration-pink-500">
-    React Counter (hydrated on client)
-  </h2>
+  <h2 class="text-red-500 underline decoration-pink-500">React Counter</h2>
   <Counter client:load />
 
   <PostList server:defer />
