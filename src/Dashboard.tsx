@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "./Dashboard.css";
 
-type OverZone = "top" | "bottom" | null;
-
 type Row = {
   id: string;
   name: string;
@@ -26,42 +24,33 @@ const Dashboard = () => {
   const [draggedIndex, setDraggedIndex] = useState<number>(-1);
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(-1);
 
-  const handleDragStart = (evt: React.DragEvent<HTMLElement>) => {
-    const draggedIndex = indexFromEvent(evt);
-    setDraggedIndex(draggedIndex);
+  const onDragStart = (evt: React.DragEvent<HTMLElement>) => {
+    const dragIndex = indexFromEvent(evt);
+    setDraggedIndex(dragIndex);
   };
-
-  const handleDragOver = (evt: React.DragEvent<HTMLElement>) => {
+  const onDragOver = (evt: React.DragEvent<HTMLElement>) => {
     const rect = (evt.target as HTMLElement).getBoundingClientRect();
     const y = evt.clientY - rect.top;
-
+    const overZone = y <= rect.height / 2 ? "top" : "bottom";
     const overIndex = indexFromEvent(evt);
-    const overZone: OverZone = y <= rect.height / 2 ? "top" : "bottom";
     const targetIndex = overZone === "top" ? overIndex : overIndex + 1;
     const isAdjacent =
       targetIndex === draggedIndex || targetIndex === draggedIndex + 1;
     const newPlaceholderIndex = isAdjacent ? -1 : targetIndex;
-
-    if (newPlaceholderIndex !== placeholderIndex) {
-      setPlaceholderIndex(newPlaceholderIndex);
-    }
+    setPlaceholderIndex(newPlaceholderIndex);
   };
-
-  const handleDragEnd = (evt: React.DragEvent<HTMLElement>) => {
+  const onDragEnd = (evt: React.DragEvent<HTMLElement>) => {
     const draggedIndex = indexFromEvent(evt);
 
     if (placeholderIndex === -1) {
       resetDragState();
       return;
     }
-
     const toIndex =
       placeholderIndex > draggedIndex ? placeholderIndex - 1 : placeholderIndex;
-
     const updatedRows = [...rows];
     const [movedRow] = updatedRows.splice(draggedIndex, 1);
     updatedRows.splice(toIndex, 0, movedRow);
-
     setRows(updatedRows);
     resetDragState();
   };
@@ -75,13 +64,11 @@ const Dashboard = () => {
     <div
       key={row.id}
       data-drag-index={rowIndex}
-      className={`row ${
-        rowIndex === draggedIndex ? "dragged-row" : "normal-row"
-      }`}
+      className={`row normal-row`}
       draggable
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
     >
       {row.name}
     </div>
@@ -102,7 +89,6 @@ const Dashboard = () => {
         <div>{rows.map((row) => row.name).join()}</div>
         <div>draggedIndex: {draggedIndex}</div>
         <div>placeholderIndex: {placeholderIndex}</div>
-        <br />
       </div>
     </div>
   );
