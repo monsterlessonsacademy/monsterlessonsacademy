@@ -1,46 +1,98 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import classes from "./Table.module.css";
 
-const GoodTable = ({ issues }) => {
-  const selectAllRef = useRef();
-  const convertIssuesToEntries = (isSelected) => {
-    const entries = issues.map((issue) => [
-      issue.id,
-      { isSelected: issue.status === "open" ? isSelected : false },
-    ]);
-    return Object.fromEntries(entries);
-  };
-  const [issueEntries, setIssueEntries] = useState(() =>
-    convertIssuesToEntries(false)
+function BadTable({ issues }) {
+  const [checkedState, setCheckedState] = useState(
+    new Array(issues.length).fill({
+      checked: false,
+      backgroundColor: "#ffffff",
+    })
   );
-  const totalSelected = Object.values(issueEntries).filter(
-    (issueData) => issueData.isSelected
-  ).length;
+  const [selectDeselectAllIsChecked, setSelectDeselectAllIsChecked] =
+    useState(false);
+  const [numCheckboxesSelected, setNumCheckboxesSelected] = useState(0);
 
-  const selectRow = (issueId) => {
-    const updatedIssueEntry = {
-      ...issueEntries[issueId],
-      isSelected: !issueEntries[issueId].isSelected,
-    };
-    const updatedIssueEntries = {
-      ...issueEntries,
-      [issueId]: updatedIssueEntry,
-    };
-    setIssueEntries(updatedIssueEntries);
+  const handleOnChange = (position) => {
+    const updatedCheckedState = checkedState.map((element, index) => {
+      if (position === index) {
+        return {
+          ...element,
+          checked: !element.checked,
+          backgroundColor: element.checked ? "#ffffff" : "#eeeeee",
+        };
+      }
+      return element;
+    });
+    setCheckedState(updatedCheckedState);
+
+    const totalSelected = updatedCheckedState
+      .map((element) => element.checked)
+      .reduce((sum, currentState, index) => {
+        if (currentState) {
+          return sum + issues[index].value;
+        }
+        return sum;
+      }, 0);
+    setNumCheckboxesSelected(totalSelected);
+
+    handleIndeterminateCheckbox(totalSelected);
   };
 
-  const selectAll = (event) => {
-    const updatedIssueEntries = convertIssuesToEntries(event.target.checked);
-    setIssueEntries(updatedIssueEntries);
+  const handleIndeterminateCheckbox = (total) => {
+    const indeterminateCheckbox = document.getElementById(
+      "custom-checkbox-selectDeselectAll"
+    );
+    let count = 0;
+
+    issues.forEach((element) => {
+      if (element.status === "open") {
+        count += 1;
+      }
+    });
+
+    if (total === 0) {
+      indeterminateCheckbox.indeterminate = false;
+      setSelectDeselectAllIsChecked(false);
+    }
+    if (total > 0 && total < count) {
+      indeterminateCheckbox.indeterminate = true;
+      setSelectDeselectAllIsChecked(false);
+    }
+    if (total === count) {
+      indeterminateCheckbox.indeterminate = false;
+      setSelectDeselectAllIsChecked(true);
+    }
   };
 
-  useEffect(() => {
-    const totalOpenedIssues = issues.filter((issue) => issue.status === "open")
-      .length;
-    const indeterminate =
-      totalSelected < totalOpenedIssues && totalSelected > 0;
-    selectAllRef.current.indeterminate = indeterminate;
-  }, [totalSelected, issues]);
+  const handleSelectDeselectAll = (event) => {
+    let { checked } = event.target;
+
+    const allTrueArray = [];
+    issues.forEach((element) => {
+      if (element.status === "open") {
+        allTrueArray.push({ checked: true, backgroundColor: "#eeeeee" });
+      } else {
+        allTrueArray.push({ checked: false, backgroundColor: "#ffffff" });
+      }
+    });
+
+    const allFalseArray = new Array(issues.length).fill({
+      checked: false,
+      backgroundColor: "#ffffff",
+    });
+    checked ? setCheckedState(allTrueArray) : setCheckedState(allFalseArray);
+
+    const totalSelected = (checked ? allTrueArray : allFalseArray)
+      .map((element) => element.checked)
+      .reduce((sum, currentState, index) => {
+        if (currentState && issues[index].status === "open") {
+          return sum + issues[index].value;
+        }
+        return sum;
+      }, 0);
+    setNumCheckboxesSelected(totalSelected);
+    setSelectDeselectAllIsChecked((prevState) => !prevState);
+  };
 
   return (
     <table className={classes.table}>
@@ -49,14 +101,18 @@ const GoodTable = ({ issues }) => {
           <th>
             <input
               className={classes.checkbox}
-              type="checkbox"
-              checked={totalSelected}
-              ref={selectAllRef}
-              onChange={selectAll}
+              type={"checkbox"}
+              id={"custom-checkbox-selectDeselectAll"}
+              name={"custom-checkbox-selectDeselectAll"}
+              value={"custom-checkbox-selectDeselectAll"}
+              checked={selectDeselectAllIsChecked}
+              onChange={handleSelectDeselectAll}
             />
           </th>
           <th className={classes.numChecked}>
-            {totalSelected ? `Selected ${totalSelected}` : "None selected"}
+            {numCheckboxesSelected
+              ? `Selected ${numCheckboxesSelected}`
+              : "None selected"}
           </th>
         </tr>
         <tr>
@@ -68,38 +124,47 @@ const GoodTable = ({ issues }) => {
       </thead>
 
       <tbody>
-        {issues.map((issue) => {
-          const isOpenedIssue = issue.status === "open";
-          const backgroundColor = issueEntries[issue.id].isSelected
-            ? "#eeeeee"
-            : "#ffffff";
-          const statusClass = isOpenedIssue
-            ? classes.openCircle
-            : classes.resolvedCircle;
-          const rowClass = isOpenedIssue
+        {issues.map(({ name, message, status }, index) => {
+          let issueIsOpen = status === "open";
+          let onClick = issueIsOpen ? () => handleOnChange(index) : null;
+          let stylesTr = issueIsOpen
             ? classes.openIssue
             : classes.resolvedIssue;
 
           return (
             <tr
-              className={rowClass}
-              style={{ backgroundColor }}
-              key={issue.id}
-              onClick={() => selectRow(issue.id)}
+              className={stylesTr}
+              style={checkedState[index]}
+              key={index}
+              onClick={onClick}
             >
               <td>
-                <input
-                  className={classes.checkbox}
-                  type="checkbox"
-                  readOnly
-                  checked={issueEntries[issue.id].isSelected}
-                  disabled={!isOpenedIssue}
-                />
+                {issueIsOpen ? (
+                  <input
+                    className={classes.checkbox}
+                    type={"checkbox"}
+                    id={`custom-checkbox-${index}`}
+                    name={name}
+                    value={name}
+                    checked={checkedState[index].checked}
+                    onChange={() => handleOnChange(index)}
+                  />
+                ) : (
+                  <input
+                    className={classes.checkbox}
+                    type={"checkbox"}
+                    disabled
+                  />
+                )}
               </td>
-              <td>{issue.name}</td>
-              <td>{issue.message}</td>
+              <td>{name}</td>
+              <td>{message}</td>
               <td>
-                <span className={statusClass} />
+                {issueIsOpen ? (
+                  <span className={classes.greenCircle} />
+                ) : (
+                  <span className={classes.redCircle} />
+                )}
               </td>
             </tr>
           );
@@ -107,5 +172,5 @@ const GoodTable = ({ issues }) => {
       </tbody>
     </table>
   );
-};
-export default GoodTable;
+}
+export default BadTable;
