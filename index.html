@@ -5,16 +5,54 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/FancyProductDesigner.min.css"
-    />
-    <script src="/fabric.min.js" type="text/javascript"></script>
-    <script src="/FancyProductDesigner.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+      #card-preview {
+        position: relative;
+        width: 600px;
+        height: 300px;
+        border: 1px solid #ccc;
+        background-image: url('/BC-base-2.png'); /* Replace with real template */
+        background-size: cover;
+        margin-top: 20px;
+      }
+      .field-text {
+        position: absolute;
+        color: #000;
+        font-family: Arial, sans-serif;
+      }
+      #title { top: 40px; left: 50px; font-size: 24px; }
+      #subtitle { top: 90px; left: 50px; font-size: 18px; }
+      #description { top: 140px; left: 50px; font-size: 14px; width: 500px; }
+      #logo-img {
+        position: absolute;
+        top: 200px;
+        right: 30px;
+        width: 80px;
+        height: auto;
+      }
+    </style>
   </head>
   <body>
-    <div id="fpd-target" class="fpd-sidebar fpd-shadow-2"></div>
+    <h3>Customize Your Insert</h3>
+
+    <label>Title: <input id="input-title" type="text" value="Thank You!"></label><br>
+    <label>Subtitle: <input id="input-subtitle" type="text" value="We appreciate your purchase"></label><br>
+    <label>Description:<br>
+    <textarea id="input-description" rows="3">Scan the QR code for your bonus gift!</textarea></label><br>
+    <label>Upload Logo: <input id="logo-upload" type="file" accept="image/*"></label><br>
+
+    <button id="download-card">Download Card</button>
+
+    <div id="card-preview">
+      <div class="field-text" id="title">Thank You!</div>
+      <div class="field-text" id="subtitle">We appreciate your purchase</div>
+      <div class="field-text" id="description">Scan the QR code for your bonus gift!</div>
+      <img id="logo-img" src="/default_logo.png">
+    </div>
+
+
+    <div contenteditable="true">Click here to edit me!</div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

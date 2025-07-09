@@ -1,58 +1,31 @@
-const businessCardJSON = [
-  {
-    products: [
-      // <-- ARRAY!
-      {
-        title: "Front",
-        thumbnail:
-          "https://d3g7hp6owqj5vv.cloudfront.net/templates_library/shirts_men_standard/preview_men_standard_front-1.png", // optional
-        elements: [
-          {
-            type: "image",
-            source:
-              "https://d3g7hp6owqj5vv.cloudfront.net/templates_library/shirts_men_standard/Tshirt2-Front-Base.svg",
-            x: 0,
-            y: 0,
-            width: 600,
-            height: 350,
-            draggable: false,
-            removable: false,
-          },
-          {
-            type: "text",
-            text: "Your Name",
-            x: 100,
-            y: 150,
-            fontSize: 24,
-            font: "Arial",
-            color: "#000000",
-          },
-        ],
-      },
-    ],
-  },
-];
-console.log(businessCardJSON);
+  document.getElementById("input-title").addEventListener("input", e => {
+    document.getElementById("title").textContent = e.target.value;
+  });
+  document.getElementById("input-subtitle").addEventListener("input", e => {
+    document.getElementById("subtitle").textContent = e.target.value;
+  });
+  document.getElementById("input-description").addEventListener("input", e => {
+    document.getElementById("description").textContent = e.target.value;
+  });
+  document.getElementById("logo-upload").addEventListener("change", e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById("logo-img").src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 
-const fpd = new FancyProductDesigner(document.getElementById("fpd-target"), {
-  productsJSON: businessCardJSON,
-  stageWidth: 600,
-  stageHeight: 350,
-  customTextParameters: {
-    colors: true,
-    removable: true,
-    resizable: true,
-    draggable: true,
-  },
-  customImageParameters: {
-    draggable: true,
-    removable: true,
-    resizable: true,
-  },
-  fonts: ["Arial", "Times New Roman", "Courier", "Helvetica"],
-});
-console.log(fpd);
 
-fpd.addEventListener("ready", () => {
-  console.log("ready");
-});
+  document.getElementById("download-card").addEventListener("click", e => {
+
+    html2canvas(document.getElementById("card-preview")).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'insert.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  });
+
