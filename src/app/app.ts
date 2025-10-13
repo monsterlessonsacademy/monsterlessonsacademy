@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Slide } from './imageSlider/types/slide';
 import { ImageSlider } from './imageSlider/image-slider';
+import { Slide } from './imageSlider/types/slide';
 
 @Component({
   selector: 'app-root',
