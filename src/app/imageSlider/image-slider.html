@@ -1,0 +1,20 @@
+<div class="slider">
+  <div class="arrow left" (click)="goToPrevious()">❰</div>
+  <div class="arrow right" (click)="goToNext()">❱</div>
+
+  <div class="slides-overflow">
+    <div class="slides-container" [ngStyle]="slidesContainerStyles()">
+      @for (slide of slides(); track $index) {
+        <div class="slide" [ngStyle]="slideStyle(slide)"></div>
+      }
+    </div>
+  </div>
+
+  <div class="dots-container">
+    @for (slide of slides(); track $index) {
+      <div class="dot" [class.active]="$index === currentIndex()" (click)="goToSlide($index)">
+        ●
+      </div>
+    }
+  </div>
+</div>
