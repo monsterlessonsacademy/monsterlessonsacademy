@@ -55,9 +55,6 @@ export class App {
   ];
 
   onSubmit(event: Event): void {
-    setTimeout(() => {
-      console.log('!!', this.signalRegisterForm().errors());
-    }, 5000);
     event.preventDefault();
     console.log('submitted form', this.signalRegisterModel());
     submit(this.signalRegisterForm, async () => {
