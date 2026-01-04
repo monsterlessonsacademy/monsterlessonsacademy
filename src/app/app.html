@@ -1,51 +1,24 @@
-<form class="form" (submit)="onSubmit($event)">
-  @for (error of signalRegisterForm().errors(); track $index) {
-    <span class="error">{{ error.message }}</span>
+<form (submit)="onSubmit($event)">
+  @for (question of quizForm.questions; let qi = $index; track qi) {
+    <div class="question">
+      <input type="text" placeholder="Question name" [field]="question.questionName" />
+      <span class="remove" (click)="removeQuestion(qi)">✗</span>
+
+      <div class="answers">
+        <div>Answers</div>
+
+        @for (answer of question.answers; let ai = $index; track ai) {
+          <div class="answer">
+            <input type="text" placeholder="Answer" [field]="answer.text" />
+            <span class="remove" (click)="removeAnswer(qi, ai)">✗</span>
+          </div>
+        }
+
+        <button type="button" (click)="addAnswer(qi)">Add Answer</button>
+      </div>
+    </div>
   }
-  <div class="field">
-    <label class="label">username</label>
-    <input
-      type="text"
-      class="input"
-      [field]="signalRegisterForm.username"
-      [class.invalid]="
-        signalRegisterForm.username().invalid() && signalRegisterForm.username().touched()
-      "
-    />
-    @if (signalRegisterForm.username().invalid() && signalRegisterForm.username().touched()) {
-      <span class="error">{{ signalRegisterForm.username().errors()[0].message }}</span>
-    }
-  </div>
-  <div class="field">
-    <label class="label">email</label>
-    <input
-      type="text"
-      class="input"
-      [field]="signalRegisterForm.email"
-      [class.invalid]="signalRegisterForm.email().invalid() && signalRegisterForm.email().touched()"
-    />
-  </div>
-  <div class="field">
-    <label class="label">password</label>
-    <input
-      type="text"
-      class="input"
-      [field]="signalRegisterForm.password"
-      [class.invalid]="
-        signalRegisterForm.password().invalid() && signalRegisterForm.password().touched()
-      "
-    />
-  </div>
 
-  <select [field]="signalRegisterForm.roleId">
-    @for (role of roles; track $index) {
-      <option [value]="role.id">
-        {{ role.title }}
-      </option>
-    }
-  </select>
-
-  <div>
-    <button type="submit" class="button">Register</button>
-  </div>
+  <button type="button" (click)="addQuestion()">Add Question</button>
+  <button type="submit">Submit</button>
 </form>

@@ -2,22 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { email, Field, FieldTree, form, required, submit } from '@angular/forms/signals';
 
-const registerNewUser = async (registrationForm: FieldTree<RegisterModel>) => {
-  // simulate network latency
-  await new Promise((r) => setTimeout(r, 400));
+// https://stackblitz.com/edit/dynamic-form-angularv019?file=src%2Fdynamic-form%2Fdynamic-forms.service.ts
 
-  // fail 1 time out of 2
-  const usernameTaken = Math.random() < 1 / 2;
-  console.log('usernameTaken', usernameTaken);
-
-  return usernameTaken;
+type FormAnswer = {
+  text: string;
 };
 
-type RegisterModel = {
-  username: string;
-  password: string;
-  email: string;
-  roleId: string;
+type FormQuestion = {
+  questionName: string;
+  answers: FormAnswer[];
+};
+
+type FormModel = {
+  questions: FormQuestion[];
 };
 
 @Component({
@@ -27,39 +24,50 @@ type RegisterModel = {
   imports: [CommonModule, Field],
 })
 export class App {
-  signalRegisterModel = signal<RegisterModel>({
-    username: '',
-    password: '',
-    email: '',
-    roleId: '1',
+  quizModel = signal<FormModel>({
+    questions: [
+      {
+        questionName: '',
+        answers: [],
+      },
+    ],
   });
-  signalRegisterForm = form(this.signalRegisterModel, (fieldPath) => {
-    required(fieldPath.username, { message: 'Username is required' });
-    required(fieldPath.password, { message: 'Password is required' });
-    required(fieldPath.email, { message: 'Email is required' });
-    email(fieldPath.email, { message: 'Enter a valid email address' });
-    required(fieldPath.roleId, { message: 'Role is required' });
-  });
-  roles = [
-    { id: 1, title: 'developer' },
-    { id: 2, title: 'qa' },
-  ];
+
+  quizForm = form(this.quizModel);
+
+  addQuestion(): void {
+    this.quizForm
+      .questions()
+      .value.update((questions) => [...questions, { questionName: '', answers: [] }]);
+  }
+
+  removeQuestion(index: number): void {
+    this.quizForm.questions().value.update((questions) => questions.filter((_, i) => i !== index));
+  }
+
+  addAnswer(questionIndex: number): void {
+    this.quizModel.update((m) => ({
+      questions: m.questions.map((q, i) =>
+        i === questionIndex ? { ...q, answers: [...q.answers, { text: '' }] } : q,
+      ),
+    }));
+  }
+
+  removeAnswer(questionIndex: number, answerIndex: number): void {
+    this.quizModel.update((m) => ({
+      questions: m.questions.map((q, i) =>
+        i === questionIndex
+          ? {
+              ...q,
+              answers: q.answers.filter((_, ai) => ai !== answerIndex),
+            }
+          : q,
+      ),
+    }));
+  }
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    console.log('onSubmit', this.signalRegisterModel());
-    submit(this.signalRegisterForm, async () => {
-      const response = await registerNewUser(this.signalRegisterForm);
-      console.log('API response', response);
-      if (response) {
-        return [
-          {
-            kind: 'processing_error',
-            message: 'DB down',
-          },
-        ];
-      }
-      return undefined;
-    });
+    console.log('onSubmit', this.quizModel());
   }
 }
