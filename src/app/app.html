@@ -1,6 +1,6 @@
 <form class="form" (submit)="onSubmit($event)">
-  @for (error of this.signalRegisterForm().errors(); track $index) {
-    <span class="error"> {{ error.message }} </span>
+  @for (error of signalRegisterForm().errors(); track $index) {
+    <span class="error">{{ error.message }}</span>
   }
   <div class="field">
     <label class="label">username</label>
@@ -12,11 +12,8 @@
         signalRegisterForm.username().invalid() && signalRegisterForm.username().touched()
       "
     />
-
     @if (signalRegisterForm.username().invalid() && signalRegisterForm.username().touched()) {
-      <span class="error">
-        {{ signalRegisterForm.username().errors()[0].message }}
-      </span>
+      <span class="error">{{ signalRegisterForm.username().errors()[0].message }}</span>
     }
   </div>
   <div class="field">
@@ -49,8 +46,6 @@
   </select>
 
   <div>
-    <button type="submit" class="button" [disabled]="signalRegisterForm().submitting()">
-      Register
-    </button>
+    <button type="submit" class="button">Register</button>
   </div>
 </form>

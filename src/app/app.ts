@@ -1,15 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  form,
-  Field,
-  required,
-  email,
-  submit,
-  FieldTree,
-  customError,
-} from '@angular/forms/signals';
+import { Component, signal } from '@angular/core';
+import { email, Field, FieldTree, form, required, submit } from '@angular/forms/signals';
 
 const registerNewUser = async (registrationForm: FieldTree<RegisterModel>) => {
   // simulate network latency
@@ -33,7 +24,7 @@ type RegisterModel = {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [ReactiveFormsModule, CommonModule, Field],
+  imports: [CommonModule, Field],
 })
 export class App {
   signalRegisterModel = signal<RegisterModel>({
@@ -56,7 +47,7 @@ export class App {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    console.log('submitted form', this.signalRegisterModel());
+    console.log('onSubmit', this.signalRegisterModel());
     submit(this.signalRegisterForm, async () => {
       const response = await registerNewUser(this.signalRegisterForm);
       console.log('API response', response);
