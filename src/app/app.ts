@@ -46,24 +46,15 @@ export class App {
   }
 
   addAnswer(questionIndex: number): void {
-    this.quizModel.update((m) => ({
-      questions: m.questions.map((q, i) =>
-        i === questionIndex ? { ...q, answers: [...q.answers, { text: '' }] } : q,
-      ),
-    }));
+    this.quizForm.questions[questionIndex]
+      .answers()
+      .value.update((answers) => [...answers, { text: '' }]);
   }
 
   removeAnswer(questionIndex: number, answerIndex: number): void {
-    this.quizModel.update((m) => ({
-      questions: m.questions.map((q, i) =>
-        i === questionIndex
-          ? {
-              ...q,
-              answers: q.answers.filter((_, ai) => ai !== answerIndex),
-            }
-          : q,
-      ),
-    }));
+    this.quizForm.questions[questionIndex]
+      .answers()
+      .value.update((answers) => answers.filter((_, ai) => ai !== answerIndex));
   }
 
   onSubmit(event: Event): void {
