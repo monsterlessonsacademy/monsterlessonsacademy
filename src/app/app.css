@@ -1,112 +1,147 @@
-/* Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* Page */
 body {
-  margin: 0;
-  background: #ececf1;
-  font-family:
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    sans-serif;
+  background: linear-gradient(180deg, #f4f6ff, #ffffff);
 }
 
-/* Form container */
-.form {
-  width: 100%;
-  max-width: 480px;
-  margin: 64px auto;
-  padding: 32px;
-  background: #0f1220;
-  border-radius: 14px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-}
-
-.error {
-  display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #ff5c7c;
-  line-height: 1.4;
-}
-
-.field .error {
-  min-height: 16px;
-}
-
-/* Field grouping */
-.field {
-  position: relative;
+.quiz-form {
+  max-width: 760px;
+  margin: 32px auto;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 18px;
+  gap: 28px;
+  background: #ffffff;
 }
 
-/* Labels */
-.label {
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #312e81;
+}
+
+.question-card {
+  position: relative;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: linear-gradient(135deg, #eef2ff, #ffffff);
+  border: 1px solid #c7d2fe;
+  box-shadow:
+    0 10px 30px rgba(79, 70, 229, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.question-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+}
+
+.question-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answers-title {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #4338ca;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #9aa0c7;
 }
 
-/* Inputs and select */
-.input,
-select {
-  width: 100%;
-  height: 44px;
-  padding: 0 14px;
+.answer-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 12px;
   border-radius: 10px;
-  border: 1px solid #2a2f55;
-  background: #171a33;
-  color: #eef0ff;
-  font-size: 15px;
+  border: 1px solid #a5b4fc;
+  font-size: 14px;
+  background: #ffffff;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.input:focus {
   outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
 }
 
-/* Focus */
-.input:focus,
-select:focus {
-  border-color: #6c7cff;
-  box-shadow: 0 0 0 3px rgba(108, 124, 255, 0.25);
-}
-
-/* Invalid */
-.input.invalid {
-  border-color: #ff5c7c;
-  box-shadow: 0 0 0 3px rgba(255, 92, 124, 0.25);
-}
-
-/* Select spacing */
-select {
-  margin-bottom: 24px;
-  cursor: pointer;
-}
-
-/* Button */
 .button {
-  width: 100%;
-  height: 48px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #6c7cff, #8b5cf6);
-  color: #fff;
-  font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 600;
+  border: none;
   cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
 }
 
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background: #55597e; /* optional: duller background to indicate disabled */
+.button:active {
+  transform: translateY(1px);
+}
+
+.button.primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+}
+
+.button.secondary {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  background: #e0e7ff;
+  cursor: pointer;
+  font-weight: 700;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+
+.icon-button:hover {
+  background: #c7d2fe;
+}
+
+.icon-button.danger {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.icon-button.danger:hover {
+  background: #fecaca;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
 }

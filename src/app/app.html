@@ -1,24 +1,43 @@
-<form (submit)="onSubmit($event)">
+<form class="quiz-form" (submit)="onSubmit($event)">
+  <h1 class="title">Quiz Builder</h1>
+
   @for (question of quizForm.questions; let qi = $index; track qi) {
-    <div class="question">
-      <input type="text" placeholder="Question name" [field]="question.questionName" />
-      <span class="remove" (click)="removeQuestion(qi)">✗</span>
+    <section class="question-card">
+      <div class="question-header">
+        <input
+          class="input question-input"
+          type="text"
+          placeholder="Question"
+          [field]="question.questionName"
+        />
+        <button type="button" class="icon-button danger" (click)="removeQuestion(qi)">✗</button>
+      </div>
 
       <div class="answers">
-        <div>Answers</div>
+        <div class="answers-title">Answers</div>
 
         @for (answer of question.answers; let ai = $index; track ai) {
-          <div class="answer">
-            <input type="text" placeholder="Answer" [field]="answer.text" />
-            <span class="remove" (click)="removeAnswer(qi, ai)">✗</span>
+          <div class="answer-row">
+            <input
+              class="input answer-input"
+              type="text"
+              placeholder="Answer"
+              [field]="answer.text"
+            />
+            <button type="button" class="icon-button danger" (click)="removeAnswer(qi, ai)">
+              ✗
+            </button>
           </div>
         }
 
-        <button type="button" (click)="addAnswer(qi)">Add Answer</button>
+        <button type="button" class="button secondary" (click)="addAnswer(qi)">+ Add answer</button>
       </div>
-    </div>
+    </section>
   }
 
-  <button type="button" (click)="addQuestion()">Add Question</button>
-  <button type="submit">Submit</button>
+  <div class="actions">
+    <button type="button" class="button secondary" (click)="addQuestion()">+ Add question</button>
+
+    <button type="submit" class="button primary">Submit</button>
+  </div>
 </form>
